@@ -1,0 +1,11 @@
+.bundle/
+log/*.log
+pkg/
+spec/test_app/log/*.log
+spec/test_app/storage/
+spec/test_app/tmp/
+spec/examples.txt
+Gemfile.lock
+.ruby-version
+.generators
+.rakeTasks
