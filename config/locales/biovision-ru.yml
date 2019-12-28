@@ -1,0 +1,41 @@
+ru:
+  attributes:
+    created_at: "Время создания"
+    priority: "Порядок сортировки"
+    updated_at: "Время обновления"
+    uuid: "UUID"
+    slug: "Идентификатор"
+    visible: "Показывать"
+  date:
+    nominative_months:
+      -
+      - "январь"
+      - "февраль"
+      - "март"
+      - "апрель"
+      - "май"
+      - "июнь"
+      - "июль"
+      - "август"
+      - "сентябрь"
+      - "октябрь"
+      - "ноябрь"
+      - "декабрь"
+  error_count:
+    zero: "ошибок нет"
+    one: "%{count} ошибка"
+    few: "%{count} ошибки"
+    many: "%{count} ошибок"
+    other: "%{count} ошибок"
+  errors:
+    messages:
+      extension_blacklist_error: "имеет недопустимое расширение файла"
+      extension_whitelist_error: "имеет недопустимое расширение файла"
+      mini_magick_processing_error: "не может быть обработан"
+  views:
+    pagination:
+      first: "⇤"
+      last: "⇥"
+      previous: "←"
+      next: "→"
+      truncate: "…"

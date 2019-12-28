@@ -1,0 +1,31 @@
+ru:
+  activerecord:
+    models:
+      biovision_component: "Компонент"
+      language: "Язык"
+      metric: "Метрика"
+      metric_value: "Значение метрики"
+    attributes:
+      biovision_component:
+        active: "Активен"
+        parameters: "Параметры"
+        settings: "Настройки"
+      language:
+        active: "Активный"
+        code: "Код"
+      metric:
+        biovision_component: "Компонент"
+        default_period: "Период по умолчанию"
+        incremental: "Суммарная"
+        name: "Название"
+        previous_value: "Предыдущее значение"
+        show_on_dashboard: "Показывать на главной странице"
+        start_with_zero: "Начинать с нуля"
+        value: "Значение"
+      metric_value:
+        metric: "Метрика"
+        quantity: "Количество"
+        time: "Время"
+  languages:
+    english: "Английский"
+    russian: "Русский"
