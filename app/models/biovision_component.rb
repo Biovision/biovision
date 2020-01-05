@@ -11,4 +11,28 @@
 #   slug [String]
 #   updated_at [DateTime]
 class BiovisionComponent < ApplicationRecord
+  include FlatPriority
+  include RequiredUniqueSlug
+
+  scope :list_for_administration, -> { ordered_by_priority }
+
+  # Find component by slug
+  #
+  # @param [String] slug
+  def self.[](slug)
+    find_by(slug: slug)
+  end
+
+  # @param [String] slug
+  # @param [String] default_value
+  def get(slug, default_value = '')
+    parameters.fetch(slug.to_s) { default_value }
+  end
+
+  # @param [String] slug
+  # @param value
+  def []=(slug, value)
+    parameters[slug.to_s] = value
+    save!
+  end
 end

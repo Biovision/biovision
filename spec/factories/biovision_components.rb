@@ -1,8 +1,7 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :biovision_component do
-    priority { 1 }
-    slug { "MyString" }
-    settings { "" }
-    parameters { "" }
+    sequence(:slug) { |n| "component#{n}" }
   end
 end

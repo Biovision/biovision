@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Language, type: :model, focus: true do
+RSpec.describe Language, type: :model do
   subject { build :language }
 
   it_behaves_like 'has_valid_factory'
