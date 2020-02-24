@@ -61,6 +61,7 @@ class CreateBiovisionComponents < ActiveRecord::Migration[6.0]
     create_table :languages, comment: 'Interface languages' do |t|
       t.integer :priority, limit: 2, default: 1, null: false
       t.boolean :active, default: true, null: false
+      t.integer :object_count, default: 0, null: false
       t.string :slug, null: false
       t.string :code, null: false
     end

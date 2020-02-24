@@ -1,0 +1,25 @@
+ru:
+  activerecord:
+    models:
+      agent: "Агент пользователя"
+      browser: "Браузер"
+      ip_address: "IP-адрес"
+    attributes:
+      agent:
+        browser: "Браузер"
+        browser_id: "Браузер"
+        name: "Название"
+      browser:
+        agents_count: "Количество АП"
+        mobile: "Мобильный"
+        name: "Название"
+        version: "Версия"
+      ip_address:
+        ip: "IP-адрес"
+  attributes:
+    agent: "АП"
+    ip_address: "IP"
+  biovision:
+    components:
+      track:
+        name: "Отслеживание"

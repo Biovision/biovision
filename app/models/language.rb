@@ -6,6 +6,7 @@
 #   active [Boolean]
 #   code [String]
 #   created_at [DateTime]
+#   object_count [Integer]
 #   priority [Integer]
 #   slug [String]
 #   updated_at [DateTime]
