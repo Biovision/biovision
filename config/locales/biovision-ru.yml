@@ -2,6 +2,8 @@ ru:
   attributes:
     banned: "В чёрном списке"
     created_at: "Время создания"
+    data: "Данные"
+    deleted: "Объект удалён"
     object_count: "Количество объектов"
     priority: "Порядок сортировки"
     updated_at: "Время обновления"

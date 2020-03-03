@@ -31,9 +31,8 @@ module Biovision
       end
 
       # Receive component-specific handler by class name for component.
-      # Class must have defined constant SLUG for this to work.
       #
-      # e.g.: Biovision::Components::RegistrationComponent[user]
+      # e.g.: Biovision::Components::UsersComponent[user]
       #
       # @param [User] user
       def self.[](user = nil)

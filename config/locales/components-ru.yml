@@ -26,6 +26,9 @@ ru:
         metric: "Метрика"
         quantity: "Количество"
         time: "Время"
+  attributes:
+    language: "Язык"
+    language_id: "Язык"
   languages:
     english: "Английский"
     russian: "Русский"
