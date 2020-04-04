@@ -1,10 +1,19 @@
 ru:
+  image_count:
+    zero: "изображений нет"
+    one: "%{count} изображение"
+    few: "%{count} изобржения"
+    many: "%{count} изображений"
+    other: "%{count} изображений"
   activerecord:
     models:
       biovision_component: "Компонент"
       language: "Язык"
       metric: "Метрика"
       metric_value: "Значение метрики"
+      simple_image: "Простое изображение"
+      simple_image_tag: "Метка простого изображения"
+      simple_image_tag_image: "Связь метки и простого изображения"
     attributes:
       biovision_component:
         active: "Активен"
@@ -26,9 +35,25 @@ ru:
         metric: "Метрика"
         quantity: "Количество"
         time: "Время"
+      simple_image:
+        caption: "Название изображения"
+        image: "Изображение"
+        image_alt_text: "Альтернативный текст изображения"
+        source_link: "Ссылка на источник"
+        source_name: "Источник изображения"
+      simple_image_tag:
+        name: "Название"
+        simple_image_count: "Количество изображений"
+      simple_image_tag_image:
+        simple_image_tag: "Метка"
+        simple_image_tag_id: "Метка"
   attributes:
+    biovision_component: "Компонент"
+    biovision_component_id: "Компонент"
     language: "Язык"
     language_id: "Язык"
+    simple_image: "Изображение"
+    simple_image_id: "Изображение"
   languages:
     english: "Английский"
     russian: "Русский"

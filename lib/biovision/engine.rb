@@ -19,8 +19,10 @@ module Biovision
       g.factory_bot dir: 'spec/factories'
     end
 
-    initializer 'biovision.factories', after: 'factory_bot.set_factory_paths' do
-      FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories', __FILE__) if defined?(FactoryBot)
+    if defined?(FactoryBot)
+      initializer 'biovision.factories', after: 'factory_bot.set_factory_paths' do
+        FactoryBot.definition_file_paths << File.expand_path('../../../spec/factories', __FILE__)
+      end
     end
   end
 

@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
+# Adds ownership to model
 module HasOwner
   extend ActiveSupport::Concern
 
   included do
-    scope :owned_by, ->(user) { where(user: user) }
-    scope :with_user_id, ->(user_id) { where(user_id: user_id) unless user_id.blank? }
+    scope :owned_by, ->(v) { where(user: v) }
+    scope :with_user_id, ->(v) { where(user_id: v) unless v.blank? }
   end
 
   # @param [User] user

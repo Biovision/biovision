@@ -4,7 +4,7 @@
 #
 # Attributes:
 #   banned [boolean]
-#   browser_id [Browser]
+#   browser_id [Browser], optional
 #   created_at [DateTime]
 #   object_count [integer]
 #   name [string]
