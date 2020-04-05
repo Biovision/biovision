@@ -3,9 +3,11 @@
 # Link between simple image and tag
 # 
 # Attributes:
-#   simple_image [references]
-#   simple_image_tag [references]
+#   simple_image_id [SimpleImage]
+#   simple_image_tag_id [SimpleImageTag]
 class SimpleImageTagImage < ApplicationRecord
   belongs_to :simple_image
-  belongs_to :simple_image_tag
+  belongs_to :simple_image_tag, counter_cache: :simple_images_count
+
+  validates_uniqueness_of :simple_image_tag_id, scope: :simple_image_id
 end
