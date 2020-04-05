@@ -64,7 +64,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       t.boolean :email_confirmed, default: false, null: false
       t.boolean :phone_confirmed, default: false, null: false
       t.boolean :allow_mail, default: true, null: false
-      t.boolean :foreign_slug, default: false, null: false
       t.datetime :last_seen
       t.date :birthday
       t.string :slug, null: false

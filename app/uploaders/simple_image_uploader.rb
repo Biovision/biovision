@@ -87,7 +87,7 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
   def path_slug
     if model.respond_to?(:uuid)
       uuid = model&.uuid.to_s
-      "#{uuid[0]}/#{uuid[1..2]}/#{uuid[3..4]}/#{uuid}"
+      "#{uuid[0..2]}/#{uuid[3..5]}/#{uuid[6..7]}/#{uuid}"
     else
       id = model&.id.to_i
       "#{id / 1000}/#{id}"
