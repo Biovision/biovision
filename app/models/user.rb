@@ -133,4 +133,8 @@ class User < ApplicationRecord
     self.slug = screen_name.to_s if slug.nil?
     self.slug = slug.to_s.downcase
   end
+
+  def validate_slug
+
+  end
 end

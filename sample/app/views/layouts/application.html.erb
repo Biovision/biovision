@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="<%= locale %>" prefix="og: http://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8"/>
+  <title><%= yield :meta_title %></title>
+  <%= stylesheet_link_tag 'application', media: 'all' %>
+  <%= javascript_pack_tag 'application' %>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <%= yield :alternate_links %>
+  <%= render 'shared/meta_texts' %>
+</head>
+<body>
+<%= render 'layouts/application/header' %>
+
+<main id="main">
+  <%= render 'shared/flash_messages' %>
+  <%= render 'shared/breadcrumbs' %>
+
+  <%= yield %>
+</main>
+
+<%= render 'layouts/application/footer' %>
+<%= render 'shared/cookie_notification' if cookies['f'].blank? %>
+</body>
+</html>
