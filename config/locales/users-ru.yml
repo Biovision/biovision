@@ -81,6 +81,8 @@ ru:
   biovision:
     components:
       users:
+        messages:
+          invalid_code: "Недействительный код"
         name: "Пользователи"
         settings:
           bounce_count: "Максимальное количество неудачных попыток входа"

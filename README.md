@@ -1,4 +1,5 @@
 # Biovision
+
 Новая версия Biovision CMS. Используйте на свой страх и риск.
 
 ## Добавления в `.gitignore`
@@ -54,6 +55,39 @@ end
 Нужно выставить уровень сообщения об ошибках в `:warn` 
 (`config.log_level = :warn` в районе `54` строки).
 
+## Изменения в `app/mailers/application_mailer.rb`
+
+Нужно удалить строку с отправителем по умолчанию 
+(`default from: 'from@example.com'`), иначе при отправке писем в бою будет
+ошибка с неправильным отправителем, независимо от того, что написано
+в конфигурации в `production.rb`.
+
+## Актуализация `config/database.yml`
+
+В файле `config/database.yml` нужно поменять названия баз данных на актуальные:
+
+```yaml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  database: example # Поменять на актуальное название
+  
+test:
+  <<: *default
+  database: example_test # Такое же, как в development, но с приставкой _test
+
+production:
+  <<: *default
+  database: example # Такое же, как в development, например
+  username: example # Поменять на актуального пользователя
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: localhost
+```
+
 ## Добавления в config/application.rb
 
 Это добавляется в блок конфигурирования. Без этой настройки часовой пояс будет
@@ -61,6 +95,18 @@ end
 
 ```ruby
   config.time_zone = 'Moscow'
+```
+
+## Добавления в `config/application_controller.rb`
+
+Добавить это в начале класса.
+
+```ruby
+  include BiovisionHelpers
+
+  def default_url_options
+    params.key?(:locale) ? { locale: I18n.locale } : {}
+  end
 ```
 
 ## Дополнения в config/puma.rb
@@ -124,7 +170,7 @@ set :shared_files, fetch(:shared_files, []).push('config/master.key', '.env')
 
 ```bash
 mkdir -p /var/www/example.com/shared/tmp/puma
-mkdir -p /var/www/example.com/shared/config.
+mkdir -p /var/www/example.com/shared/config
 ```
 
 После этого локально запустить `mina setup`. Для нормальной работы нужно 

@@ -1,0 +1,61 @@
+@import "vars";
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+html {
+  font: 400 10px var(--font-family-main);
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  -ms-text-size-adjust: none;
+}
+
+body {
+  font-size: var(--font-size-normal);
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  margin: 0;
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color .125s;
+
+  &:hover {
+    color: var(--link-color-hover);
+    text-decoration: underline;
+  }
+
+  &:active {
+    color: var(--link-color-active);
+  }
+}
+
+figure {
+  margin: 0;
+}
+
+article {
+  position: relative;
+}
+
+button,
+input,
+textarea {
+  font-size: inherit;
+}

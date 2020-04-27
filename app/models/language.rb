@@ -23,4 +23,9 @@ class Language < ApplicationRecord
   validates_format_of :slug, with: SLUG_PATTERN
 
   scope :active, -> { where(active: true) }
+
+  # @param [String|Symbol] code
+  def self.[](code)
+    find_by(code: code)
+  end
 end

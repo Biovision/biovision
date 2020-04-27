@@ -18,7 +18,7 @@ class Metric < ApplicationRecord
   include Toggleable
 
   NAME_LIMIT = 255
-  PERIOD_RANGE = (1..365).freeze
+  PERIOD_RANGE = (1..366).freeze
 
   belongs_to :biovision_component
   has_many :metric_values, dependent: :delete_all

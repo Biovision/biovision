@@ -26,10 +26,10 @@ class Token < ApplicationRecord
   belongs_to :user
   validates_uniqueness_of :token
   validates_presence_of :token
-  validates_length_of :token, TOKEN_LIMIT
+  validates_length_of :token, maximum: TOKEN_LIMIT
 
   scope :recent, -> { order('last_used desc nulls last') }
-  scope :active, ->(flag) { where(active: flag.to_i > 0) unless flag.blank? }
+  scope :active, ->(f) { where(active: f.to_i.positive?) unless f.blank? }
   scope :filtered, ->(f) { with_user_id(f[:user_id]).active(f[:active]) }
   scope :list_for_administration, -> { recent }
   scope :list_for_owner, ->(u) { owned_by(u).recent }

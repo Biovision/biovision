@@ -4,6 +4,8 @@ module Biovision
   module Components
     # Base biovision component
     class BaseComponent
+      extend ComponentSettings
+
       attr_reader :component, :slug, :name, :user, :user_link
 
       # @param [BiovisionComponent] component
@@ -101,7 +103,7 @@ module Biovision
 
       # @param [Hash] data
       def settings=(data)
-        @component.settings.merge!(normalize_settings(data))
+        @component.settings.merge!(self.class.normalize_settings(data))
         @component.save!
       end
 
@@ -157,14 +159,6 @@ module Biovision
 
       def privilege_handler
         @privilege_handler ||= PrivilegeHandler.new(self)
-      end
-
-      protected
-
-      # @param [Hash] data
-      # @return [Hash]
-      def normalize_settings(data)
-        data.to_h
       end
     end
   end
