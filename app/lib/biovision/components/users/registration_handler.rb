@@ -13,6 +13,7 @@ module Biovision
         def handle(parameters, code = nil)
           @user = User.new(parameters)
           @user.screen_name = @user.email if email_as_login?
+          @user.super_user = 1 if User.count < 1
           @manager = CodeHandler.new(@component, code)
 
           use_invites? ? use_code : persist_user

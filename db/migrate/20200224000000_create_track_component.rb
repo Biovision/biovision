@@ -54,6 +54,6 @@ class CreateTrackComponent < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
-    add_index :ip_address, :ip, unique: true
+    add_index :ip_addresses, :ip, unique: true
   end
 end

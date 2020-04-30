@@ -16,7 +16,7 @@ class My::ProfilesController < ApplicationController
   def new
     @entity = User.new
 
-    render :closed unless @component_handler.open?
+    render :closed unless component_handler.settings['registration_open']
   end
 
   # post /my/profile
@@ -58,8 +58,8 @@ class My::ProfilesController < ApplicationController
   end
 
   def create_user
-    code    = Code.active.find_by(body: param_from_request(:code))
-    @entity = @component_handler.register_user(creation_parameters, code)
+    code = Code.active.find_by(body: param_from_request(:code))
+    @entity = component_handler.register_user(creation_parameters, code)
 
     if @entity.persisted?
       create_token_for_user(@entity)
@@ -74,7 +74,6 @@ class My::ProfilesController < ApplicationController
   def creation_parameters
     parameters = params.require(:user).permit(User.new_profile_parameters)
     parameters.merge!(tracking_for_entity)
-    parameters[:super_user] = User.count < 1
     if cookies['r']
       parameters[:inviter] = User.find_by(referral_link: cookies['r'])
     end
@@ -83,10 +82,10 @@ class My::ProfilesController < ApplicationController
   end
 
   def user_parameters
-    sensitive  = sensitive_parameters
-    editable   = User.profile_parameters + sensitive
+    sensitive = sensitive_parameters
+    editable = User.profile_parameters + sensitive
     parameters = params.require(:user).permit(editable)
-    new_data   = @entity.data.merge(profile: profile_parameters)
+    new_data = @entity.data.merge(profile: profile_parameters)
 
     filter_parameters(parameters.merge(data: new_data), sensitive)
   end
@@ -101,7 +100,7 @@ class My::ProfilesController < ApplicationController
 
   def profile_parameters
     permitted = UserProfileHandler.allowed_parameters
-    dirty     = params.require(:user_profile).permit(permitted)
+    dirty = params.require(:user_profile).permit(permitted)
     UserProfileHandler.clean_parameters(dirty)
   end
 

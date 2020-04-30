@@ -25,6 +25,8 @@ Rails.application.routes.draw do
   end
 
   scope '(:locale)', constraints: { locale: /ru|en/ } do
+    root 'index#index'
+
     namespace :my do
       get '/' => 'index#index'
 

@@ -102,8 +102,6 @@ production:
 Добавить это в начале класса.
 
 ```ruby
-  include BiovisionHelpers
-
   def default_url_options
     params.key?(:locale) ? { locale: I18n.locale } : {}
   end

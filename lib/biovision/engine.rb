@@ -4,6 +4,11 @@
 module Biovision
   # Engine class for Biovision CMS
   class Engine < ::Rails::Engine
+    initializer 'biovision.load_base_methods' do
+      ActiveSupport.on_load(:action_controller) do
+        include Biovision::BaseMethods
+      end
+    end
 
     config.to_prepare do
       Dir.glob(Rails.root + 'app/decorators/**/*_decorator*.rb').each do |c|

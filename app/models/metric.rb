@@ -24,4 +24,25 @@ class Metric < ApplicationRecord
   has_many :metric_values, dependent: :delete_all
 
   validates_length_of :name, maximum: NAME_LIMIT
+
+
+  def quantity
+    metric_values.sum(:quantity)
+  end
+
+  # @param [Integer] input
+  def <<(input)
+    metric_values.create(time: Time.now, quantity: input)
+
+    update(value: incremental? ? quantity : input, previous_value: value)
+  end
+
+  # @param [Integer] period
+  def values(period = 7)
+    current_value = 0
+    metric_values.since(period.days.ago).ordered_by_time.map do |v|
+      current_value = incremental? ? current_value + v.quantity : v.quantity
+      [v.time.strftime('%d.%m.%Y %H:%M'), current_value]
+    end.to_h
+  end
 end

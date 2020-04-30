@@ -1,0 +1,15 @@
+@import "biovision/themes/default_theme/components";
+
+.breadcrumbs {
+  a {
+    background: image_url('biovision/icons/breadcrumb.svg') no-repeat bottom .1rem right / .6rem 1.2rem;
+    padding-right: 1rem;
+    transition: background .25s;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-image: image_url('biovision/icons/breadcrumb-hover.svg');
+    }
+  }
+}

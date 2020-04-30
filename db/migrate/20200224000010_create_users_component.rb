@@ -12,9 +12,11 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     create_foreign_users unless ForeignUser.table_exists?
     create_component_links unless BiovisionComponentUser.table_exists?
     create_codes unless Code.table_exists?
+    create_notifications unless Notification.table_exists?
   end
 
   def down
+    drop_table :notifications if Notification.table_exists?
     drop_table :codes if Code.table_exists?
     drop_table :biovision_component_users if BiovisionComponentUser.table_exists?
     drop_table :foreign_users if ForeignUser.table_exists?
@@ -168,5 +170,20 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
 
     add_index :codes, :body, unique: true
     add_index :codes, :data, using: :gin
+  end
+
+  def create_notifications
+    create_table :notifications, comment: 'Component notifications for users' do |t|
+      t.uuid :uuid, null: false
+      t.references :biovision_component, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.boolean :email_sent, default: false, null: false
+      t.boolean :read, default: false, null: false
+      t.timestamps
+      t.jsonb :data, default: {}, null: false
+    end
+
+    add_index :notifications, :uuid, unique: true
+    add_index :notifications, :data, using: :gin
   end
 end

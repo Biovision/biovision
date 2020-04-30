@@ -21,4 +21,11 @@ class IpAddress < ApplicationRecord
   def self.page_for_administration(page = 1)
     list_for_administration.page(page)
   end
+
+  # @param [String] ip
+  def self.[](ip)
+    return if ip.blank?
+
+    find_or_create_by(ip: ip)
+  end
 end
