@@ -4,6 +4,8 @@ module Biovision
   module Components
     # Handling users
     class UsersComponent < BaseComponent
+      include Users::Authentication
+
       METRIC_NEW_USER = 'users.new_user.hit'
 
       def self.settings_flags

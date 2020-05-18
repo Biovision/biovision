@@ -1,0 +1,21 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= t('.heading') %></h1>
+
+    <%=
+      render(
+          partial: 'authentication/form',
+          locals: { form_id: 'authentication_form' }
+      )
+    %>
+
+    <nav>
+      <%= link_to t('my.recoveries.show.nav_text'), my_recovery_path, class: 'button-nav' %>
+    </nav>
+  </div>
+</article>

@@ -1,0 +1,10 @@
+<footer class="main-footer">
+  <div>
+    &copy; 2012–2020 Biovision
+  </div>
+  <% unless current_user.nil? %>
+    <div class="support">
+      <%= link_to(t('.support'), 'mailto:maxim.km@gmail.com') %>
+    </div>
+  <% end %>
+</footer>

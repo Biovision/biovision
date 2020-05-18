@@ -66,5 +66,20 @@ form {
 
   dd {
     margin: 0;
+    padding: var(--spacer-xxs) 0;
+  }
+}
+
+.input-text {
+  border: .1rem solid var(--input-border);
+  border-radius: var(--spacer-xxs);
+  font-size: var(--font-size-normal);
+  margin: 0;
+  padding: var(--spacer-xxs) var(--spacer-xs);
+
+  &:focus {
+    border-color: var(--input-border-focus);
+    box-shadow: .1rem .1rem .2rem var(--input-border-focus);
+    outline: none;
   }
 }

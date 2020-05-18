@@ -16,7 +16,7 @@ module Biovision
       end
     end
 
-    #config.assets.precompile << %w[biovision_manifest.js]
+    config.assets.precompile << %w[biovision_manifest.js]
 
     config.generators do |g|
       g.test_framework :rspec

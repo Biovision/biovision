@@ -45,4 +45,9 @@
 
   --content-width: #{$content-width};
   --content-width-min: #{$content-width-min};
+
+  --input-border: #{$input-border};
+  --input-border-focus: #{$input-border-focus};
+  --input-border-invalid: #{$input-border-invalid};
+  --input-border-invalid-focus: #{$input-border-invalid-focus};
 }

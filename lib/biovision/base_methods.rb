@@ -81,7 +81,8 @@ module Biovision
     #
     # @param [String] message
     # @param [Symbol|String] view
-    def handle_http_401(message = '401: Unauthorized', view = :unauthorized)
+    def handle_http_401(message = nil, view = :unauthorized)
+      message ||= t('application.errors.unauthorized')
       handle_http_error(:unauthorized, message, view)
     end
 
@@ -89,7 +90,8 @@ module Biovision
     #
     # @param [String] message
     # @param [Symbol|String] view
-    def handle_http_403(message = '403: Forbidden', view = :forbidden)
+    def handle_http_403(message = nil, view = :forbidden)
+      message ||= t('application.errors.forbidden')
       handle_http_error(:forbidden, message, view)
     end
 
@@ -97,7 +99,8 @@ module Biovision
     #
     # @param [String] message
     # @param [Symbol|String] view
-    def handle_http_404(message = '404: Not found', view = :not_found)
+    def handle_http_404(message = nil, view = :not_found)
+      message ||= t('application.errors.not_found')
       handle_http_error(:not_found, message, view)
     end
 
@@ -105,13 +108,15 @@ module Biovision
     #
     # @param [String] message
     # @param [Symbol|String] view
-    def handle_http_503(message = 'Unavailable', view = :service_unavailable)
+    def handle_http_503(message = nil, view = :service_unavailable)
+      message ||= t('application.errors.service_unavailable')
       handle_http_error(:service_unavailable, message, view)
     end
 
     # Restrict access for anonymous users
     def restrict_anonymous_access
-      handle_http_401('Restricted anonymous access') if current_user.nil?
+      error = t('application.errors.restricted_access')
+      handle_http_401(error) if current_user.nil?
     end
 
     # Owner information for entity

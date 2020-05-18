@@ -8,5 +8,10 @@
     <h1><%= t('.heading') %></h1>
 
     <%= render partial: 'my/profiles/new/form', locals: { entity: @entity } %>
+
+    <nav>
+      <p><%= t('.already_joined') %></p>
+      <%= link_to(t('authentication.new.nav_text'), login_path, class: 'button-nav') %>
+    </nav>
   </div>
 </article>

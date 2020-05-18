@@ -1,0 +1,40 @@
+<%
+  component = Biovision::Components::UsersComponent[current_user]
+  form_id = local_assigns[:form_id]
+  from = local_assigns[:from]
+%>
+<%=
+  form_with(
+      url: login_path,
+      html: { class: 'authentication-form', id: form_id }
+  ) do
+%>
+  <dl class="fields">
+    <div>
+      <dt><%= label_tag :login, t('.login') %></dt>
+      <dd>
+        <%=
+          text_field_tag(:login, '', class: 'input-text', required: true)
+        %>
+      </dd>
+    </div>
+    <div>
+      <dt>
+        <%= label_tag :password, t('activerecord.attributes.user.password') %>
+      </dt>
+      <dd>
+        <%=
+          password_field_tag(:password, '', class: 'input-text', required: true)
+        %>
+      </dd>
+    </div>
+  </dl>
+  <div class="actions">
+    <%= hidden_field_tag :from, from unless from.blank? %>
+    <%= hidden_field_tag :form_id, form_id %>
+    <%= button_tag t('.log_in'), class: 'button-primary' %>
+    <% if component.settings['registration_open'] %>
+      <%= link_to t('my.profiles.new.title'), new_my_profile_path, class: 'button-nav' %>
+    <% end %>
+  </div>
+<% end %>

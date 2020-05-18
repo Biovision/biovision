@@ -1,0 +1,15 @@
+<svg version="1.1" viewBox="0 0 300 300" width="300px" height="300px" xmlns="http://www.w3.org/2000/svg">
+  <title>User placeholder</title>
+  <style>
+    * { stroke: #555; stroke-width: 5; }
+    .f { fill: #ffe }
+    .e { fill: #eff }
+    .m { fill: none }
+  </style>
+  <g>
+    <circle cx="150" cy="150" r="140" class="f"/>
+    <circle cx="100" cy="110" r="15" class="e"/>
+    <circle cx="200" cy="110" r="15" class="e"/>
+    <path d="M 75,200 A 150,200 0 0,0 225,200" class="m"/>
+  </g>
+</svg>

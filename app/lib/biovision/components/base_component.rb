@@ -53,6 +53,18 @@ module Biovision
       end
 
       # @param [User] user
+      def self.privileged?(user)
+        return false if user.nil? || user.banned?
+        return true if user.super_user?
+
+        BiovisionComponentUser.owned_by(user).each do |link|
+          return true if link.administrator? || !link.data['privileges'].blank?
+        end
+
+        false
+      end
+
+      # @param [User] user
       def user=(user)
         @user = user
 

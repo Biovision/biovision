@@ -1,0 +1,3 @@
+<% unless @form_id.blank? %>
+Biovision.components.forms.showError("<%= j(@form_id) %>", "<%= j(@error) %>")
+<% end %>

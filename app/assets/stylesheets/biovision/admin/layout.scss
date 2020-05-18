@@ -1,0 +1,75 @@
+html {
+  background: linear-gradient(to bottom, #dedfe3 2%, #aeb3b9 95%) fixed, radial-gradient(farthest-corner at 33% 100%, rgba(255, 255, 255, .5) 0%, rgba(0, 0, 0, .5) 100%) fixed;
+  background-blend-mode: screen;
+  height: 100%;
+}
+
+body {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  font-weight: 300;
+  height: 100%;
+  margin: 0 auto;
+  max-width: var(--content-width);
+}
+
+a {
+  font-weight: 400;
+}
+
+h1 {
+  font-size: var(--font-size-xxl);
+  font-weight: 500;
+  margin-bottom: var(--spacer-xs);
+}
+
+h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 500;
+  margin-bottom: var(--spacer-xxs);
+}
+
+#main {
+  padding: var(--spacer-xs);
+  width: 100%;
+}
+
+.main-header {
+  align-items: center;
+  border-bottom: var(--border-primary);
+  display: flex;
+  flex-wrap: wrap;
+  padding: var(--spacer-xs);
+
+  nav {
+    margin: 0 0 0 auto;
+  }
+
+  ul {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding: 0 var(--spacer-xxs);
+  }
+}
+
+.main-footer {
+  align-items: center;
+  border-top: var(--border-primary);
+  color: var(--text-color-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: var(--font-size-decreased);
+  justify-content: space-between;
+  margin: auto 0 0 0;
+  padding: var(--spacer-xs);
+}
+
+@import "biovision/components/forms";

@@ -45,3 +45,25 @@ ru:
       truncate: "…"
   copyright: "2020 example.com"
   home: "Главная"
+  application:
+    errors:
+      forbidden: "Запрещено (403)."
+      internal_server_error: "Внутренняя ошибка сервера (500)."
+      not_found: "Страница не найдена (404)."
+      restricted_access: "Доступ к странице ограничен (401)."
+      service_unavailable: "Сервис временно недоступен (503)."
+      unauthorized: "Не хватает прав для просмотра страницы (401)."
+  admin:
+    errors:
+      unauthorized:
+        heading: "Не хватает прав"
+        message: "У вас не хватает прав для просмотра этой страницы"
+  layouts:
+    admin:
+      footer:
+        support: "Поддержка"
+  site_name: "example.com"
+  my:
+    recoveries:
+      show:
+        nav_text: "Восстановить пароль"

@@ -1,0 +1,15 @@
+<svg height="24" version="1.1" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+  <title>Log in</title>
+  <style>
+    * { stroke: #777; fill: none; }
+    .a { stroke-width: 1 }
+    .b { stroke-width: 2 }
+  </style>
+  <g>
+    <polyline points="9,7 9,2 22,2 22,22 9,22 9,17" class="b"/>
+    <g class="a">
+      <line x1="2" y1="12" x2="17" y2="12"/>
+      <polyline points="14,9 17,12 14,15"/>
+    </g>
+  </g>
+</svg>

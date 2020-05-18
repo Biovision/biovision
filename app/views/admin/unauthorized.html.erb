@@ -1,0 +1,19 @@
+<% content_for :meta_title, t('application.errors.unauthorized') %>
+
+<article>
+  <h1><%= t('admin.errors.unauthorized.heading') %></h1>
+
+  <div class="message-box error">
+    <%= @message %>
+  </div>
+
+  <%=
+    render(
+        partial: 'authentication/form',
+        locals: {
+            form_id: 'auth-form_admin',
+            from: url_for
+        }
+    )
+  %>
+</article>

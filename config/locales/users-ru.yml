@@ -95,6 +95,8 @@ ru:
           require_email: "Электронная почта обязательна при регистрации"
           use_invites: "Использовать приглашения"
   anonymous: "Анонимно"
+  log_in: "Войти"
+  log_out: "Выйти"
   my:
     profiles:
       new:
@@ -111,7 +113,18 @@ ru:
             email: "Введите почту для обратной связи и на случай сброса пароля."
           join: "Зарегистрироваться"
           invitation_code: "Пригласительный код"
+        already_joined: "Уже зарегистрировались?"
       closed:
         title: "Регистрация закрыта"
         heading: "Регистрация закрыта"
         registration_is_closed: "Регистрация новых пользователей закрыта"
+  authentication:
+    form:
+      log_in: "Войти"
+      login: "Логин"
+    create:
+      failed: "Не удалось выполнить вход."
+    new:
+      title: "Вход"
+      nav_text: "Войти"
+      heading: "Вход на сайт"

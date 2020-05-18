@@ -1,0 +1,53 @@
+@import "biovision/admin/default";
+
+:root {
+  --font-size-xxxl: #{$font-size-xxxl};
+  --font-size-xxl: #{$font-size-xxl};
+  --font-size-xl: #{$font-size-xl};
+  --font-size-large: #{$font-size-large};
+  --font-size-increased: #{$font-size-increased};
+  --font-size-normal: #{$font-size-normal};
+  --font-size-decreased: #{$font-size-decreased};
+  --font-size-small: #{$font-size-small};
+  --font-size-xs: #{$font-size-xs};
+
+  --font-family-main: #{$font-family-main};
+  --font-family-heading: #{$font-family-heading};
+
+  --spacer-s: #{$spacer-s};
+  --spacer-xxxs: .2rem;
+  --spacer-xxs: calc(var(--spacer-s) / 4);
+  --spacer-xs: calc(var(--spacer-s) / 2);
+  --spacer-m: calc(var(--spacer-s) * 2);
+  --spacer-l: calc(var(--spacer-s) * 3);
+  --spacer-xl: calc(var(--spacer-s) * 4);
+  --spacer-xxl: calc(var(--spacer-s) * 6);
+
+  --text-color-primary: #{$text-color-primary};
+  --text-color-secondary: #{$text-color-secondary};
+  --text-color-heading: #{$text-color-heading};
+
+  --text-color-inverted-primary: #{$text-color-inverted-primary};
+  --text-color-inverted-secondary: #{$text-color-inverted-secondary};
+  --text-color-inverted-heading: #{$text-color-inverted-heading};
+
+  --border-color-primary: #{$border-color-primary};
+  --border-color-secondary: #{$border-color-secondary};
+  --border-primary: #{$border-primary};
+  --border-secondary: #{$border-secondary};
+
+  --block-shadow: #{$block-shadow};
+
+  --link-color: #{$link-color};
+  --link-color-visited: #{$link-color-visited};
+  --link-color-active: #{$link-color-active};
+  --link-color-hover: #{$link-color-hover};
+
+  --content-width: #{$content-width};
+  --content-width-min: #{$content-width-min};
+
+  --input-border: #{$input-border};
+  --input-border-focus: #{$input-border-focus};
+  --input-border-invalid: #{$input-border-invalid};
+  --input-border-invalid-focus: #{$input-border-invalid-focus};
+}

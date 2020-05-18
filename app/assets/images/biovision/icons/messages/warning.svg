@@ -1,0 +1,13 @@
+<svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <title>Warning</title>
+    <style>
+      line, polyline { stroke: #873; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3 }
+    </style>
+  </defs>
+  <g>
+    <polyline points="16 2, 30 30, 2 30, 16 2" fill="#fd4"/>
+    <line x1="16" y1="12" x2="16" y2="20"/>
+    <circle cx="16" cy="25" r="1.5" fill="#873" />
+  </g>
+</svg>
