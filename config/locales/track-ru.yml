@@ -23,3 +23,18 @@ ru:
     components:
       track:
         name: "Отслеживание"
+  admin:
+    agents:
+      nav_item:
+        text: "Агенты пользователя"
+        description: "Просмотр списка браузеров посетителей"
+      index:
+        title: "Агенты пользователя, страница %{page}"
+        heading: "Агенты пользователя"
+    ip_addresses:
+      nav_item:
+        text: "IP-адреса"
+        description: "Просмотр списков IP-адресов посетителей"
+      index:
+        title: "IP-адреса, страница %{page}"
+        heading: "IP-адреса"

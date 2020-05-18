@@ -1,4 +1,10 @@
 ru:
+  object_count:
+    zero: "объектов нет"
+    one: "%{count} объект"
+    few: "%{count} объекта"
+    many: "%{count} объектов"
+    other: "%{count} объектов"
   attributes:
     banned: "В чёрном списке"
     created_at: "Время создания"
@@ -81,3 +87,4 @@ ru:
       notice: "Замечание"
       success: "Успешно"
       warning: "Предупреждение"
+  nothing_found: "Ничего не нашлось"

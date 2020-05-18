@@ -1,0 +1,17 @@
+<figure class="image">
+  <%= user_image_small(entity.user) %>
+</figure>
+<div class="data">
+  <div><%= admin_user_link(entity.user) %></div>
+  <div>
+    <%=
+      render(
+          partial: 'admin/components/privileges/links',
+          locals: {
+              handler: handler,
+              entity: entity
+          }
+      )
+    %>
+  </div>
+</div>

@@ -14,6 +14,9 @@ class BiovisionComponent < ApplicationRecord
   include FlatPriority
   include RequiredUniqueSlug
 
+  has_many :biovision_component_users, dependent: :delete_all
+  has_many :simple_images, dependent: :destroy
+
   scope :list_for_administration, -> { ordered_by_priority }
 
   # Find component by slug
@@ -34,5 +37,9 @@ class BiovisionComponent < ApplicationRecord
   def []=(slug, value)
     parameters[slug.to_s] = value
     save!
+  end
+
+  def privileges
+    biovision_component_users.recent
   end
 end

@@ -63,6 +63,8 @@ Rails.application.routes.draw do
           post 'ckeditor'
         end
       end
+
+      resources :agents, :ip_addresses, only: :index
     end
 
     namespace :my do

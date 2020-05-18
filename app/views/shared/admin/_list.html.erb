@@ -1,0 +1,19 @@
+<% if collection.any? %>
+  <ul class="list-of-entities">
+    <% collection.each do |entity| %>
+      <li data-id="<%= entity.id %>">
+        <%=
+          render(
+              partial: "admin/#{entity.class.table_name}/entity/in_list",
+              locals: {
+                  entity: entity,
+                  handler: local_assigns[:handler]
+              }
+          )
+        %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <%= render 'shared/nothing_found' %>
+<% end %>

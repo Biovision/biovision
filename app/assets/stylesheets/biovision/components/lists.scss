@@ -1,0 +1,91 @@
+
+.list-of-entities {
+  margin: var(--spacer-s) 0;
+  padding: 0;
+
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+  }
+
+  .image {
+    flex: none;
+    margin: 0 var(--spacer-xs) 0 0;
+    text-align: center;
+    width: 8rem;
+
+    img {
+      max-height: 8rem;
+      max-width: 8rem;
+    }
+
+    & + .data {
+      width: calc(100% - 8.8rem);
+    }
+  }
+
+  > li {
+    align-items: flex-start;
+    background: var(--row-background-odd);
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: var(--spacer-xs);
+
+    &:nth-of-type(even) {
+      background: var(--row-background-even);
+    }
+
+
+    .data {
+      width: 100%;
+      position: relative;
+
+      .info {
+        font-size: var(--font-size-decreased);
+      }
+
+      .secondary {
+        color: var(--text-color-secondary);
+      }
+
+
+      .compact {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+
+        .toggleable,
+        > span {
+          margin: 0 var(--spacer-xs);
+        }
+      }
+
+      .children {
+        border-left: .1rem dotted;
+        margin-left: var(--spacer-s);
+      }
+    }
+  }
+}
+
+ul.list-of-entities {
+  ul.actions {
+    > li.priority-changer {
+      display: none;
+    }
+  }
+}
+
+ol.list-of-entities {
+  > li[data-number]::before {
+    content: attr(data-number) ":";
+    display: inline-block;
+    margin: 0 var(--spacer-xs) 0 0;
+    text-align: right;
+    width: 2.4rem;
+  }
+}

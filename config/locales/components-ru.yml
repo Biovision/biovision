@@ -61,6 +61,9 @@ ru:
     components:
       privileges:
         nav_text: "Привилегии"
+        title: "Привилении компонента «%{slug}»"
+        users:
+          heading: "Привилегии"
       settings:
         nav_text: "Настройки"
         title: "Настройки компонента «%{slug}»"
@@ -72,5 +75,7 @@ ru:
         success: "Настройки успешно изменены"
       index:
         nav_text: "Компоненты"
+        title: "Компоненты"
+        heading: "Компоненты"
       show:
         title: "Компонент «%{slug}»"
