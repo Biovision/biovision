@@ -1,0 +1,12 @@
+<section class="biovision-component <%= component.slug %>">
+  <header>
+    <h2><%= handler.name %></h2>
+  </header>
+
+  <%=
+    render(
+        partial: 'admin/components/entity/links',
+        locals: { handler: handler }
+    )
+  %>
+</section>

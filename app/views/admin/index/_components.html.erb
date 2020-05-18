@@ -1,0 +1,12 @@
+<% collection.each do |component| %>
+  <%
+    handler = Biovision::Components::BaseComponent.handler(component, current_user)
+    next if handler.component.nil? || !handler.allow?
+  %>
+  <%=
+    render(
+        partial: 'admin/components/entity/section',
+        locals: { component: component, handler: handler }
+    )
+  %>
+<% end %>

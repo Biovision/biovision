@@ -1,7 +1,7 @@
-<% %i(notice warning alert).each do |type| %>
-    <% if flash[type] %>
-        <div class="message-box-<%= type %>" title="<%= t(".#{type}") %>">
-          <%= flash[type] %>
-        </div>
-    <% end %>
+<% %i(info success warning error notice alert).each do |type| %>
+  <% if flash[type] %>
+    <div class="message-box <%= type %>" title="<%= t(".#{type}") %>">
+      <%= flash[type] %>
+    </div>
+  <% end %>
 <% end %>

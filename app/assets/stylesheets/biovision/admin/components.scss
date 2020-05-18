@@ -1,0 +1,59 @@
+.biovision-component {
+  border-bottom: var(--border-secondary);
+  margin-bottom: var(--spacer-s);
+  padding: var(--spacer-xs);
+
+  > header {
+    background: no-repeat center left / 2.4rem 2.4rem;
+    padding-left: 3.2rem;
+  }
+}
+
+.biovision-component-nav {
+  margin: var(--spacer-s) 0;
+
+  > a {
+    background: no-repeat center left / 2rem 2rem;
+    display: block;
+    line-height: 2.4rem;
+    margin: 0 0 0 .8rem;
+    padding-left: 2.4rem;
+  }
+
+  .settings {
+    background-image: image_url('biovision/icons/settings.svg');
+  }
+
+  .privileges {
+    background-image: image_url('biovision/icons/key.svg');
+  }
+
+  ul {
+    box-shadow: var(--block-shadow);
+    margin: var(--spacer-xxs);
+    max-width: 64rem;
+    padding: 0;
+  }
+
+  li {
+    background: var(--row-background-odd);
+    list-style: none;
+    margin: 0;
+    padding: var(--spacer-xs);
+    position: relative;
+
+    &:nth-last-of-type(even) {
+      background: var(--row-background-even);
+    }
+  }
+}
+
+.biovision-component-settings {
+  .fields {
+    margin-bottom: var(--spacer-s);
+
+    > div {
+      margin-bottom: 0;
+    }
+  }
+}

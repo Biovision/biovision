@@ -1,6 +1,22 @@
 @import "biovision/themes/default_theme/components";
 @import "biovision/themes/default_theme/layout/header";
 
+//* { outline: solid pink 1px }
+
+html {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+#main {
+  flex: 1;
+}
+
 .breadcrumbs {
   a {
     background: image_url('biovision/icons/breadcrumb.svg') no-repeat bottom .1rem right / .6rem 1.2rem;
@@ -13,4 +29,16 @@
       background-image: image_url('biovision/icons/breadcrumb-hover.svg');
     }
   }
+}
+
+.content-wrapper {
+  padding: var(--spacer-xs);
+}
+
+#cookie-info {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  z-index: 5;
 }

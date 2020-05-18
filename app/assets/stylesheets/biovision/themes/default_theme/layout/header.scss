@@ -2,13 +2,15 @@
   .content-wrapper {
     align-items: center;
     display: flex;
-    padding: var(--spacer-xs);
   }
 
   .logo {
-    height: 5rem;
-    width: 5rem;
-
+    a {
+      align-items: center;
+      display: flex;
+      height: 5rem;
+      width: 5rem;
+    }
 
     img {
       height: 100%;

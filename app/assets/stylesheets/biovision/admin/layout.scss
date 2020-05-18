@@ -1,3 +1,5 @@
+//* { outline: solid pink 1px }
+
 html {
   background: linear-gradient(to bottom, #dedfe3 2%, #aeb3b9 95%) fixed, radial-gradient(farthest-corner at 33% 100%, rgba(255, 255, 255, .5) 0%, rgba(0, 0, 0, .5) 100%) fixed;
   background-blend-mode: screen;
@@ -72,4 +74,21 @@ h2 {
   padding: var(--spacer-xs);
 }
 
+.breadcrumbs {
+  margin-bottom: var(--spacer-xs);
+
+  a {
+    background: image_url('biovision/icons/breadcrumb.svg') no-repeat bottom .1rem right / .6rem 1.2rem;
+    padding-right: 1rem;
+    transition: background .25s;
+
+    &:active,
+    &:focus,
+    &:hover {
+      background-image: image_url('biovision/icons/breadcrumb-hover.svg');
+    }
+  }
+}
+
 @import "biovision/components/forms";
+@import "biovision/admin/components";

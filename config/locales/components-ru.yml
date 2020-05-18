@@ -57,3 +57,20 @@ ru:
   languages:
     english: "Английский"
     russian: "Русский"
+  admin:
+    components:
+      privileges:
+        nav_text: "Привилегии"
+      settings:
+        nav_text: "Настройки"
+        title: "Настройки компонента «%{slug}»"
+        settings:
+          heading: "Настройки"
+        parameters:
+          heading: "Параметры"
+      update_settings:
+        success: "Настройки успешно изменены"
+      index:
+        nav_text: "Компоненты"
+      show:
+        title: "Компонент «%{slug}»"

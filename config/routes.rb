@@ -44,6 +44,25 @@ Rails.application.routes.draw do
 
     namespace :admin do
       get '/' => 'index#index'
+
+      scope :components, controller: :components do
+        get '/' => :index, as: :components
+        scope ':slug' do
+          get '/' => :show, as: :component
+          get 'settings' => :settings, as: :component_settings
+          patch 'settings' => :update_settings, as: nil
+          patch 'parameters' => :update_parameter, as: :component_parameters
+          get 'privileges' => :privileges, as: :component_privileges
+          patch 'privileges' => :update_privileges, as: nil
+          put 'administrators/:user_id' => :add_administrator, as: :component_administrators
+          delete 'administrators/:user_id' => :remove_administrator, as: nil
+          put 'users/:user_id/privileges/:privilege_slug' => :add_privilege, as: :component_privilege
+          delete 'users/:user_id/privileges/:privilege_slug' => :remove_privilege, as: nil
+          get 'images' => :images, as: :component_images
+          post 'images' => :create_image, as: nil
+          post 'ckeditor'
+        end
+      end
     end
 
     namespace :my do

@@ -58,6 +58,11 @@ ru:
       unauthorized:
         heading: "Не хватает прав"
         message: "У вас не хватает прав для просмотра этой страницы"
+    index:
+      index:
+        nav_text: "Администрирование"
+        title: "Администрирование"
+        heading: "Администрирование"
   layouts:
     admin:
       footer:
@@ -67,3 +72,12 @@ ru:
     recoveries:
       show:
         nav_text: "Восстановить пароль"
+  update: "Обновить"
+  shared:
+    flash_messages:
+      alert: "Внимание"
+      error: "Ошибка"
+      info: "Информация"
+      notice: "Замечание"
+      success: "Успешно"
+      warning: "Предупреждение"
