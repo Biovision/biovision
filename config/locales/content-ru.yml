@@ -1,0 +1,27 @@
+ru:
+  page_count:
+    zero: "страниц нет"
+    one: "%{count} страница"
+    few: "%{count} страницы"
+    many: "%{count} страниц"
+    other: "%{count} страниц"
+  activerecord:
+    models:
+      dynamic_page: "Динамическая страница"
+      navigation_group: "Группа навигации"
+      navigation_group_page: "Страница в группе навигации"
+    attributes:
+      dynamic_page:
+        url: "URL"
+        name: "Название"
+        body: "Содержимое"
+      navigation_group:
+        dynamic_pages_count: "Количество динамических страниц"
+        name: "Название"
+      navigation_group_page:
+        navigation_group: "Группа навигации"
+        dynamic_page: "Динамическая страница"
+  biovision:
+    components:
+      content:
+        name: "Контент"

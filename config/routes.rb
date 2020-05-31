@@ -25,8 +25,6 @@ Rails.application.routes.draw do
   end
 
   scope '(:locale)', constraints: { locale: /ru|en/ } do
-    root 'index#index'
-
     # Handling errors
     match '/400' => 'errors#bad_request', via: :all
     match '/401' => 'errors#unauthorized', via: :all
@@ -65,6 +63,13 @@ Rails.application.routes.draw do
       end
 
       resources :agents, :ip_addresses, only: :index
+      resources :dynamic_pages, only: %i[index show], concerns: :toggle
+      resources :navigation_groups, only: %i[index show] do
+        member do
+          put 'dynamic_pages/:page_id' => :add_page, as: :dynamic_page
+          delete 'dynamic_pages/:page_id' => :remove_page
+        end
+      end
     end
 
     namespace :my do
