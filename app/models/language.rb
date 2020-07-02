@@ -28,4 +28,8 @@ class Language < ApplicationRecord
   def self.[](code)
     find_by(code: code)
   end
+
+  def name
+    I18n.t("languages.#{slug}", default: slug)
+  end
 end

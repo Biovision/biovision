@@ -10,6 +10,7 @@ ru:
     created_at: "Время создания"
     data: "Данные"
     deleted: "Объект удалён"
+    image: "Картинка"
     language: "Язык"
     language_id: "Язык"
     object_count: "Количество объектов"
@@ -102,3 +103,4 @@ ru:
   edit: "Редактировать"
   delete: "Удалить"
   flags: "Флаги"
+  not_set: "Не задано"

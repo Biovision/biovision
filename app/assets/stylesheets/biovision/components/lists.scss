@@ -13,12 +13,13 @@
   .image {
     flex: none;
     margin: 0 var(--spacer-xs) 0 0;
-    text-align: center;
+    overflow: hidden;
     width: 8rem;
 
     img {
-      max-height: 8rem;
-      max-width: 8rem;
+      height: 100%;
+      object-fit: contain;
+      width: 100%;
     }
 
     & + .data {
@@ -39,7 +40,6 @@
       background: var(--row-background-even);
     }
 
-
     .data {
       width: 100%;
       position: relative;
@@ -51,7 +51,6 @@
       .secondary {
         color: var(--text-color-secondary);
       }
-
 
       .compact {
         align-items: center;

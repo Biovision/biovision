@@ -18,11 +18,7 @@
       <dd><%= @entity.name %></dd>
     </div>
 
-    <div>
-      <dt><%= t('attributes.slug') %></dt>
-      <dd><%= @entity.slug %></dd>
-    </div>
-
+    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 </article>

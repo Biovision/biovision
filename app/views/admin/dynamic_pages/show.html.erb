@@ -1,0 +1,57 @@
+<% content_for :meta_title, t('.title', slug: @entity.long_slug) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.dynamic_pages.nav_item.text'), admin_dynamic_pages_path) %>
+  <span><%= @entity.slug %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.class.model_name.human %> <q><%= @entity.long_slug %></q></h1>
+
+  <nav>
+    <%= edit_button(edit_dynamic_page_path(id: @entity.id)) %>
+  </nav>
+
+  <dl class="fields">
+    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/language', locals: { entity: @entity } %>
+
+    <% unless @entity.name.blank? %>
+      <div>
+        <dt><%= t('activerecord.attributes.dynamic_page.name') %></dt>
+        <dd><%= @entity.name %></dd>
+      </div>
+    <% end %>
+
+    <% unless @entity.url.blank? %>
+      <div>
+        <dt><%= t('activerecord.attributes.dynamic_page.url') %></dt>
+        <dd><%= @entity.url %></dd>
+      </div>
+    <% end %>
+
+    <%= render partial: 'shared/entity/simple_image', locals: { entity: @entity } %>
+
+    <div>
+      <dt><%= t('activerecord.attributes.dynamic_page.body') %></dt>
+      <dd>
+        <div class="text">
+          <%= raw @entity.body %>
+        </div>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_dynamic_page_path(id: @entity.id)
+        }
+    )
+  %>
+</article>

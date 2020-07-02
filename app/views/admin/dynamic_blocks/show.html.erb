@@ -13,10 +13,7 @@
   </nav>
 
   <dl class="fields">
-    <div>
-      <dt><%= t('attributes.slug') %></dt>
-      <dd><%= @entity.slug %></dd>
-    </div>
+    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
 
     <div>
       <dt><%= t('activerecord.attributes.dynamic_block.body') %></dt>
