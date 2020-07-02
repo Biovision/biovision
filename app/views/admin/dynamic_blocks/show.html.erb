@@ -1,0 +1,42 @@
+<% content_for :meta_title, t('.title', slug: @entity.slug) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.dynamic_blocks.nav_item.text'), admin_dynamic_blocks_path) %>
+  <span><%= @entity.slug %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.class.model_name.human %> <q><%= @entity.slug %></q></h1>
+
+  <nav>
+    <%= edit_button(edit_dynamic_block_path(id: @entity.id)) %>
+  </nav>
+
+  <dl class="fields">
+    <div>
+      <dt><%= t('attributes.slug') %></dt>
+      <dd><%= @entity.slug %></dd>
+    </div>
+
+    <div>
+      <dt><%= t('activerecord.attributes.dynamic_block.body') %></dt>
+      <dd>
+        <div class="text">
+          <%= @entity.body %>
+        </div>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals: {
+            entity: @entity,
+            url: toggle_admin_dynamic_block_path(id: @entity.id)
+        }
+    )
+  %>
+</article>

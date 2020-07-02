@@ -24,11 +24,25 @@ ru:
       navigation_group_page:
         navigation_group: "Группа навигации"
         dynamic_page: "Динамическая страница"
-  biovision:
-    components:
-      content:
-        name: "Контент"
   admin:
+    dynamic_blocks:
+      nav_item:
+        text: "Динамические блоки"
+        description: "Управление динамическими блоками"
+      index:
+        title: "Динамические блоки"
+        heading: "Динамические блоки"
+      show:
+        title: "Динамический блок «%{slug}»"
+    dynamic_pages:
+      nav_item:
+        text: "Динамические страницы"
+        description: "Управление динамическими страницами"
+      index:
+        title: "Динамические страницы"
+        heading: "Динамические страницы"
+      show:
+        title: "Динамическая страница «%{slug}»"
     navigation_groups:
       nav_item:
         text: "Группы навигации"
@@ -38,7 +52,45 @@ ru:
         heading: "Группы навигации"
       show:
         title: "Группа навигации «%{name}»"
+  biovision:
+    components:
+      content:
+        name: "Контент"
+  dynamic_blocks:
+    destroy:
+      success: "Динамический блок удалён"
+    edit:
+      title: "Редактирование динамического блока"
+      nav_text: "Редактировать"
+      heading: "Редактирование динамического блока"
+    form:
+      guidelines:
+        slug: "Максимум 100 символов."
+    new:
+      title: "Добавление динамического блока"
+      nav_text: "Создать"
+      heading: "Новый динамический блок"
+  dynamic_pages:
+    destroy:
+      success: "Динамическая страница удалена"
+    edit:
+      title: "Редактирование динамической страницы"
+      nav_text: "Редактировать"
+      heading: "Редактирование динамической страницы"
+    form:
+      guidelines:
+        slug: "Максимум 100 символов."
+    new:
+      title: "Добавление динамической страницы"
+      nav_text: "Создать"
+      heading: "Новая динамическая страница"
   navigation_groups:
+    destroy:
+      success: "Группа навигации удалена"
+    edit:
+      title: "Редактирование группы навигации"
+      nav_text: "Редактировать"
+      heading: "Редактирование группы навигации"
     form:
       guidelines:
         slug: "Максимум 100 символов."

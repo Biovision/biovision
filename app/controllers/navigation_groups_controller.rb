@@ -41,7 +41,7 @@ class NavigationGroupsController < AdminController
 
   # delete /navigation_groups/:id
   def destroy
-    flash[:notice] = t('navigation_groups.destroy.success') if @entity.destroy
+    flash[:notice] = t('.success') if @entity.destroy
 
     redirect_to(admin_navigation_groups_path)
   end

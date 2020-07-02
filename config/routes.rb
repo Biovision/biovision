@@ -24,8 +24,8 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dynamic_pages, only: %i[destroy update]
-  resources :navigation_groups, only: %i[destroy update]
+  # Content component
+  resources :dynamic_blocks, :dynamic_pages, :navigation_groups, only: %i[destroy update]
 
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
@@ -45,8 +45,8 @@ Rails.application.routes.draw do
       get 'auth/:provider/callback' => :auth_callback, as: :auth_callback
     end
 
-    resources :dynamic_pages, only: %i[new create edit], concerns: :check
-    resources :navigation_groups, only: %i[new create edit], concerns: :check
+    # Content component
+    resources :dynamic_blocks, :dynamic_pages, :navigation_groups, only: %i[new create edit], concerns: :check
 
     namespace :admin do
       get '/' => 'index#index'
@@ -70,9 +70,11 @@ Rails.application.routes.draw do
         end
       end
 
+      # Track component
       resources :agents, :ip_addresses, only: :index
 
-      resources :dynamic_pages, only: %i[index show], concerns: :toggle
+      # Content component
+      resources :dynamic_pages, :dynamic_blocks, only: %i[index show], concerns: :toggle
       resources :navigation_groups, only: %i[index show] do
         member do
           put 'dynamic_pages/:page_id' => :add_page, as: :dynamic_page
