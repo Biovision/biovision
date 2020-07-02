@@ -35,6 +35,8 @@ class DynamicPage < ApplicationRecord
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_length_of :url, maximum: URL_LIMIT
 
+  scope :list_for_administration, -> { order('slug asc, language_id asc') }
+
   def self.entity_parameters
     %i[body language_id name simple_image_id slug url visible]
   end

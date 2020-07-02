@@ -1,0 +1,7 @@
+<% if entity.errors.any? %>
+  <ol class="errors">
+    <% entity.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+    <% end %>
+  </ol>
+<% end %>

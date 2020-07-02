@@ -4,7 +4,7 @@
 >
   <h2><%= t('.heading') %></h2>
 
-  <dl>
+  <dl class="fields">
     <div>
       <dt><%= label_tag(:new_parameter_slug, t('.parameter_slug')) %></dt>
       <dd>
@@ -13,6 +13,7 @@
               :slug,
               '',
               autocomplete: :off,
+              class: 'input-text',
               id: :new_parameter_slug,
               maxlength: 50,
               pattern: BiovisionComponent::SLUG_PATTERN_HTML,
@@ -32,6 +33,7 @@
               :value,
               '',
               autocomplete: :off,
+              class: 'input-text',
               id: :new_parameter_value,
               maxlength: 255,
               size: nil

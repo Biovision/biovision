@@ -24,7 +24,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :dynamic_pages, only: %i[destroy update]
+  resources :navigation_groups, only: %i[destroy update]
+
   scope '(:locale)', constraints: { locale: /ru|en/ } do
+    root 'index#index'
+
     # Handling errors
     match '/400' => 'errors#bad_request', via: :all
     match '/401' => 'errors#unauthorized', via: :all
@@ -39,6 +44,9 @@ Rails.application.routes.draw do
       delete 'logout' => :destroy
       get 'auth/:provider/callback' => :auth_callback, as: :auth_callback
     end
+
+    resources :dynamic_pages, only: %i[new create edit], concerns: :check
+    resources :navigation_groups, only: %i[new create edit], concerns: :check
 
     namespace :admin do
       get '/' => 'index#index'
@@ -63,11 +71,13 @@ Rails.application.routes.draw do
       end
 
       resources :agents, :ip_addresses, only: :index
+
       resources :dynamic_pages, only: %i[index show], concerns: :toggle
       resources :navigation_groups, only: %i[index show] do
         member do
           put 'dynamic_pages/:page_id' => :add_page, as: :dynamic_page
           delete 'dynamic_pages/:page_id' => :remove_page
+          post 'dynamic_pages/:page_id/priority' => :page_priority, as: :page_priority
         end
       end
     end

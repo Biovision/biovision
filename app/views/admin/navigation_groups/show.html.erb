@@ -1,0 +1,28 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.navigation_groups.nav_item.text'), admin_navigation_groups_path) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.class.model_name.human %> <q><%= @entity.name %></q></h1>
+
+  <nav>
+    <%= edit_button(edit_navigation_group_path(id: @entity.id)) %>
+  </nav>
+
+  <dl class="fields">
+    <div>
+      <dt><%= t('activerecord.attributes.navigation_group.name') %></dt>
+      <dd><%= @entity.name %></dd>
+    </div>
+
+    <div>
+      <dt><%= t('attributes.slug') %></dt>
+      <dd><%= @entity.slug %></dd>
+    </div>
+
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+  </dl>
+</article>

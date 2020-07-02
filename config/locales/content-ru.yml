@@ -7,10 +7,13 @@ ru:
     other: "%{count} страниц"
   activerecord:
     models:
+      dynamic_block: "Динамический блок"
       dynamic_page: "Динамическая страница"
       navigation_group: "Группа навигации"
       navigation_group_page: "Страница в группе навигации"
     attributes:
+      dynamic_block:
+        body: "Содержимое"
       dynamic_page:
         url: "URL"
         name: "Название"
@@ -25,3 +28,22 @@ ru:
     components:
       content:
         name: "Контент"
+  admin:
+    navigation_groups:
+      nav_item:
+        text: "Группы навигации"
+        description: "Управление группами навигации"
+      index:
+        title: "Группы навигации"
+        heading: "Группы навигации"
+      show:
+        title: "Группа навигации «%{name}»"
+  navigation_groups:
+    form:
+      guidelines:
+        slug: "Максимум 100 символов."
+        name: "Максимум 100 символов."
+    new:
+      title: "Добавление группы навигации"
+      nav_text: "Создать"
+      heading: "Новая группа навигации"

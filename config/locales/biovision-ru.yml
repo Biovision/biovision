@@ -89,4 +89,15 @@ ru:
       notice: "Замечание"
       success: "Успешно"
       warning: "Предупреждение"
+    forms:
+      state_container:
+        saving: "Сохранение…"
   nothing_found: "Ничего не нашлось"
+  save: "Сохранить"
+  are_you_sure: "Вы уверены?"
+  view_as_visitor: "Посмотреть как пользователь"
+  view_settings: "Посмотреть настройки"
+  create: "Создать"
+  back: "Назад"
+  edit: "Редактировать"
+  delete: "Удалить"

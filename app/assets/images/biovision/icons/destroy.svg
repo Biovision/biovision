@@ -1,0 +1,12 @@
+<svg version="1.1" viewBox="0 0 24 24" width="24px" height="24px" xmlns="http://www.w3.org/2000/svg">
+  <title>Delete</title>
+  <defs>
+    <style type="text/css">
+      line { stroke: #e44061; stroke-width: 3; stroke-linecap: round; }
+    </style>
+  </defs>
+  <g>
+    <line x1="3" y1="3" x2="21" y2="21"/>
+    <line x1="3" y1="21" x2="21" y2="3"/>
+  </g>
+</svg>

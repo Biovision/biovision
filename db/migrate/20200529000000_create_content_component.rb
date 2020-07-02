@@ -7,10 +7,12 @@ class CreateContentComponent < ActiveRecord::Migration[6.0]
     create_dynamic_pages unless DynamicPage.table_exists?
     create_navigation_groups unless NavigationGroup.table_exists?
     create_pages_in_groups unless NavigationGroupPage.table_exists?
+    create_dynamic_blocks unless DynamicBlock.table_exists?
   end
-  
+
   def down
     BiovisionComponent[Biovision::Components::ContentComponent.slug]&.destroy
+    drop_table :dynamic_blocks if DynamicBlock.table_exists?
     drop_table :navigation_group_pages if NavigationGroupPage.table_exists?
     drop_table :navigation_groups if NavigationGroup.table_exists?
     drop_table :dynamic_pages if DynamicPage.table_exists?
@@ -59,5 +61,18 @@ class CreateContentComponent < ActiveRecord::Migration[6.0]
       t.integer :priority, limit: 2, default: 1, null: false
       t.timestamps
     end
+  end
+
+  def create_dynamic_blocks
+    create_table :dynamic_blocks, comment: 'Dynamic blocks' do |t|
+      t.string :slug, null: false
+      t.boolean :visible, default: true, null: false
+      t.timestamps
+      t.text :body
+      t.jsonb :data, default: {}, null: false
+    end
+
+    add_index :dynamic_blocks, :slug, unique: true
+    add_index :dynamic_blocks, :data, using: :gin
   end
 end

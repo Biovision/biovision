@@ -107,6 +107,14 @@ production:
   end
 ```
 
+## Добавления в `package.json` и `application.js`
+
+Нужно добавить `@biovivion/biovision`, чтобы работал JS на клиентской стороне
+(`yarn add @biovision/biovision`).
+
+В `pack/javascripts/application.js` нужно добавить 
+`require("@biovision/biovision")`.
+
 ## Добавления в `config/routes.rb`
 
 ```ruby
@@ -150,7 +158,6 @@ if ENV['RAILS_ENV'] == 'production'
   logs_dir    = "#{shared_path}/log"
 
   state_path "#{shared_path}/tmp/puma/state"
-  pidfile "#{shared_path}/tmp/puma/pid"
   bind "unix://#{shared_path}/tmp/puma.sock"
   stdout_redirect "#{logs_dir}/stdout.log", "#{logs_dir}/stderr.log", true
   
@@ -199,6 +206,7 @@ set :shared_files, fetch(:shared_files, []).push('config/master.key', '.env')
 
 ```bash
 mkdir -p /var/www/example.com/shared/tmp/puma
+mkdir -p /var/www/example.com/shared/tmp/pids
 mkdir -p /var/www/example.com/shared/config
 ```
 

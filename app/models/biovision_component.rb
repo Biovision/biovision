@@ -14,6 +14,9 @@ class BiovisionComponent < ApplicationRecord
   include FlatPriority
   include RequiredUniqueSlug
 
+  SLUG_LIMIT = 250
+  SLUG_PATTERN_HTML = '^[a-zA-Z][-a-zA-Z0-9_]+[a-zA-Z0-9]$'
+
   has_many :biovision_component_users, dependent: :delete_all
   has_many :simple_images, dependent: :destroy
 

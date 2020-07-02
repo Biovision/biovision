@@ -71,6 +71,13 @@ ru:
           heading: "Настройки"
         parameters:
           heading: "Параметры"
+        new_parameter:
+          heading: "Новый параметр"
+          parameter_slug: "Идентификатор"
+          parameter_value: "Значение"
+          guidelines:
+            slug: "Только латинские буквы, цифры, дефис и подчёркивание (кроме начала и конца)."
+            value: "Произвольная строка"
       update_settings:
         success: "Настройки успешно изменены"
       index:

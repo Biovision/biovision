@@ -1,0 +1,11 @@
+<div class="data">
+  <div><%= admin_navigation_group_link(entity) %></div>
+  <div class="info"><%= entity.slug %></div>
+  <div class="secondary info">
+    <%= t(:page_count, count: entity.dynamic_pages_count) %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_navigation_group_path(id: entity.id)) %></li>
+  </ul>
+</div>
