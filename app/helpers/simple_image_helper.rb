@@ -7,11 +7,15 @@ module SimpleImageHelper
   # @param [ApplicationRecord|SimpleImageUploader] entity
   # @param [Hash] options
   def simple_image_preview(entity, options = {})
-    image = entity.is_a?(SimpleImageUploader) ? entity : entity&.image
+    return '' if entity.nil?
+
+    image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
 
     return '' if image.blank?
 
-    default = { alt: image.alt_text }
+    default = {
+      alt: image.alt_text
+    }
     image_tag(image.preview_url, default.merge(options))
   end
 
@@ -20,11 +24,15 @@ module SimpleImageHelper
   # @param [ApplicationRecord|SimpleImageUploader] entity
   # @param [Hash] options
   def simple_image_small(entity, options = {})
-    image = entity.is_a?(SimpleImageUploader) ? entity : entity&.image
+    return '' if entity.nil?
+
+    image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
 
     return '' if image.blank?
 
-    default = { alt: image.alt_text }
+    default = {
+      alt: image.alt_text
+    }
     default[:srcset] = "#{image.medium.url} 2x" if image.raster?
 
     image_tag(image.small_url, default.merge(options))
@@ -35,11 +43,15 @@ module SimpleImageHelper
   # @param [ApplicationRecord|SimpleImageUploader] entity
   # @param [Hash] options
   def simple_image_medium(entity, options = {})
-    image = entity.is_a?(SimpleImageUploader) ? entity : entity&.image
+    return '' if entity.nil?
+
+    image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
 
     return '' if image.blank?
 
-    default = { alt: image.alt_text }
+    default = {
+      alt: image.alt_text
+    }
     default[:srcset] = "#{image.large.url} 2x" if image.raster?
 
     image_tag(image.medium_url, default.merge(options))
@@ -50,11 +62,15 @@ module SimpleImageHelper
   # @param [ApplicationRecord|SimpleImageUploader] entity
   # @param [Hash] options
   def simple_image_large(entity, options = {})
-    image = entity.is_a?(SimpleImageUploader) ? entity : entity&.image
+    return '' if entity.nil?
+
+    image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
 
     return '' if image.blank?
 
-    default = { alt: image.alt_text }
+    default = {
+      alt: image.alt_text
+    }
     default[:srcset] = "#{image.hd.url} 2x" if image.raster?
 
     image_tag(image.large_url, default.merge(options))
@@ -65,11 +81,15 @@ module SimpleImageHelper
   # @param [ApplicationRecord|SimpleImageUploader] entity
   # @param [Hash] options
   def simple_image_hd(entity, options = {})
-    image = entity.is_a?(SimpleImageUploader) ? entity : entity&.image
+    return '' if entity.nil?
+
+    image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
 
     return '' if image.blank?
 
-    default = { alt: image.alt_text }
+    default = {
+      alt: image.alt_text
+    }
 
     image_tag(image.hd_url, default.merge(options))
   end

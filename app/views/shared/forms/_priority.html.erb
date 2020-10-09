@@ -1,0 +1,13 @@
+<div>
+  <dt><%= f.label :priority %></dt>
+  <dd>
+    <%=
+      f.number_field(
+          :priority,
+          class: 'input-text',
+          in: f.object.class.priority_range,
+          required: true
+      )
+    %>
+  </dd>
+</div>

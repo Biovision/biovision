@@ -118,6 +118,8 @@ ru:
         title: "Регистрация закрыта"
         heading: "Регистрация закрыта"
         registration_is_closed: "Регистрация новых пользователей закрыта"
+      show:
+        title: "Мой профиль"
   authentication:
     form:
       log_in: "Войти"

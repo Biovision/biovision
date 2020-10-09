@@ -82,6 +82,8 @@ Rails.application.routes.draw do
           post 'dynamic_pages/:page_id/priority' => :page_priority, as: :page_priority
         end
       end
+
+      resources :users, only: %i[index show]
     end
 
     namespace :my do

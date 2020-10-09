@@ -2,6 +2,18 @@
 
 # Helper methods for common cases
 module BiovisionHelper
+  # @param [ApplicationRecord] entity
+  # @param [String] text
+  # @param [Hash] options
+  def admin_entity_link(entity, text = nil, options = {})
+    if text.nil?
+      text = entity.respond_to?(:text_for_link) ? entity.text_for_link : entity.id
+    end
+
+    href = "/admin/#{entity.class.table_name}/#{entity.id}"
+    link_to(text, href, options)
+  end
+
   # @param [String] path
   # @param [String] title
   # @param [Hash] options
