@@ -111,6 +111,10 @@ class User < ApplicationRecord
     screen_name
   end
 
+  def text_for_link
+    profile_name
+  end
+
   def name_for_letter
     data.dig('profile', 'name').blank? ? profile_name : data['profile']['name']
   end

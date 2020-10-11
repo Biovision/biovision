@@ -44,4 +44,8 @@ class DynamicPage < ApplicationRecord
   def long_slug
     language.nil? ? slug : "#{slug} (#{language.code})"
   end
+
+  def text_for_link
+    long_slug
+  end
 end

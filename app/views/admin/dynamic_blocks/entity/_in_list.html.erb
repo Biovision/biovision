@@ -1,15 +1,7 @@
 <div class="data">
-  <div><%= admin_dynamic_block_link(entity) %></div>
+  <div><%= admin_entity_link(entity) %></div>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: entity,
-            url: toggle_admin_dynamic_block_path(id: entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <ul class="actions">
     <li><%= edit_icon(edit_dynamic_block_path(id: entity.id)) %></li>

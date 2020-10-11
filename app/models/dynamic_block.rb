@@ -25,4 +25,8 @@ class DynamicBlock < ApplicationRecord
   def self.entity_parameters
     %i[body slug visible]
   end
+
+  def text_for_link
+    slug
+  end
 end

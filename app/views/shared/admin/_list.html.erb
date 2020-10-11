@@ -7,10 +7,7 @@
         <%=
           render(
               partial: "admin/#{entity.class.table_name}/entity/in_list",
-              locals: {
-                  entity: entity,
-                  handler: local_assigns[:handler]
-              }
+              locals: { entity: entity, handler: local_assigns[:handler] }
           )
         %>
       </li>

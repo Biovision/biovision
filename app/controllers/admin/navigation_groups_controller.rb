@@ -2,16 +2,9 @@
 
 # Administrative part for handling navigation_groups
 class Admin::NavigationGroupsController < AdminController
+  include ListAndShowEntities
+
   before_action :set_entity, except: :index
-
-  # get /admin/navigation_groups
-  def index
-    @collection = NavigationGroup.list_for_administration
-  end
-
-  # get /admin/navigation_groups/:id
-  def show
-  end
 
   private
 
@@ -22,10 +15,5 @@ class Admin::NavigationGroupsController < AdminController
   def restrict_access
     error = 'Managing content is not allowed'
     handle_http_401(error) unless component_handler.allow?('content_manager')
-  end
-
-  def set_entity
-    @entity = NavigationGroup.find_by(id: params[:id])
-    handle_http_404('Cannot find navigation_group') if @entity.nil?
   end
 end
