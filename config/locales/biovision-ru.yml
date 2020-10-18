@@ -93,6 +93,11 @@ ru:
     forms:
       state_container:
         saving: "Сохранение…"
+    entity:
+      edit:
+        nav_text: "Редактировать"
+      new:
+        nav_text: "Создать"
   nothing_found: "Ничего не нашлось"
   save: "Сохранить"
   are_you_sure: "Вы уверены?"

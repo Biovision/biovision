@@ -5,15 +5,7 @@
     <div class="info"><%= entity.name %></div>
   <% end %>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: entity,
-            url: toggle_admin_dynamic_page_path(id: entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <ul class="actions">
     <li><%= edit_icon(edit_dynamic_page_path(id: entity.id)) %></li>

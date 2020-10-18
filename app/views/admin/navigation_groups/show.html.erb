@@ -14,7 +14,7 @@
 
   <dl class="fields">
     <div>
-      <dt><%= t('activerecord.attributes.navigation_group.name') %></dt>
+      <dt><%= @entity.class.human_attribute_name(:name) %></dt>
       <dd><%= @entity.name %></dd>
     </div>
 

@@ -15,21 +15,7 @@
   <dl class="fields">
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/language', locals: { entity: @entity } %>
-
-    <% unless @entity.name.blank? %>
-      <div>
-        <dt><%= t('activerecord.attributes.dynamic_page.name') %></dt>
-        <dd><%= @entity.name %></dd>
-      </div>
-    <% end %>
-
-    <% unless @entity.url.blank? %>
-      <div>
-        <dt><%= t('activerecord.attributes.dynamic_page.url') %></dt>
-        <dd><%= @entity.url %></dd>
-      </div>
-    <% end %>
-
+    <%= render partial: 'shared/entity/text_fields', locals: { entity: @entity, list: %w[name url] } %>
     <%= render partial: 'shared/entity/simple_image', locals: { entity: @entity } %>
 
     <div>
@@ -45,13 +31,5 @@
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 
-  <%=
-    render(
-        partial: 'shared/admin/toggleable',
-        locals: {
-            entity: @entity,
-            url: toggle_admin_dynamic_page_path(id: @entity.id)
-        }
-    )
-  %>
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
 </article>

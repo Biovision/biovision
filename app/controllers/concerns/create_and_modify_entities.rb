@@ -26,6 +26,7 @@ module CreateAndModifyEntities
   # get /[table_name]/new
   def new
     @entity = model_class.new
+    render 'shared/entity/new'
   end
 
   # post /[table_name]
@@ -40,6 +41,7 @@ module CreateAndModifyEntities
 
   # get /[table_name]/:id/edit
   def edit
+    render 'shared/entity/edit'
   end
 
   # patch /[table_name]/:id
