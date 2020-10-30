@@ -11,11 +11,13 @@ class CreateContentComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
+    [
+      DynamicBlock, NavigationGroupPage, NavigationGroup, DynamicPage
+    ].each do |model|
+      drop_table model.table_name if model.table_exists?
+    end
+
     BiovisionComponent[Biovision::Components::ContentComponent.slug]&.destroy
-    drop_table :dynamic_blocks if DynamicBlock.table_exists?
-    drop_table :navigation_group_pages if NavigationGroupPage.table_exists?
-    drop_table :navigation_groups if NavigationGroup.table_exists?
-    drop_table :dynamic_pages if DynamicPage.table_exists?
   end
 
   private

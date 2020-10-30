@@ -4,12 +4,14 @@
 module ListAndShowEntities
   extend ActiveSupport::Concern
 
-  # Define in controllers
+  included do
+    before_action :set_entity, only: :show
+  end
+
   def model_class
     @model_class ||= controller_name.classify.constantize
   end
 
-  # Define in controllers
   def paginate_entities?
     model_class.respond_to?(:page_for_administration)
   end

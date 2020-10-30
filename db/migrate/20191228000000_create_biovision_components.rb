@@ -10,10 +10,9 @@ class CreateBiovisionComponents < ActiveRecord::Migration[6.0]
   end
 
   def down
-    drop_table :languages if Language.table_exists?
-    drop_table :metric_values if MetricValue.table_exists?
-    drop_table :metrics if Metric.table_exists?
-    drop_table :biovision_components if BiovisionComponent.table_exists?
+    [Language, MetricValue, Metric, BiovisionComponent].each do |model|
+      drop_table model.table_name if model.table_exists?
+    end
   end
 
   private

@@ -5,8 +5,6 @@ class Admin::DynamicPagesController < AdminController
   include ListAndShowEntities
   include ToggleableEntity
 
-  before_action :set_entity, except: :index
-
   private
 
   def component_class

@@ -10,9 +10,9 @@ class CreateTrackComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
-    drop_table :ip_addresses if IpAddress.table_exists?
-    drop_table :agents if Agent.table_exists?
-    drop_table :browsers if Browser.table_exists?
+    [IpAddress, Agent, Browser].each do |model|
+      drop_table model.table_name if model.table_exists?
+    end
   end
 
   private

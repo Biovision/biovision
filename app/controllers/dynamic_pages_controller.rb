@@ -4,8 +4,6 @@
 class DynamicPagesController < AdminController
   include CreateAndModifyEntities
 
-  before_action :set_entity, only: %i[edit update destroy]
-
   protected
 
   def component_class

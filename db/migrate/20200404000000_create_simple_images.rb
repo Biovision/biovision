@@ -9,9 +9,9 @@ class CreateSimpleImages < ActiveRecord::Migration[6.0]
   end
 
   def down
-    drop_table :simple_image_tag_images if SimpleImageTagImage.table_exists?
-    drop_table :simple_image_tags if SimpleImageTag.table_exists?
-    drop_table :simple_images if SimpleImage.table_exists?
+    [SimpleImageTagImage, SimpleImageTag, SimpleImage].each do |model|
+      drop_table model.table_name if model.table_exists?
+    end
   end
 
   private

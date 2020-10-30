@@ -16,15 +16,13 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
-    drop_table :notifications if Notification.table_exists?
-    drop_table :codes if Code.table_exists?
-    drop_table :biovision_component_users if BiovisionComponentUser.table_exists?
-    drop_table :foreign_users if ForeignUser.table_exists?
-    drop_table :foreign_sites if ForeignSite.table_exists?
-    drop_table :user_languages if UserLanguage.table_exists?
-    drop_table :login_attempts if LoginAttempt.table_exists?
-    drop_table :tokens if Token.table_exists?
-    drop_table :users if User.table_exists?
+    [
+      Notification, Code, BiovisionComponentUser, ForeignUser, ForeignSite,
+      UserLanguage, LoginAttempt, Token, User
+    ].each do |model|
+      drop_table model.table_name if model.table_exists?
+    end
+
     BiovisionComponent[Biovision::Components::UsersComponent.slug]&.destroy
   end
 
@@ -57,7 +55,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       t.timestamps
       t.integer :primary_id, index: true
       t.integer :inviter_id, index: true
-      t.integer :balance, default: 0, null: false
       t.boolean :super_user, default: false, null: false
       t.boolean :banned, default: false, null: false
       t.boolean :bot, default: false, null: false
