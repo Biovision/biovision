@@ -14,16 +14,7 @@
 
   <dl class="fields">
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
-
-    <div>
-      <dt><%= t('activerecord.attributes.dynamic_block.body') %></dt>
-      <dd>
-        <div class="text">
-          <%= @entity.body %>
-        </div>
-      </dd>
-    </div>
-
+    <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :body } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
 

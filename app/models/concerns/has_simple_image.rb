@@ -6,6 +6,8 @@ module HasSimpleImage
 
   included do
     belongs_to :simple_image, optional: true, counter_cache: :object_count
+
+    scope :included_image, -> { includes(:simple_image) }
   end
 
   def image

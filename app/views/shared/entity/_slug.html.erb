@@ -1,4 +1,6 @@
-<div>
-  <dt><%= t('attributes.slug') %></dt>
-  <dd><%= entity.slug %></dd>
-</div>
+<% unless entity.slug.blank? %>
+  <div>
+    <dt><%= t('attributes.slug') %></dt>
+    <dd><%= entity.slug %></dd>
+  </div>
+<% end %>

@@ -4,10 +4,6 @@
 module CreateAndModifyEntities
   extend ActiveSupport::Concern
 
-  included do
-    before_action :set_entity, only: %i[destroy edit update]
-  end
-
   def model_class
     @model_class ||= controller_name.classify.constantize
   end
@@ -59,7 +55,7 @@ module CreateAndModifyEntities
 
   # delete /[table_name]/:id
   def destroy
-    flash[:notice] = t(".success") if @entity.destroy
+    flash[:notice] = t('.success') if @entity.destroy
     redirect_to path_after_destroy
   end
 

@@ -88,3 +88,25 @@ form {
     outline: none;
   }
 }
+
+.floating-label {
+  display: block;
+  padding: 1.4rem 0 0 0;
+  position: relative;
+
+  span {
+    top: 1.2rem;
+    font-size: 1rem;
+    left: .4rem;
+    line-height: 1;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    transition: .25s;
+  }
+
+  input:not(:placeholder-shown) + span {
+    opacity: 1;
+    top: .2rem;
+  }
+}

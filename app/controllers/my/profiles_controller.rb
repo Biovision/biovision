@@ -47,7 +47,7 @@ class My::ProfilesController < ApplicationController
     end
   end
 
-  protected
+  private
 
   def component_class
     Biovision::Components::UsersComponent

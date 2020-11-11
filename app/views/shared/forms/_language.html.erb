@@ -3,34 +3,35 @@
   entity = f.object
   model_name = entity.class.to_s.underscore
 %>
-<% if collection.any? %>
+<% if collection.count > 1 %>
   <div>
     <dt><%= f.label :language_id %></dt>
     <dd>
       <ul>
         <li>
-          <%=
-            radio_button_tag(
-                "#{model_name}[language_id]",
-                '',
-                entity.language.nil?,
-                id: "#{model_name}_language_0"
-            )
-          %>
-          <%= label_tag("#{model_name}_language_0", t(:not_set)) %>
-        </li>
-        <% collection.each do |language| %>
-          <li>
-            <% element_id = "#{model_name}_language_#{language.id}" %>
+          <label>
             <%=
               radio_button_tag(
                   "#{model_name}[language_id]",
-                  language.id,
-                  entity.language == language,
-                  id: element_id
+                  '',
+                  entity.language.nil?,
               )
             %>
-            <%= label_tag(element_id, language.name) %>
+            <span><%= t(:not_set) %></span>
+          </label>
+        </li>
+        <% collection.each do |language| %>
+          <li>
+            <label>
+              <%=
+                radio_button_tag(
+                    "#{model_name}[language_id]",
+                    language.id,
+                    entity.language == language,
+                )
+              %>
+              <span><%= language.name %></span>
+            </label>
           </li>
         <% end %>
       </ul>

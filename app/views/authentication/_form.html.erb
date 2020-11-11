@@ -32,9 +32,9 @@
   <div class="actions">
     <%= hidden_field_tag :from, from unless from.blank? %>
     <%= hidden_field_tag :form_id, form_id %>
-    <%= button_tag t('.log_in'), class: 'button-primary' %>
+    <%= button_tag t('.log_in'), class: 'button button-primary' %>
     <% if component.settings['registration_open'] %>
-      <%= link_to t('my.profiles.new.title'), new_my_profile_path, class: 'button-nav' %>
+      <%= link_to t('my.profiles.new.title'), new_my_profile_path, class: 'button button-ghost' %>
     <% end %>
   </div>
 <% end %>

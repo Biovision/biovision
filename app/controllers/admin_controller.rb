@@ -4,7 +4,7 @@
 class AdminController < ApplicationController
   before_action :restrict_access
 
-  protected
+  private
 
   def restrict_access
     error = t('admin.errors.unauthorized.message')

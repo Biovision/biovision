@@ -79,18 +79,18 @@ module BiovisionHelper
   # @param [String] path
   # @param [String] text
   def create_button(path, text = t(:create))
-    link_to(text, path, class: 'button-create')
+    link_to(text, path, class: 'button button-save')
   end
 
   # @param [String] path
   # @param [String] text
   def edit_button(path, text = t(:edit))
-    link_to(text, path, class: 'button-edit')
+    link_to(text, path, class: 'button button-secondary')
   end
 
   # @param [String] path
   # @param [String] text
   def destroy_button(path, text = t(:delete))
-    link_to(text, path, class: 'button-destroy')
+    link_to(text, path, class: 'button button-danger')
   end
 end

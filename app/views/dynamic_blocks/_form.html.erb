@@ -11,37 +11,8 @@
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl class="fields">
-    <div>
-      <dt><%= f.label :slug %></dt>
-      <dd>
-        <%=
-          f.text_field(
-              :slug,
-              class: 'input-text',
-              data: { check: :slug },
-              maxlength: DynamicBlock::SLUG_LIMIT,
-              required: true,
-              size: nil
-          )
-        %>
-        <div class="check-result-error" data-field="slug"></div>
-        <div class="guideline"><%= t('.guidelines.slug') %></div>
-      </dd>
-    </div>
-
-    <div>
-      <dt><%= f.label :body %></dt>
-      <dd>
-        <%=
-          f.text_area(
-              :body,
-              class: 'input-text',
-              rows: 10
-          )
-        %>
-      </dd>
-    </div>
-
+    <%= render partial: 'shared/forms/text_field', locals: { f: f, field: :slug } %>
+    <%= render partial: 'shared/forms/text_area', locals: { f: f, field: :body } %>
     <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
   </dl>
 
@@ -49,6 +20,6 @@
 
   <div class="buttons">
     <%= hidden_field_tag :entity_id, entity.id %>
-    <%= f.button t(:save), class: 'button-save' %>
+    <%= f.button t(:save), class: 'button button-save' %>
   </div>
 <% end %>

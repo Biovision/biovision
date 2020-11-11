@@ -4,7 +4,9 @@
 class DynamicPagesController < AdminController
   include CreateAndModifyEntities
 
-  protected
+  before_action :set_entity, except: %i[check create new]
+
+  private
 
   def component_class
     Biovision::Components::ContentComponent
