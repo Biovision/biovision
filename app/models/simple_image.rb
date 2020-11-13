@@ -23,25 +23,39 @@ class SimpleImage < ApplicationRecord
   include HasTrack
   include HasUuid
 
-  CAPTION_LIMIT = 255
-  LINK_LIMIT = 255
-  NAME_LIMIT = 255
   META_LIMIT = 255
 
+  mount_uploader :image, SimpleImageUploader
+
+  belongs_to :agent, optional: true
   belongs_to :biovision_component
   belongs_to :user, optional: true
+  has_many :simple_image_tag_images, dependent: :destroy
+  has_many :simple_image_tags, through: :simple_image_tag_images
 
   validates_presence_of :image
-  validates_length_of :caption, maximum: CAPTION_LIMIT
+  validates_length_of :caption, maximum: META_LIMIT
   validates_length_of :image_alt_text, maximum: META_LIMIT
-  validates_length_of :source_link, maximum: LINK_LIMIT
-  validates_length_of :source_name, maximum: NAME_LIMIT
+  validates_length_of :source_link, maximum: META_LIMIT
+  validates_length_of :source_name, maximum: META_LIMIT
+
+  scope :in_component, ->(v) { where(biovision_component: v) }
+  scope :filtered, ->(v) { where('image ilike ? or caption ilike ?', "%#{v}%", "%#{v}%") unless v.blank? }
+  scope :list_for_administration, -> { order('image asc') }
 
   def self.entity_parameters
     %i[caption image image_alt_text source_link source_name]
   end
 
   def name
-    caption.blank? ? File.basename(image.path) : caption
+    File.basename(image.path)
+  end
+
+  def file_size
+    File.size(image.path)
+  end
+
+  def image_slug
+    "#{uuid[0..2]}/#{uuid[3..5]}/#{uuid}"
   end
 end

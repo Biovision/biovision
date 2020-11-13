@@ -24,9 +24,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # Content component
-  resources :dynamic_blocks, :dynamic_pages, :navigation_groups, only: %i[destroy update]
-
   scope '(:locale)', constraints: { locale: /ru|en/ } do
     root 'index#index'
 
@@ -44,9 +41,6 @@ Rails.application.routes.draw do
       delete 'logout' => :destroy
       get 'auth/:provider/callback' => :auth_callback, as: :auth_callback
     end
-
-    # Content component
-    resources :dynamic_blocks, :dynamic_pages, :navigation_groups, only: %i[new create edit], concerns: :check
 
     namespace :admin do
       get '/' => 'index#index'
@@ -74,8 +68,8 @@ Rails.application.routes.draw do
       resources :agents, :ip_addresses, only: :index
 
       # Content component
-      resources :dynamic_pages, :dynamic_blocks, only: %i[index show], concerns: :toggle
-      resources :navigation_groups, only: %i[index show] do
+      resources :dynamic_pages, :dynamic_blocks, concerns: %i[check toggle]
+      resources :navigation_groups, concerns: :check do
         member do
           put 'dynamic_pages/:page_id' => :add_page, as: :dynamic_page
           delete 'dynamic_pages/:page_id' => :remove_page

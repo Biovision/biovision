@@ -187,4 +187,45 @@ ul.actions {
   }
 }
 
+.entity-actions {
+  align-items: center;
+  background: #fff;
+  border-radius: .4rem;
+  box-shadow: var(--block-shadow);
+  display: flex;
+  justify-content: flex-end;
+  margin: 0;
+  opacity: .5;
+  padding: 0;
+  position: absolute;
+  right: var(--spacer-xxs);
+  top: var(--spacer-xxs);
+  transition: .25s;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  .danger {
+    margin-left: var(--spacer-s);
+  }
+
+  > a,
+  > button {
+    display: inline-block;
+    font-size: var(--font-size-decreased);
+    height: 2.4rem;
+    line-height: 1;
+    margin: 0;
+    padding: var(--spacer-xxs);
+    width: 2.4rem;
+  }
+
+  img {
+    height: 100%;
+    object-fit: contain;
+    width: 100%;
+  }
+}
+
 @import "biovision/biovision/messages";

@@ -168,7 +168,7 @@ class Admin::ComponentsController < AdminController
 
   def image_parameters
     permitted = SimpleImage.entity_parameters
-    params.require(:simple_image).permit(permitted)
-    permitted.merge(owner_for_entity(true))
+    parameters = params.require(:simple_image).permit(permitted)
+    parameters.merge(owner_for_entity(true))
   end
 end

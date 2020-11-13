@@ -69,7 +69,42 @@ form {
     padding: var(--spacer-xxs) 0;
   }
 
-  input:not([type=radio]):not([type=checkbox]):not([size]),
+  .text {
+    background: #f7f7f7;
+    border-radius: .4rem;
+    box-shadow: .2rem .2rem .4rem rgba(0, 0, 0, .25);
+    padding: var(--spacer-xs);
+
+    p:first-of-type {
+      margin-top: 0;
+    }
+
+    p:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .preview {
+    a {
+      box-shadow: var(--block-shadow);
+      display: flex;
+      max-width: 48rem;
+    }
+
+    img {
+      height: 100%;
+      object-fit: contain;
+      width: 100%;
+    }
+
+    figcaption {
+      color: var(--text-color-secondary);
+      font-size: var(--font-size-decreased);
+      padding: var(--spacer-xs);
+    }
+  }
+
+  input:not([type=radio]):not([type=checkbox]):not([size]):not([type=number]),
   textarea {
     width: 100%;
   }

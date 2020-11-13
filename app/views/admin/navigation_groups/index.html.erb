@@ -7,8 +7,8 @@
 <article>
   <h1><%= t('.heading') %></h1>
 
-  <nav>
-    <%= create_button(new_navigation_group_path) %>
+  <nav class="entity-actions">
+    <%= create_icon(new_admin_navigation_group_path) %>
   </nav>
 
   <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>

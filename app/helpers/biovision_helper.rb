@@ -23,10 +23,11 @@ module BiovisionHelper
     icon_with_link('biovision/icons/world.svg', path, title, options)
   end
 
-  # @param [String] path
+  # @param [String|ApplicationRecord] path
   # @param [String] title
   # @param [Hash] options
   def gear_icon(path, title = t(:view_settings), options = {})
+    path = "/admin/#{path.class.table_name}/#{path.id}" if path.is_a? ApplicationRecord
     icon_with_link('biovision/icons/gear.svg', path, title, options)
   end
 
@@ -51,22 +52,25 @@ module BiovisionHelper
     icon_with_link('biovision/icons/return.svg', path, title, options)
   end
 
-  # @param [String] path
+  # @param [String|ApplicationRecord] path
   # @param [String] title
   # @param [Hash] options
   def edit_icon(path, title = t(:edit), options = {})
+    path = "/admin/#{path.class.table_name}/#{path.id}/edit" if path.is_a? ApplicationRecord
     icon_with_link('biovision/icons/edit.svg', path, title, options)
   end
 
-  # @param [ApplicationRecord] entity
+  # @param [String|ApplicationRecord] path
   # @param [String] title
   # @param [Hash] options
-  def destroy_icon(entity, title = t(:delete), options = {})
+  def destroy_icon(path, title = t(:delete), options = {})
+    path = "/admin/#{path.class.table_name}/#{path.id}" if path.is_a? ApplicationRecord
     default = {
+      class: 'danger',
+      data: { confirm: t(:are_you_sure) },
       method: :delete,
-      data: { confirm: t(:are_you_sure)}
     }
-    icon_with_link('biovision/icons/destroy.svg', entity, title, default.merge(options))
+    icon_with_link('biovision/icons/destroy.svg', path, title, default.merge(options))
   end
 
   # @param [String|ApplicationRecord] path
@@ -82,15 +86,22 @@ module BiovisionHelper
     link_to(text, path, class: 'button button-save')
   end
 
-  # @param [String] path
+  # @param [String|ApplicationRecord] path
   # @param [String] text
   def edit_button(path, text = t(:edit))
+    path = "/admin/#{path.class.table_name}/#{path.id}/edit" if path.is_a? ApplicationRecord
     link_to(text, path, class: 'button button-secondary')
   end
 
-  # @param [String] path
+  # @param [String|ApplicationRecord] path
   # @param [String] text
   def destroy_button(path, text = t(:delete))
-    link_to(text, path, class: 'button button-danger')
+    path = "/admin/#{path.class.table_name}/#{path.id}" if path.is_a? ApplicationRecord
+    options = {
+      class: 'button button-danger',
+      data: { confirm: t(:are_you_sure) },
+      method: :delete
+    }
+    link_to(text, path, options)
   end
 end

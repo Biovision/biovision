@@ -1,18 +1,10 @@
-<% model_name = entity.class.to_s.underscore %>
-<%=
-  form_with(
-      model: entity,
-      html: {
-          id: "#{model_name}-form",
-          data: { check_url: check_navigation_groups_path }
-      }
-  ) do |f|
-%>
+<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl class="fields">
-    <%= render partial: 'shared/forms/text_field', locals: { f: f, field: :name } %>
     <%= render partial: 'shared/forms/text_field', locals: { f: f, field: :slug } %>
+    <%= render partial: 'shared/forms/text_area', locals: { f: f, field: :body } %>
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
   </dl>
 
   <%= render 'shared/forms/state_container' %>

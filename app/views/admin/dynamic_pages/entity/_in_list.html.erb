@@ -7,8 +7,8 @@
 
   <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
-  <ul class="actions">
-    <li><%= edit_icon(edit_dynamic_page_path(id: entity.id)) %></li>
-    <li class="danger"><%= destroy_icon(@entity) %></li>
-  </ul>
+  <div class="entity-actions">
+    <%= edit_icon(entity) %>
+    <%= destroy_icon(entity) %>
+  </div>
 </div>

@@ -8,8 +8,8 @@
 <article>
   <h1><%= @entity.class.model_name.human %> <q><%= @entity.name %></q></h1>
 
-  <nav>
-    <%= edit_button(edit_navigation_group_path(id: @entity.id)) %>
+  <nav class="entity-actions">
+    <%= edit_icon(@entity) %>
   </nav>
 
   <dl class="fields">
