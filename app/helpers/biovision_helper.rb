@@ -16,10 +16,33 @@ module BiovisionHelper
     link_to(text, href, options)
   end
 
-  # @param [String] path
+  # @param [ApplicationRecord] entity
+  # @param [String] text
+  # @param [Hash] options
+  def entity_link(entity, text = nil, options = {})
+    return '' if entity.nil?
+
+    if text.nil?
+      text = entity.respond_to?(:text_for_link) ? entity.text_for_link : entity.id
+    end
+
+    href = if entity.respond_to?(:world_url)
+             entity.world_url
+           else
+             "/#{entity.class.table_name}/#{entity.id}"
+           end
+
+    link_to(text, href, options)
+  end
+
+  # @param [String|ApplicationRecord] path
   # @param [String] title
   # @param [Hash] options
   def world_icon(path, title = t(:view_as_visitor), options = {})
+    if path.is_a? ApplicationRecord
+      table_name = path.class.table_name
+      path = path.respond_to?(:world_url) ? path.world_url : "/#{table_name}/#{path.id}"
+    end
     icon_with_link('biovision/icons/world.svg', path, title, options)
   end
 

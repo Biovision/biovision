@@ -9,6 +9,7 @@
   <h1><%= @entity.class.model_name.human %> <q><%= @entity.long_slug %></q></h1>
 
   <nav class="entity-actions">
+    <%= world_icon(@entity) unless @entity.url.blank? %>
     <%= edit_icon(@entity) %>
   </nav>
 

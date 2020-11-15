@@ -37,6 +37,11 @@ class DynamicPage < ApplicationRecord
 
   scope :list_for_administration, -> { included_image.order('slug asc, language_id asc nulls first') }
 
+  # @param [String] slug
+  def self.[](slug)
+    find_by(slug: slug)
+  end
+
   def self.entity_parameters
     %i[body language_id name simple_image_id slug url visible]
   end
@@ -47,5 +52,9 @@ class DynamicPage < ApplicationRecord
 
   def text_for_link
     long_slug
+  end
+
+  def world_url
+    url.blank? ? '/' : url
   end
 end

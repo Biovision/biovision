@@ -86,5 +86,7 @@ Rails.application.routes.draw do
       resource :profile, except: :destroy, concerns: :check
       resource :confirmation, :recovery, only: %i[show create update]
     end
+
+    get ':slug' => 'fallback#show', constraints: { slug: /.+/ }
   end
 end

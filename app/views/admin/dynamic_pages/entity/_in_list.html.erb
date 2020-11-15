@@ -8,6 +8,7 @@
   <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
 
   <div class="entity-actions">
+    <%= world_icon(entity) unless entity.url.blank? %>
     <%= edit_icon(entity) %>
     <%= destroy_icon(entity) %>
   </div>
