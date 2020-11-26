@@ -2,12 +2,11 @@
 
 # Useful helper methods for application
 module Biovision
+  # Base additional methods for application controller
   module BaseMethods
     extend ActiveSupport::Concern
 
     included do
-      before_action :set_locale
-
       helper_method :visitor_slug
       helper_method :component_handler
       helper_method :current_page, :param_from_request
@@ -60,11 +59,7 @@ module Biovision
       end
     end
 
-    def set_locale
-      I18n.locale = params[:locale] || I18n.default_locale
-    end
-
-    protected
+    private
 
     # Handle generic HTTP error without raising exception
     #
