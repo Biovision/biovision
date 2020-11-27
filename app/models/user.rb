@@ -5,17 +5,15 @@
 # Attributes:
 #   agent_id [Agent], optional
 #   allow_mail [boolean]
-#   balance [integer]
 #   banned [boolean]
 #   birthday [date], optional
 #   bot [boolean]
-#   consent [boolean]
 #   created_at [DateTime]
 #   data [jsonb]
 #   deleted [boolean]
 #   email [string], optional
 #   email_confirmed [boolean]
-#   image [UserImageUploader]
+#   image [SimpleImageUploader]
 #   inviter_id [User], optional
 #   ip_address_id [IpAddress], optional
 #   language_id [Language], optional
@@ -24,6 +22,7 @@
 #   password_digest [string]
 #   phone_confirmed [boolean]
 #   primary_id [User], optional
+#   profile [Jsonb]
 #   screen_name [string]
 #   slug [string]
 #   super_user [boolean]
@@ -34,7 +33,6 @@
 class User < ApplicationRecord
   include Checkable
   include HasLanguage
-  include HasSimpleImage
   include HasTrack
   include HasUuid
   include Toggleable
@@ -48,13 +46,13 @@ class User < ApplicationRecord
   toggleable :banned, :allow_mail, :email_confirmed, :phone_confirmed
 
   has_secure_password
-  mount_uploader :image, UserImageUploader
+  mount_uploader :image, SimpleImageUploader
 
   belongs_to :inviter, class_name: User.to_s, optional: true
   has_many :invitees, class_name: User.to_s, foreign_key: :inviter_id, dependent: :nullify
   has_many :tokens, dependent: :delete_all
   has_many :codes, dependent: :delete_all
-  has_many :foreign_users, dependent: :delete_all
+  has_many :foreign_users, dependent: :delete_all if Gem.loaded_specs.key?('biovision-oauth')
   has_many :login_attempts, dependent: :delete_all
   has_many :user_languages, dependent: :delete_all
 
@@ -116,14 +114,14 @@ class User < ApplicationRecord
   end
 
   def name_for_letter
-    data.dig('profile', 'name').blank? ? profile_name : data['profile']['name']
+    profile['name'].blank? ? profile_name : profile['name']
   end
 
   # @param [TrueClass|FalseClass] include_patronymic
   def full_name(include_patronymic = false)
     result = [name_for_letter]
-    result << data.dig('profile', 'patronymic').to_s.strip if include_patronymic
-    result << data.dig('profile', 'surname').to_s.strip
+    result << profile['patronymic'].to_s.strip if include_patronymic
+    result << profile['surname'].to_s.strip
     result.compact.join(' ')
   end
 

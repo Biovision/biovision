@@ -8,8 +8,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     create_tokens unless Token.table_exists?
     create_login_attempts unless LoginAttempt.table_exists?
     create_user_languages unless UserLanguage.table_exists?
-    create_foreign_sites unless ForeignSite.table_exists?
-    create_foreign_users unless ForeignUser.table_exists?
     create_component_links unless BiovisionComponentUser.table_exists?
     create_codes unless Code.table_exists?
     create_notifications unless Notification.table_exists?
@@ -17,8 +15,8 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
 
   def down
     [
-      Notification, Code, BiovisionComponentUser, ForeignUser, ForeignSite,
-      UserLanguage, LoginAttempt, Token, User
+      Notification, Code, BiovisionComponentUser, UserLanguage, LoginAttempt,
+      Token, User
     ].each do |model|
       drop_table model.table_name if model.table_exists?
     end
@@ -59,7 +57,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       t.boolean :banned, default: false, null: false
       t.boolean :bot, default: false, null: false
       t.boolean :deleted, default: false, null: false
-      t.boolean :consent, default: false, null: false
       t.boolean :email_confirmed, default: false, null: false
       t.boolean :phone_confirmed, default: false, null: false
       t.boolean :allow_mail, default: true, null: false
@@ -73,7 +70,8 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       t.string :image
       t.string :notice
       t.string :referral_link
-      t.jsonb :data, default: { profile: {} }, null: false
+      t.jsonb :data, default: {}, null: false
+      t.jsonb :profile, default: {}, null: false
     end
 
     add_foreign_key :users, :users, column: :inviter_id, on_update: :cascade, on_delete: :nullify
@@ -82,6 +80,7 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     add_index :users, :uuid, unique: true
     add_index :users, :slug, unique: true
     add_index :users, :data, using: :gin
+    add_index :users, :profile, using: :gin
     add_index :users, :referral_link, unique: true
   end
 
@@ -115,30 +114,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       t.references :language, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps
     end
-  end
-
-  def create_foreign_sites
-    create_table :foreign_sites, comment: 'Sites for external authentication' do |t|
-      t.string :slug, null: false
-      t.string :name, null: false
-      t.integer :foreign_users_count, default: 0, null: false
-    end
-
-    add_index :foreign_sites, :slug, unique: true
-  end
-
-  def create_foreign_users
-    create_table :foreign_users, comment: 'Users from external sites' do |t|
-      t.references :foreign_site, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
-      t.references :ip_address, foreign_key: { on_update: :cascade, on_delete: :nullify }
-      t.string :slug, null: false
-      t.timestamps
-      t.jsonb :data, default: {}, null: false
-    end
-
-    add_index :foreign_users, :data, using: :gin
   end
 
   def create_component_links
