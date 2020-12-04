@@ -2,8 +2,7 @@
 
 # Administrative part for handling dynamic_pages
 class Admin::DynamicPagesController < AdminController
-  include CreateAndModifyEntities
-  include ListAndShowEntities
+  include CrudEntities
   include ToggleableEntity
 
   before_action :set_entity, except: %i[check create index new]

@@ -2,8 +2,7 @@
 
 # Administrative part for handling navigation_groups
 class Admin::NavigationGroupsController < AdminController
-  include CreateAndModifyEntities
-  include ListAndShowEntities
+  include CrudEntities
 
   before_action :set_entity, except: %i[check create index new]
 

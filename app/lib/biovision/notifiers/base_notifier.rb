@@ -20,7 +20,7 @@ module Biovision
       end
 
       def self.slug
-        to_s.demodulize.underscore.gsub('_notifier', '')
+        to_s.demodulize.to_s.underscore.gsub('_notifier', '')
       end
 
       # @param [String] slug
@@ -56,7 +56,7 @@ module Biovision
       def check_and_notify(id, type)
         return if check_chain(id, type).exists?
 
-        notify({id: id, type: type})
+        notify({ id: id, type: type })
       end
 
       # @param [Integer] id
