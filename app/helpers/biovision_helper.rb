@@ -12,7 +12,12 @@ module BiovisionHelper
       text = entity.respond_to?(:text_for_link) ? entity.text_for_link : entity.id
     end
 
-    href = "/admin/#{entity.class.table_name}/#{entity.id}"
+    href = if entity.respond_to?(:admin_url)
+             entity.admin_url
+           else
+             "/admin/#{entity.class.table_name}/#{entity.id}"
+           end
+
     link_to(text, href, options)
   end
 
