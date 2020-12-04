@@ -4,6 +4,16 @@
 module CrudEntities
   extend ActiveSupport::Concern
 
+  def view_for_new
+    default_view = "#{controller_path}/new"
+    lookup_context.exists?(default_view) ? default_view : 'shared/entity/new'
+  end
+
+  def view_for_edit
+    default_view = "#{controller_path}/edit"
+    lookup_context.exists?(default_view) ? default_view : 'shared/entity/edit'
+  end
+
   def model_class
     @model_class ||= controller_name.classify.constantize
   end
@@ -43,7 +53,7 @@ module CrudEntities
   # get /[table_name]/new
   def new
     @entity = model_class.new
-    render 'shared/entity/new'
+    render view_for_new
   end
 
   # post /[table_name]
@@ -52,13 +62,13 @@ module CrudEntities
     if @entity.save
       form_processed_ok(path_after_save)
     else
-      form_processed_with_error(:new)
+      form_processed_with_error(view_for_new)
     end
   end
 
   # get /[table_name]/:id/edit
   def edit
-    render 'shared/entity/edit'
+    render view_for_edit
   end
 
   # patch /[table_name]/:id
@@ -66,7 +76,7 @@ module CrudEntities
     if @entity.update(entity_parameters)
       form_processed_ok(path_after_save)
     else
-      form_processed_with_error(:edit)
+      form_processed_with_error(view_for_edit)
     end
   end
 
