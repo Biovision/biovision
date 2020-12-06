@@ -129,21 +129,8 @@ production:
   concern :priority do
     post :priority, on: :member, defaults: { format: :json }
   end
-
-  concern :removable_image do
-    delete :image, action: :destroy_image, on: :member, defaults: { format: :json }
-  end
-
-  concern :lock do
-    member do
-      put :lock, defaults: { format: :json }
-      delete :lock, action: :unlock, defaults: { format: :json }
-    end
-  end
   
-  scope '(:locale)', constraints: { locale: /ru|en/ } do
-    root 'index#index'  
-  end
+  root 'index#index'  
 ```
 
 ## Дополнения в config/puma.rb

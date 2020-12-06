@@ -104,7 +104,7 @@ form {
     }
   }
 
-  input:not([type=radio]):not([type=checkbox]):not([size]):not([type=number]),
+  input:not([type=radio]):not([type=checkbox]):not([size]):not([type=number]):not([type=date]),
   textarea {
     width: 100%;
   }
