@@ -14,6 +14,16 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
     ActionController::Base.helpers.asset_path('biovision/placeholders/1x1.svg')
   end
 
+  process :auto_orient
+
+  def auto_orient
+    return unless raster?
+
+    manipulate! do |image|
+      image.tap(&:auto_orient)
+    end
+  end
+
   version :hd, if: :raster_image? do
     resize_to_fit(1920, 1920)
   end
