@@ -32,4 +32,8 @@ class Agent < ApplicationRecord
 
     find_or_create_by(name: name[0..254])
   end
+
+  def bot?
+    name.downcase.include?('bot')
+  end
 end
