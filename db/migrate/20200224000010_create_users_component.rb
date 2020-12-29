@@ -131,7 +131,7 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
   def create_codes
     create_table :codes, comment: 'Codes for different purposes' do |t|
       t.references :biovision_component, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
+      t.references :user, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :ip_address, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.integer :quantity, default: 1, null: false

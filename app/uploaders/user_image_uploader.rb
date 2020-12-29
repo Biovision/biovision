@@ -21,7 +21,7 @@ class UserImageUploader < CarrierWave::Uploader::Base
   end
 
   def default_url(*)
-    ActionController::Base.helpers.asset_path('biovision/placeholders/user.svg')
+    ActionController::Base.helpers.asset_path('placeholders/user.svg')
   end
 
   process :auto_orient

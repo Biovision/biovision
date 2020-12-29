@@ -1,3 +1,5 @@
+@import "biovision/vars";
+
 *,
 ::after,
 ::before {
@@ -131,62 +133,6 @@ textarea {
   }
 }
 
-ul.actions {
-  align-items: center;
-  background: #fff;
-  border-radius: .4rem;
-  box-shadow: var(--block-shadow);
-  display: flex;
-  justify-content: flex-end;
-  margin: 0;
-  opacity: .5;
-  padding: 0;
-  position: absolute;
-  right: var(--spacer-xxs);
-  top: var(--spacer-xxs);
-  transition: .25s;
-
-  &:hover {
-    opacity: 1;
-  }
-
-  > li {
-    flex-basis: 1.6rem;
-    height: 1.6rem;
-    line-height: 1.6rem;
-    list-style: none;
-    margin: var(--spacer-xxs);
-    padding: 0;
-
-    &.danger {
-      margin-left: var(--spacer-m);
-    }
-
-    &.priority-changer {
-      align-items: center;
-      display: flex;
-      flex-basis: 3.6rem;
-      justify-content: space-between;
-    }
-  }
-
-  a,
-  button {
-    display: inline-block;
-    font-size: var(--font-size-decreased);
-    height: 1.6rem;
-    line-height: 1.6rem;
-    margin: 0;
-    padding: 0;
-    width: 1.6rem;
-  }
-
-  img {
-    max-height: 1.6rem;
-    max-width: 1.6rem;
-  }
-}
-
 .entity-actions {
   align-items: center;
   background: #fff;
@@ -227,5 +173,3 @@ ul.actions {
     width: 100%;
   }
 }
-
-@import "biovision/biovision/messages";

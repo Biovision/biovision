@@ -13,8 +13,6 @@ Rails.application.routes.draw do
     post :priority, on: :member, defaults: { format: :json }
   end
 
-  root 'index#index'
-
   # Handling errors
   match '/400' => 'errors#bad_request', via: :all
   match '/401' => 'errors#unauthorized', via: :all
