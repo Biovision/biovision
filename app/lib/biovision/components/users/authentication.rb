@@ -11,12 +11,14 @@ module Biovision
           let_user_in?
         end
 
-        protected
+        private
 
         def let_user_in?
-          return false if user.nil? || user.banned?
-
-          too_many_attempts? ? (log_attempt && false) : try_password
+          if user.nil? || user.banned?
+            register_failure && false
+          else
+            too_many_attempts? ? (log_attempt && false) : try_password
+          end
         end
 
         def too_many_attempts?
@@ -35,11 +37,17 @@ module Biovision
         end
 
         def count_attempt
+          register_failure
           log_attempt
           return unless too_many_attempts?
 
           notifier = Biovision::Notifiers::UsersNotifier.new(user)
           notifier.new_login_attempt(@track)
+        end
+
+        def register_failure
+          metric = Biovision::Components::UsersComponent::METRIC_AUTH_FAILURE
+          register_metric(metric)
         end
       end
     end

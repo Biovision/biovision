@@ -7,6 +7,10 @@ $users-tab-color-hover: hsl(220, 100%, 95%) !default;
   max-width: 40rem;
   padding-top: var(--spacer-xs);
 
+  .errors {
+    margin: 0 var(--spacer-xs);
+  }
+
   .labels {
     align-items: center;
     border: .1rem solid $users-tab-color;

@@ -35,7 +35,7 @@ class AuthenticationController < ApplicationController
 
   def find_user
     login = param_from_request(:login).downcase
-    user  = User.find_by(slug: login)
+    user = User.find_by(slug: login)
 
     # Try to authenticate by email, if login does not match anything
     if user.nil? && login.index('@').to_i.positive?
@@ -51,13 +51,11 @@ class AuthenticationController < ApplicationController
 
     from = param_from_request(:from)
     next_page = from =~ %r{\A/[^/]} ? from : my_path
-    render js: "document.location.href = '#{next_page}'"
+    render json: { links: { next: next_page } }
   end
 
   def auth_failed
-    @form_id = param_from_request(:form_id)
-    @error = t('authentication.create.failed')
-
-    render 'failed', formats: :js
+    response = { errors: [{ title: t('authentication.create.failed') }] }
+    render json: response, status: :unauthorized
   end
 end

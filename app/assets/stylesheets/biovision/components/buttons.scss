@@ -59,6 +59,12 @@ $button-danger-color-hover: #fff !default;
   &:hover {
     text-decoration: none;
   }
+
+  &:disabled {
+    cursor: default;
+    filter: grayscale(.75);
+    opacity: .75;
+  }
 }
 
 .button-primary {

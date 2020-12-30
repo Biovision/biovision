@@ -7,6 +7,7 @@ module Biovision
       include Users::Authentication
 
       METRIC_NEW_USER = 'users.new_user.hit'
+      METRIC_AUTH_FAILURE = 'users.auth.failure.hit'
 
       def self.settings_flags
         %w[
