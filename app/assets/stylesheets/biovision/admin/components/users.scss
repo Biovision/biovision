@@ -1,0 +1,16 @@
+#login-form {
+  box-shadow: var(--block-shadow);
+  margin: 0 auto;
+  max-width: 36rem;
+
+  .errors {
+    margin: 0 var(--spacer-xs);
+  }
+
+  .actions {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacer-xs);
+  }
+}

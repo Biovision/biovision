@@ -9,11 +9,8 @@
 
   <%=
     render(
-        partial: 'authentication/form',
-        locals: {
-            form_id: 'auth-form_admin',
-            from: url_for
-        }
+      partial: 'components/users/login_form',
+      locals: { current: 'login', from: url_for }
     )
   %>
 </article>

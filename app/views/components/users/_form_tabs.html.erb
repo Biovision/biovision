@@ -19,7 +19,12 @@
   <div class="tabs">
     <% tabs.each do |tab| %>
       <div class="tab <%= tab %>">
-        <%= render partial: "components/users/#{tab}_form" %>
+        <%=
+          render(
+            partial: "components/users/#{tab}_form",
+            locals: local_assigns
+          )
+        %>
       </div>
     <% end %>
   </div>
