@@ -1,3 +1,5 @@
+$form-control-color: hsl(220, 75%, 75%) !default;
+
 form {
   margin: 0;
   padding: 0;
@@ -143,5 +145,47 @@ form {
   input:not(:placeholder-shown) + span {
     opacity: 1;
     top: .2rem;
+  }
+}
+
+.flag-label {
+  align-items: flex-start;
+  display: flex;
+
+  input {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    border: .2rem solid $form-control-color;
+    border-radius: .2rem;
+    display: inline-block;
+    height: 1.6rem;
+    margin-right: var(--spacer-xxs);
+    outline: none;
+    width: 1.6rem;
+
+    &:focus {
+      box-shadow: .2rem .2rem .2rem var(--input-border-focus);
+    }
+
+    &:checked {
+      background: radial-gradient(#fff, #fff 25%, $form-control-color 25%, $form-control-color);
+    }
+
+    &:disabled {
+      filter: grayscale(1);
+      opacity: .75;
+
+      + span {
+        cursor: default;
+        opacity: .5;
+      }
+    }
+  }
+
+  span {
+    cursor: pointer;
+    flex: 1;
+    padding-top: .1rem;
   }
 }

@@ -1,0 +1,44 @@
+<%= form_with(url: login_path) do%>
+  <div class="fields">
+    <div>
+      <label class="floating-label">
+        <%=
+          text_field_tag(
+            :login,
+            '',
+            class: 'input-text',
+            placeholder: t('.login'),
+            required: true
+          )
+        %>
+        <span><%= t('.login') %></span>
+      </label>
+      <div class="guideline"><%= t('.guidelines.login') %></div>
+    </div>
+    <div>
+      <label class="floating-label">
+        <%=
+          password_field_tag(
+            :password,
+            '',
+            class: 'input-text',
+            placeholder: t('activerecord.attributes.user.password'),
+            required: true
+          )
+        %>
+        <span><%= t('activerecord.attributes.user.password') %></span>
+      </label>
+      <div class="guideline"><%= t('.guidelines.password') %></div>
+    </div>
+  </div>
+  <div class="actions">
+    <%= button_tag t('.log_in'), class: 'button button-primary' %>
+    <%=
+      link_to(
+        t('my.recoveries.show.nav_text'),
+        my_recovery_path,
+        class: 'button button-secondary'
+      )
+    %>
+  </div>
+<% end %>

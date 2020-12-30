@@ -1,0 +1,26 @@
+<% tabs = %w[login join] %>
+<section class="users__form-tabs">
+  <% tabs.each do |tab| %>
+    <%=
+      radio_button_tag(
+        'users__form_tab',
+        tab,
+        current == tab,
+        class: "visually-hidden tab-control-#{tab}",
+        id: "users__form-tab_#{tab}"
+      )
+    %>
+  <% end %>
+  <header class="labels">
+    <% tabs.each do |tab| %>
+      <%= label_tag("users__form-tab_#{tab}", t(".#{tab}"), class: tab) %>
+    <% end %>
+  </header>
+  <div class="tabs">
+    <% tabs.each do |tab| %>
+      <div class="tab <%= tab %>">
+        <%= render partial: "components/users/#{tab}_form" %>
+      </div>
+    <% end %>
+  </div>
+</section>

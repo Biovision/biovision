@@ -1,0 +1,97 @@
+$users-tab-color: hsl(220, 75%, 50%) !default;
+$users-tab-color-hover: hsl(220, 100%, 95%) !default;
+
+.users__form-tabs {
+  box-shadow: var(--block-shadow);
+  margin: 0 auto var(--spacer-m);
+  max-width: 40rem;
+  padding-top: var(--spacer-xs);
+
+  .labels {
+    align-items: center;
+    border: .1rem solid $users-tab-color;
+    display: flex;
+    margin: 0 var(--spacer-xs);
+
+    label {
+      color: $users-tab-color;
+      cursor: pointer;
+      display: block;
+      flex: 1;
+      padding: var(--spacer-xs) var(--spacer-s);
+      text-align: center;
+      transition: .25s;
+
+      &:hover {
+        background-color: $users-tab-color-hover;
+      }
+    }
+  }
+
+  .tabs {
+    .tab {
+      display: none;
+    }
+
+    .login {
+      form {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  .tab-control-login {
+    &:checked {
+      ~ .labels {
+        .login {
+          background: $users-tab-color;
+          color: var(--text-color-inverted-primary);
+        }
+      }
+
+      ~ .tabs {
+        .login {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .tab-control-join {
+    &:checked {
+      ~ .labels {
+        .join {
+          background: $users-tab-color;
+          color: var(--text-color-inverted-primary);
+        }
+      }
+
+      ~ .tabs {
+        .join {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .fields {
+    > div:not(:last-of-type) {
+      margin-bottom: 0;
+    }
+  }
+
+  .actions {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: var(--spacer-xs);
+  }
+
+  .flags {
+    font-weight: 300;
+
+    li {
+      padding: var(--spacer-xxs) var(--spacer-xs);
+    }
+  }
+}

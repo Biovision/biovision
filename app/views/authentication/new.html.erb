@@ -5,17 +5,11 @@
 
 <article>
   <div class="content-wrapper">
-    <h1><%= t('.heading') %></h1>
-
     <%=
       render(
-          partial: 'authentication/form',
-          locals: { form_id: 'authentication_form' }
+        partial: 'components/users/form_tabs',
+        locals: { current: 'login' }
       )
     %>
-
-    <nav>
-      <%= link_to t('my.recoveries.show.nav_text'), my_recovery_path, class: 'button button-secondary' %>
-    </nav>
   </div>
 </article>

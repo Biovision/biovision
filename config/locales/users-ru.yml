@@ -78,6 +78,12 @@ ru:
         screen_name: "Логин"
         super_user: "Супер пользователь"
         referral_link: "Реферальная ссылка"
+    guidelines:
+      user:
+        screen_name: "Только латинские буквы, цифры и знаки подчёркивания. От 1 до 30 символов."
+        password: "Выберите надёжный пароль, который нельзя легко подобрать."
+        password_confirmation: "Повторите пароль, чтобы убедиться, что вы не ошиблись в наборе."
+        email: "Введите почту для обратной связи и на случай сброса пароля."
   biovision:
     components:
       users:
@@ -130,3 +136,18 @@ ru:
       title: "Вход"
       nav_text: "Войти"
       heading: "Вход на сайт"
+  components:
+    users:
+      form_tabs:
+        login: "Вход"
+        join: "Регистрация"
+      login_form:
+        login: "Логин"
+        log_in: "Войти"
+        guidelines:
+          login: "Логин или email, указанный при регистрации"
+          password: "Пароль, который вы придумали"
+      join_form:
+        invitation_code: "Пригласительный код"
+        i_am_bot: "НЕ ОТМЕЧАЙТЕ эту галочку"
+        join: "Зарегистрироваться"

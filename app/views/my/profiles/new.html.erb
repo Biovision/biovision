@@ -5,13 +5,11 @@
 
 <article>
   <div class="content-wrapper">
-    <h1><%= t('.heading') %></h1>
-
-    <%= render partial: 'my/profiles/new/form', locals: { entity: @entity } %>
-
-    <nav>
-      <p><%= t('.already_joined') %></p>
-      <%= link_to(t('authentication.new.nav_text'), login_path, class: 'button button-ghost') %>
-    </nav>
+    <%=
+      render(
+        partial: 'components/users/form_tabs',
+        locals: { current: 'join' }
+      )
+    %>
   </div>
 </article>

@@ -1,0 +1,142 @@
+<% handler = Biovision::Components::UsersComponent[nil] %>
+<%=
+  form_with(
+    scope: 'user',
+    url: my_profile_path,
+    id: 'user-form',
+    data: { check_url: check_my_profile_path }
+  ) do |f|
+%>
+  <div class="fields">
+    <% unless handler.settings['email_as_login'] %>
+      <div>
+        <label class="floating-label">
+          <%=
+            f.text_field(
+              :screen_name,
+              class: 'input-text',
+              data: { check: :screen_name },
+              maxlength: 30,
+              pattern: '^[-_a-z0-9A-Z]+$',
+              placeholder: User.human_attribute_name(:screen_name),
+              required: true,
+              size: nil
+            )
+          %>
+          <span>
+            <%= User.human_attribute_name(:screen_name) %>
+          </span>
+        </label>
+        <div class="check-result-error" data-field="screen_name"></div>
+        <div class="guideline"><%= t('activerecord.guidelines.user.screen_name') %></div>
+      </div>
+    <% end %>
+
+    <div>
+      <label class="floating-label">
+        <%=
+          f.email_field(
+            :email,
+            class: 'input-text',
+            data: { check: :email },
+            maxlength: User::EMAIL_LIMIT,
+            placeholder: User.human_attribute_name(:email),
+            required: handler.settings['require_email'],
+            size: nil
+          )
+        %>
+        <span><%= User.human_attribute_name(:email) %></span>
+      </label>
+      <div class="check-result-error" data-field="email"></div>
+      <% unless handler.settings['email_as_login'] %>
+        <div class="guideline"><%= t('activerecord.guidelines.user.email') %></div>
+      <% end %>
+    </div>
+
+    <div>
+      <label class="floating-label">
+        <%=
+          f.password_field(
+            :password,
+            class: 'input-text',
+            data: { check: :password },
+            maxlength: 70,
+            placeholder: User.human_attribute_name(:password),
+            required: true,
+            size: nil
+          )
+        %>
+        <span><%= User.human_attribute_name(:password) %></span>
+      </label>
+      <div class="check-result-error" data-field="password"></div>
+      <div class="guideline"><%= t('activerecord.guidelines.user.password') %></div>
+    </div>
+
+    <div>
+      <label class="floating-label">
+        <%=
+          f.password_field(
+            :password_confirmation,
+            class: 'input-text',
+            data: { check: :password_confirmation },
+            maxlength: 70,
+            placeholder: User.human_attribute_name(:password_confirmation),
+            required: true,
+            size: nil
+          )
+        %>
+        <span><%= User.human_attribute_name(:password_confirmation) %></span>
+      </label>
+      <div class="check-result-error" data-field="password_confirmation"></div>
+      <div class="guideline"><%= t('activerecord.guidelines.user.password_confirmation') %></div>
+    </div>
+
+    <% if handler.settings['use_invites'] %>
+      <div>
+        <label class="floating-label">
+          <%=
+            text_field_tag(
+              :code,
+              param_from_request(:code),
+              class: 'input-text',
+              data: { check: :code },
+              maxlength: Code::BODY_LIMIT,
+              placeholder: t('.invitation_code'),
+              required: handler.settings['invite_only'],
+              size: nil
+            )
+          %>
+          <span><%= t('.invitation_code') %></span>
+        </label>
+        <div class="check-result-error" data-field="code"></div>
+      </div>
+    <% end %>
+  </div>
+
+  <ul class="flags">
+    <li>
+      <label class="flag-label">
+        <%= f.check_box :consent, required: true %>
+        <span><%= User.human_attribute_name(:consent) %></span>
+      </label>
+    </li>
+    <li>
+      <label class="flag-label">
+        <%= f.check_box :allow_mail, id: :user_allow_mail %>
+        <span><%= User.human_attribute_name(:allow_mail) %></span>
+      </label>
+    </li>
+  </ul>
+
+  <div class="visually-hidden">
+    <label>
+      <%= check_box_tag :agree, '1', false, tabindex: '-1' %>
+      <span><%= t('.i_am_bot') %></span>
+    </label>
+  </div>
+
+  <div class="actions">
+    <%= hidden_field_tag :entity_id, '' %>
+    <%= button_tag t('.join'), class: 'button button-primary' %>
+  </div>
+<% end %>
