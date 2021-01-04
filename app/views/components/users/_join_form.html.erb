@@ -3,7 +3,7 @@
   form_with(
     scope: 'user',
     url: my_profile_path,
-    id: 'user-form',
+    id: 'join-form',
     data: { check_url: check_my_profile_path }
   ) do |f|
 %>
@@ -137,6 +137,6 @@
 
   <div class="actions">
     <%= hidden_field_tag :entity_id, '' %>
-    <%= button_tag t('.join'), class: 'button button-primary' %>
+    <%= button_tag t('.join'), class: 'button button-primary', name: nil %>
   </div>
 <% end %>

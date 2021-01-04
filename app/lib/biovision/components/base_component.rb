@@ -186,6 +186,12 @@ module Biovision
       def privilege_handler
         @privilege_handler ||= PrivilegeHandler.new(self)
       end
+
+      # @param [User] user
+      # @param [String] type
+      def find_or_create_code(user, code_type)
+        @component.find_ot_create_code(user, code_type)
+      end
     end
   end
 end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Code for users
-# 
+#
 # Attributes:
 #   agent_id [Agent], optional
 #   biovision_component_id [BiovisionComponent]
@@ -32,6 +32,7 @@ class Code < ApplicationRecord
 
   scope :recent, -> { order('id desc') }
   scope :active, -> { where('quantity > 0') }
+  scope :with_type, ->(v) { where("data->>'type' = ?", v) unless v.blank? }
   scope :list_for_administration, -> { recent }
 
   # @param [Integer] page
@@ -44,7 +45,7 @@ class Code < ApplicationRecord
   end
 
   def self.creation_parameters
-    entity_parameters + %i[user_id code_type_id]
+    entity_parameters + %i[user_id biovision_component_id]
   end
 
   def activated?
@@ -53,6 +54,20 @@ class Code < ApplicationRecord
 
   def active?
     quantity.positive?
+  end
+
+  # @param [String] type_name
+  def type?(type_name)
+    code_type == type_name.to_s
+  end
+
+  def code_type
+    data['type'].to_s
+  end
+
+  # @param [String] new_type
+  def code_type=(new_type)
+    data['type'] = new_type.to_S
   end
 
   private

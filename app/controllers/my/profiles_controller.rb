@@ -10,18 +10,22 @@ class My::ProfilesController < ApplicationController
   # post /my/profile/check
   def check
     @entity = User.new(creation_parameters)
+
+    render 'shared/forms/check'
   end
 
   # get /my/profile/new
   def new
     @entity = User.new
 
-    render :closed unless component_handler.settings['registration_open']
+    render :closed unless component_handler.registration_open?
   end
 
   # post /my/profile
   def create
     if params[:agree]
+      metric = Biovision::Components::UsersComponent::METRIC_REGISTRATION_BOT
+      component_handler.register_metric(metric)
       redirect_to root_path, alert: t('.are_you_bot')
     else
       create_user

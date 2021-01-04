@@ -5,16 +5,21 @@ module Biovision
     module Users
       # Handling user registration
       class RegistrationHandler
+        CODE_CONFIRMATION = 'confirmation'
+        CODE_INVITATION = 'invitation'
+
         # @param [Biovision::Components::UsersComponent] component
         def initialize(component)
           @component = component
         end
 
+        # @param [Hash] parameters
+        # @param [Code|nil] Code
         def handle(parameters, code = nil)
           @user = User.new(parameters)
           @user.screen_name = @user.email if email_as_login?
           @user.super_user = 1 if User.count < 1
-          @manager = CodeHandler.new(@component, code)
+          @code = code
 
           use_invites? ? use_code : persist_user
           persist_user if @component.valid?(@user)
@@ -46,7 +51,7 @@ module Biovision
           @component.settings['require_email'] || email_as_login?
         end
 
-        protected
+        private
 
         def persist_user
           return unless @user.save
@@ -54,12 +59,19 @@ module Biovision
           metric = Biovision::Components::UsersComponent::METRIC_NEW_USER
           @component.register_metric(metric)
 
-          # handle_codes
+          Biovision::Components::UsersComponent.created_user(@user)
+          handle_codes
+        end
+
+        def valid_invitation?
+          return false if @code.nil?
+
+          @code.type?(CODE_INVITATION) && @code.active?
         end
 
         # Check invitation code and persist user if it's valid
         def use_code
-          if @manager.valid? || (@manager.code.nil? && !invite_only?)
+          if valid_invitation? || (@code.nil? && !invite_only?)
             persist_user
           else
             error = I18n.t('biovision.components.users.messages.invalid_code')
@@ -72,26 +84,20 @@ module Biovision
 
         def handle_codes
           if confirm_email?
-            code = CodeManager::Confirmation.code_for_user(@user)
+            code = @component.find_or_create_code(@user, CODE_CONFIRMATION)
             CodeSender.email(code.id).deliver_later
           end
 
           return unless use_invites?
 
-          @manager.activate(@user) if @manager.valid?
-          create_invitations(settings['invite_count'].to_i)
+          activate_invitation if valid_invitation?
         end
 
-        # @param [Integer] quantity
-        def create_invitations(quantity = 1)
-          return unless quantity.positive?
+        def activate_invitation
+          return if @code.nil? || !@code.active?
 
-          parameters = {
-            code_type: CodeManager::Invitation.code_type,
-            user: @user,
-            quantity: quantity
-          }
-          Code.create(parameters)
+          @code.decrement!(:quantity)
+          @user.update(inviter_id: @code.user_id)
         end
       end
     end

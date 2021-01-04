@@ -20,6 +20,7 @@ class BiovisionComponent < ApplicationRecord
   has_many :biovision_component_users, dependent: :delete_all
   has_many :simple_images, dependent: :destroy
 
+  scope :active, -> { where(active: true) }
   scope :list_for_administration, -> { ordered_by_priority }
 
   # Find component by slug
@@ -45,5 +46,18 @@ class BiovisionComponent < ApplicationRecord
 
   def privileges
     biovision_component_users.recent
+  end
+
+  # @param [User] user
+  # @param [String] type
+  def find_of_create_code(user, type)
+    code = codes.owned_by(user).with_type(type).active.first
+
+    if code.nil?
+      attributes = { user: user, type: type }
+      code = codes.create(attributes)
+    end
+
+    code
   end
 end

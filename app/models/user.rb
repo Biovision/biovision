@@ -46,7 +46,7 @@ class User < ApplicationRecord
   toggleable :banned, :allow_mail, :email_confirmed, :phone_confirmed
 
   has_secure_password
-  mount_uploader :image, SimpleImageUploader
+  mount_uploader :image, UserImageUploader
 
   belongs_to :inviter, class_name: User.to_s, optional: true
   has_many :invitees, class_name: User.to_s, foreign_key: :inviter_id, dependent: :nullify
