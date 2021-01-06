@@ -42,6 +42,10 @@ class User < ApplicationRecord
   NOTICE_LIMIT = 255
   PHONE_LIMIT = 50
   SLUG_LIMIT = 36
+  SLUG_PATTERN = /\A[_a-z0-9][-_a-z0-9]{0,34}[_a-z0-9]\z/i.freeze
+  SLUG_PATTERN_HTML = '^[_a-zA-Z0-9][-_a-zA-Z0-9]{0,34}[_a-zA-Z0-9]$'
+
+  attr_accessor :code
 
   toggleable :banned, :allow_mail, :email_confirmed, :phone_confirmed
 
@@ -55,6 +59,8 @@ class User < ApplicationRecord
   has_many :foreign_users, dependent: :delete_all if Gem.loaded_specs.key?('biovision-oauth')
   has_many :login_attempts, dependent: :delete_all
   has_many :user_languages, dependent: :delete_all
+
+  after_initialize :prepare_referral_link
 
   before_validation { self.email = nil if email.blank? }
   before_validation :normalize_slug
@@ -129,7 +135,15 @@ class User < ApplicationRecord
     allow_mail? && !email.blank?
   end
 
+  def email_as_login?
+    !data['email_as_login'].blank?
+  end
+
   private
+
+  def prepare_referral_link
+    self.referral_link = SecureRandom.alphanumeric(12) if referral_link.blank?
+  end
 
   def normalize_slug
     self.slug = screen_name.to_s if slug.nil?

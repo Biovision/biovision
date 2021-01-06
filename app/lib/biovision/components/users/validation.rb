@@ -8,7 +8,7 @@ module Biovision
         def validate
           prepare_screen_name if user.new_record?
 
-          validate_email_presence if require_email?
+          validate_email_presence if require_email? || user.email_as_login?
           validate_email_format unless user.email.blank?
           validate_screen_name unless user.data['skip_screen_name_validation']
         end
@@ -16,7 +16,10 @@ module Biovision
         private
 
         def prepare_screen_name
-          user.screen_name = user.uuid if email_as_login?
+          return unless email_as_login?
+
+          user.data['email_as_login'] = true
+          user.screen_name = user.uuid
         end
 
         def validate_email_presence
@@ -31,7 +34,7 @@ module Biovision
         end
 
         def validate_screen_name
-          pattern = /\A[_a-z0-9][-_a-z0-9]{0,34}[_a-z0-9]\z/i
+          pattern = User::SLUG_PATTERN
 
           return if user.screen_name =~ pattern
 

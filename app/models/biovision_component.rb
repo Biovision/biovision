@@ -19,6 +19,7 @@ class BiovisionComponent < ApplicationRecord
 
   has_many :biovision_component_users, dependent: :delete_all
   has_many :simple_images, dependent: :destroy
+  has_many :codes, dependent: :delete_all
 
   scope :active, -> { where(active: true) }
   scope :list_for_administration, -> { ordered_by_priority }
@@ -50,12 +51,13 @@ class BiovisionComponent < ApplicationRecord
 
   # @param [User] user
   # @param [String] type
-  def find_of_create_code(user, type)
+  def find_or_create_code(user, type)
     code = codes.owned_by(user).with_type(type).active.first
 
     if code.nil?
-      attributes = { user: user, type: type }
-      code = codes.create(attributes)
+      code = codes.new(user: user)
+      code.code_type = type
+      code.save
     end
 
     code

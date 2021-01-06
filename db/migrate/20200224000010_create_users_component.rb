@@ -32,13 +32,13 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     settings = {
       registration_open: true,
       email_as_login: false,
-      confirm_email: false,
+      confirm_email: true,
       require_email: false,
       invite_only: false,
       use_invites: false,
       invite_count: 5,
       bounce_count: 10,
-      bounce_timeout: 15
+      bounce_timeout: 3
     }
 
     BiovisionComponent.create(slug: slug, settings: settings)

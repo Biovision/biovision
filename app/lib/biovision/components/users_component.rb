@@ -7,9 +7,12 @@ module Biovision
       include Users::Authentication
       include Users::Validation
 
-      METRIC_NEW_USER = 'users.new_user.hit'
+      CODE_CONFIRMATION = 'confirmation'
+      CODE_INVITATION = 'invitation'
       METRIC_AUTH_FAILURE = 'users.auth.failure.hit'
+      METRIC_NEW_USER = 'users.new_user.hit'
       METRIC_REGISTRATION_BOT = 'users.registration.bot.hit'
+      METRIC_USED_INVITATION = 'users.used_invitation.hit'
 
       def self.settings_flags
         %w[
@@ -32,13 +35,16 @@ module Biovision
 
       # @param [User] user
       def self.handle_new_user(user)
-        component = BiovisionComponent[slug]
+        handler = new(BiovisionComponent[slug], user)
 
-        return unless component.settings['use_invites']
+        return unless handler.use_invites?
 
-        parameters = { user: user, quantity: quantity }
+        parameters = {
+          user: user,
+          quantity: handler.settings['invite_count'].to_i
+        }
 
-        code = component.codes.new(parameters)
+        code = handler.component.codes.new(parameters)
         code.code_type = CODE_INVITATION
         code.save
       end
@@ -48,6 +54,13 @@ module Biovision
       def register_user(parameters, code)
         handler = Users::RegistrationHandler.new(self)
         handler.handle(parameters, code)
+      end
+
+      # @param [String|Symbol] attribute_name
+      def attribute(attribute_name)
+        return nil if user.nil?
+
+        user.attributes[attribute_name.to_s]
       end
 
       def registration_open?
@@ -60,6 +73,14 @@ module Biovision
 
       def require_email?
         settings['require_email'] || email_as_login?
+      end
+
+      def invite_only?
+        settings['invite_only']
+      end
+
+      def use_invites?
+        settings['use_invites'] || invite_only?
       end
     end
   end

@@ -188,9 +188,9 @@ module Biovision
       end
 
       # @param [User] user
-      # @param [String] type
+      # @param [String] code_type
       def find_or_create_code(user, code_type)
-        @component.find_ot_create_code(user, code_type)
+        @component.find_or_create_code(user, code_type)
       end
     end
   end

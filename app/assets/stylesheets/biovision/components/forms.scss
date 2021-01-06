@@ -1,4 +1,5 @@
 $form-control-color: hsl(220, 75%, 75%) !default;
+$form-field-error: #f00 !default;
 
 form {
   margin: 0;
@@ -16,7 +17,7 @@ form {
   }
 
   .check-result-error {
-    color: #f00;
+    color: $form-field-error;
 
     &::before {
       content: '\261D';
@@ -46,6 +47,24 @@ form {
 
   .flags {
     margin: var(--spacer-xs) 0;
+  }
+
+  .errors {
+    color: $form-field-error;
+    padding: var(--spacer-xxs) var(--spacer-xxs) 0 var(--spacer-s);
+
+    li {
+      margin: 0 var(--spacer-xs);
+
+      &:first-of-type {
+        margin-top: var(--spacer-s);
+      }
+
+      &:last-of-type {
+        border-bottom: .1rem solid $form-field-error;
+        padding-bottom: var(--spacer-xs);
+      }
+    }
   }
 }
 

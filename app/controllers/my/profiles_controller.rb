@@ -9,9 +9,8 @@ class My::ProfilesController < ApplicationController
 
   # post /my/profile/check
   def check
-    @entity = User.new(creation_parameters)
-
-    render 'shared/forms/check'
+    code = Code.active.find_by(body: param_from_request(:code))
+    registration_handler.check(creation_parameters.to_h, code)
   end
 
   # get /my/profile/new
@@ -61,17 +60,20 @@ class My::ProfilesController < ApplicationController
     redirect_to my_path if current_user.is_a?(User)
   end
 
+  def registration_handler
+    handler_class = Biovision::Components::Users::RegistrationHandler
+    @registration_handler ||= handler_class.new(component_handler)
+  end
+
   def create_user
     code = Code.active.find_by(body: param_from_request(:code))
-    @entity = component_handler.register_user(creation_parameters, code)
+    registration_handler.handle(creation_parameters.to_h, code)
+    @entity = registration_handler.user
 
     if @entity.persisted?
-      create_token_for_user(@entity)
-      cookies.delete('r', domain: :all)
-
-      redirect_after_creation
+      user_created
     else
-      form_processed_with_error(:new)
+      form_processed_with_error(:new, @entity.errors.full_messages)
     end
   end
 
@@ -120,6 +122,13 @@ class My::ProfilesController < ApplicationController
     end
 
     parameters
+  end
+
+  def user_created
+    create_token_for_user(@entity)
+    cookies.delete('r', domain: :all)
+
+    redirect_after_creation
   end
 
   def redirect_after_creation

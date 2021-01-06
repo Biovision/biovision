@@ -5,8 +5,7 @@ module Biovision
     module Users
       # Handling user registration
       class RegistrationHandler
-        CODE_CONFIRMATION = 'confirmation'
-        CODE_INVITATION = 'invitation'
+        attr_reader :user
 
         # @param [Biovision::Components::UsersComponent] component
         def initialize(component)
@@ -18,27 +17,33 @@ module Biovision
         def handle(parameters, code = nil)
           @user = User.new(parameters)
           @user.super_user = 1 if User.count < 1
+          @user.code = code
           @code = code
 
-          use_invites? ? use_code : persist_user
+          @component.use_invites? ? use_code : persist_user
 
           @user
+        end
+
+        # @param [Hash] parameters
+        # @param [Code|nil] Code
+        def check(parameters, code = nil)
+          @user = User.new(parameters)
+          @user.code = code
+          @user.valid?
+          add_code_error unless acceptable_code?
         end
 
         def open?
           @component.settings['registration_open']
         end
 
-        def invite_only?
-          @component.settings['invite_only']
-        end
-
-        def use_invites?
-          @component.settings['use_invites'] || invite_only?
-        end
-
         def confirm_email?
           @component.settings['confirm_email']
+        end
+
+        def valid?
+          @user.errors.blank?
         end
 
         private
@@ -56,29 +61,32 @@ module Biovision
         def valid_invitation?
           return false if @code.nil?
 
-          @code.type?(CODE_INVITATION) && @code.active?
+          code_type = Biovision::Components::UsersComponent::CODE_INVITATION
+          @code.type?(code_type) && @code.active?
+        end
+
+        def acceptable_code?
+          valid_invitation? || (@code.nil? && !@component.invite_only?)
         end
 
         # Check invitation code and persist user if it's valid
         def use_code
-          if valid_invitation? || (@code.nil? && !invite_only?)
-            persist_user
-          else
-            error = I18n.t('biovision.components.users.messages.invalid_code')
+          acceptable_code? ? persist_user : add_code_error
+        end
 
-            # Add "invalid code" error to other model errors, if any
-            @user.valid?
-            @user.errors.add(:code, error)
-          end
+        def add_code_error
+          @user.valid?
+          @user.errors.add(:code, :invalid)
         end
 
         def handle_codes
           if confirm_email?
-            code = @component.find_or_create_code(@user, CODE_CONFIRMATION)
+            code_type = Biovision::Components::UsersComponent::CODE_CONFIRMATION
+            code = @component.find_or_create_code(@user, code_type)
             CodeSender.email(code.id).deliver_later
           end
 
-          return unless use_invites?
+          return unless @component.use_invites?
 
           activate_invitation if valid_invitation?
         end
@@ -88,6 +96,9 @@ module Biovision
 
           @code.decrement!(:quantity)
           @user.update(inviter_id: @code.user_id)
+
+          metric = Biovision::Components::UsersComponent::METRIC_USED_INVITATION
+          @component.register_metric(metric)
         end
       end
     end

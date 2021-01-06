@@ -67,7 +67,7 @@ class Code < ApplicationRecord
 
   # @param [String] new_type
   def code_type=(new_type)
-    data['type'] = new_type.to_S
+    data['type'] = new_type.to_s
   end
 
   private
