@@ -44,6 +44,10 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
     resize_to_fit(160, 160)
   end
 
+  version :tiny, from_version: :preview, if: :raster_image? do
+    resize_to_fit(48, 48)
+  end
+
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
@@ -70,6 +74,10 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
 
   def raster?
     !File.extname(path).match?(/\.svgz?\z/i)
+  end
+
+  def tiny_url
+    raster? ? tiny.url : url
   end
 
   def preview_url

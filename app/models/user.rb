@@ -13,7 +13,7 @@
 #   deleted [boolean]
 #   email [string], optional
 #   email_confirmed [boolean]
-#   image [SimpleImageUploader]
+#   image [SimpleImageUploader], optional
 #   inviter_id [User], optional
 #   ip_address_id [IpAddress], optional
 #   language_id [Language], optional
@@ -41,12 +41,12 @@ class User < ApplicationRecord
   EMAIL_PATTERN = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i.freeze
   NOTICE_LIMIT = 255
   PHONE_LIMIT = 50
-  SLUG_LIMIT = 250
+  SLUG_LIMIT = 36
 
   toggleable :banned, :allow_mail, :email_confirmed, :phone_confirmed
 
   has_secure_password
-  mount_uploader :image, UserImageUploader
+  mount_uploader :image, SimpleImageUploader
 
   belongs_to :inviter, class_name: User.to_s, optional: true
   has_many :invitees, class_name: User.to_s, foreign_key: :inviter_id, dependent: :nullify
@@ -56,22 +56,22 @@ class User < ApplicationRecord
   has_many :login_attempts, dependent: :delete_all
   has_many :user_languages, dependent: :delete_all
 
+  before_validation { self.email = nil if email.blank? }
   before_validation :normalize_slug
 
+  validate do |entity|
+    Biovision::Components::UsersComponent[entity].validate
+  end
+
   validates_acceptance_of :consent
-  validates_presence_of :screen_name
-  validates_format_of :email, with: EMAIL_PATTERN, allow_blank: true
-  validates :screen_name, uniqueness: { case_sensitive: false }
+  validates :screen_name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
-  validates_length_of :slug, maximum: SLUG_LIMIT
-  validates_length_of :screen_name, maximum: SLUG_LIMIT
-  validates_length_of :email, maximum: EMAIL_LIMIT
   validates_length_of :phone, maximum: PHONE_LIMIT
   validates_length_of :notice, maximum: NOTICE_LIMIT
 
   scope :bots, ->(f) { where(bot: f.to_i.positive?) unless f.blank? }
   scope :email_like, ->(v) { where('email ilike ?', "%#{v}%") unless v.blank? }
-  scope :with_email, ->(v) { where('lower(email) = lower(?)', v) }
+  scope :with_email, ->(v) { where('lower(email) = lower(?)', v.to_s) }
 
   def self.profile_parameters
     %i[image allow_mail birthday consent]
@@ -88,9 +88,9 @@ class User < ApplicationRecord
 
   # Administrative parameters
   def self.entity_parameters
-    flags = %i[banned bot email_confirmed phone_confirmed foreign_slug]
+    flags = %i[banned bot email_confirmed phone_confirmed]
 
-    new_profile_parameters + flags + %i[screen_name notice balance]
+    new_profile_parameters + flags + %i[screen_name notice]
   end
 
   def self.ids_range

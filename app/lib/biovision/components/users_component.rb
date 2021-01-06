@@ -5,6 +5,7 @@ module Biovision
     # Handling users
     class UsersComponent < BaseComponent
       include Users::Authentication
+      include Users::Validation
 
       METRIC_NEW_USER = 'users.new_user.hit'
       METRIC_AUTH_FAILURE = 'users.auth.failure.hit'
@@ -49,25 +50,16 @@ module Biovision
         handler.handle(parameters, code)
       end
 
-      # @param [User] entity
-      def valid?(entity)
-        entity.valid? && valid_slug?(entity)
-      end
-
-      def valid_slug?(entity)
-        if settings['email_as_login']
-          entity.slug =~ /\A[-_a-z0-9.]+@[-a-z0-9.]+\.[a-z]{2,24}\z/
-        elsif entity.slug =~ /\A[_a-z0-9]{1,30}\z/
-          true
-        else
-          key = 'activerecord.errors.models.user.attributes.slug.invalid'
-          entity.errors[:slug] = t(key)
-          false
-        end
-      end
-
       def registration_open?
         settings['registration_open']
+      end
+
+      def email_as_login?
+        settings['email_as_login']
+      end
+
+      def require_email?
+        settings['require_email'] || email_as_login?
       end
     end
   end

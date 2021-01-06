@@ -62,6 +62,15 @@ ru:
       restricted_access: "Доступ к странице ограничен (401)."
       service_unavailable: "Сервис временно недоступен (503)."
       unauthorized: "Не хватает прав для просмотра страницы (401)."
+    unauthorized:
+      title: "Доступ ограничен"
+      heading: "Доступ ограничен"
+    not_found:
+      title: "Страница не найдена"
+      heading: "Страница не найдена"
+    forbidden:
+      title: "Доступ запрещён"
+      heading: "Доступ запрещён"
   admin:
     errors:
       unauthorized:

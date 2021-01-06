@@ -17,12 +17,10 @@ module Biovision
         # @param [Code|nil] Code
         def handle(parameters, code = nil)
           @user = User.new(parameters)
-          @user.screen_name = @user.email if email_as_login?
           @user.super_user = 1 if User.count < 1
           @code = code
 
           use_invites? ? use_code : persist_user
-          persist_user if @component.valid?(@user)
 
           @user
         end
@@ -41,14 +39,6 @@ module Biovision
 
         def confirm_email?
           @component.settings['confirm_email']
-        end
-
-        def email_as_login?
-          @component.settings['email_as_login']
-        end
-
-        def require_email?
-          @component.settings['require_email'] || email_as_login?
         end
 
         private
