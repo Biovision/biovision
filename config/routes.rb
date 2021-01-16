@@ -62,7 +62,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, only: %i[index show]
+    resources :users, concerns: %i[check toggle]
   end
 
   namespace :my do

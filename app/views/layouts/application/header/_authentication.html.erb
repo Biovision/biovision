@@ -2,7 +2,7 @@
   <% if current_user.nil? %>
     <%= link_to(image_tag('biovision/icons/log_in.svg', alt: t(:log_in)), login_path) %>
   <% else %>
-    <%= link_to(user_image_tiny(current_user), my_path, class: 'avatar') %>
+    <%= link_to(simple_image_tiny(current_user), my_path, class: 'avatar') %>
     <%=
       link_to(
           image_tag('biovision/icons/log_out.svg', alt: t(:log_out)),

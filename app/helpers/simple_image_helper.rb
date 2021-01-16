@@ -2,6 +2,24 @@
 
 # Helper methods for displaying versions for SimpleImageUploader
 module SimpleImageHelper
+  # Tiny (48x48) version of simple image
+  #
+  # @param [ApplicationRecord|SimpleImageUploader] entity
+  # @param [Hash] options
+  def simple_image_tiny(entity, options = {})
+    return '' if entity.nil?
+
+    image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
+    default_image = options.delete(:default_image).to_s
+
+    return default_image if image.blank?
+
+    default = {
+      alt: image.alt_text
+    }
+    image_tag(image.tiny_url, default.merge(options))
+  end
+
   # Preview (160x160) version of simple image
   #
   # @param [ApplicationRecord|SimpleImageUploader] entity
@@ -10,8 +28,9 @@ module SimpleImageHelper
     return '' if entity.nil?
 
     image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
+    default_image = options.delete(:default_image).to_s
 
-    return '' if image.blank?
+    return default_image if image.blank?
 
     default = {
       alt: image.alt_text
@@ -27,8 +46,9 @@ module SimpleImageHelper
     return '' if entity.nil?
 
     image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
+    default_image = options.delete(:default_image).to_s
 
-    return '' if image.blank?
+    return default_image if image.blank?
 
     default = {
       alt: image.alt_text
@@ -46,8 +66,9 @@ module SimpleImageHelper
     return '' if entity.nil?
 
     image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
+    default_image = options.delete(:default_image).to_s
 
-    return '' if image.blank?
+    return default_image if image.blank?
 
     default = {
       alt: image.alt_text
@@ -65,8 +86,9 @@ module SimpleImageHelper
     return '' if entity.nil?
 
     image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
+    default_image = options.delete(:default_image).to_s
 
-    return '' if image.blank?
+    return default_image if image.blank?
 
     default = {
       alt: image.alt_text
@@ -84,8 +106,9 @@ module SimpleImageHelper
     return '' if entity.nil?
 
     image = entity.is_a?(SimpleImageUploader) ? entity : entity.image
+    default_image = options.delete(:default_image).to_s
 
-    return '' if image.blank?
+    return default_image if image.blank?
 
     default = {
       alt: image.alt_text

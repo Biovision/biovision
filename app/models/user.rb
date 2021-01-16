@@ -47,7 +47,7 @@ class User < ApplicationRecord
 
   attr_accessor :code
 
-  toggleable :banned, :allow_mail, :email_confirmed, :phone_confirmed
+  toggleable :email_confirmed, :allow_mail, :phone_confirmed, :banned
 
   has_secure_password
   mount_uploader :image, SimpleImageUploader
@@ -78,6 +78,12 @@ class User < ApplicationRecord
   scope :bots, ->(f) { where(bot: f.to_i.positive?) unless f.blank? }
   scope :email_like, ->(v) { where('email ilike ?', "%#{v}%") unless v.blank? }
   scope :with_email, ->(v) { where('lower(email) = lower(?)', v.to_s) }
+  scope :list_for_administration, -> { order('id desc') }
+
+  # @param [Integer] page
+  def self.page_for_administration(page = 1)
+    list_for_administration.page(page)
+  end
 
   def self.profile_parameters
     %i[image allow_mail birthday consent]
@@ -112,7 +118,7 @@ class User < ApplicationRecord
   #
   # @return [String]
   def profile_name
-    screen_name
+    email_as_login? ? email.to_s.split('@').first : screen_name
   end
 
   def text_for_link

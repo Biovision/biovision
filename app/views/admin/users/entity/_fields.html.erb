@@ -1,0 +1,53 @@
+<% model = entity.class %>
+<dl class="fields">
+  <%= render partial: 'shared/entity/image', locals: { entity: entity } %>
+  <%= render partial: 'shared/entity/slug', locals: { entity: entity } %>
+  <%= render partial: 'shared/entity/text_fields', locals: { entity: entity, fields: %w[notice screen_name] } %>
+
+  <% unless entity.inviter_id.nil? %>
+    <div>
+      <dt><%= model.human_attribute_name(:inviter) %></dt>
+      <dd><%= admin_entity_link(entity.inviter) %></dd>
+    </div>
+  <% end %>
+
+  <% unless entity.email.blank? %>
+    <div>
+      <dt><%= model.human_attribute_name(:email) %></dt>
+      <dd><%= link_to entity.email, "mailto:#{entity.email}" %></dd>
+    </div>
+  <% end %>
+
+  <% unless entity.phone.blank? %>
+    <div>
+      <dt><%= model.human_attribute_name(:phone) %></dt>
+      <dd><%= link_to entity.phone, "tel:#{entity.phone}" %></dd>
+    </div>
+  <% end %>
+
+  <%=
+    render(
+      partial: 'admin/users/entity/profile',
+      locals: {
+        data: entity.profile.to_h,
+        entity: entity
+      }
+    )
+  %>
+
+  <%= render partial: 'shared/entity/timestamps', locals: { entity: entity } %>
+
+  <div>
+    <dt><%= model.human_attribute_name(:referral_link) %></dt>
+    <dd><%= root_url(rl: entity.referral_link) %></dd>
+  </div>
+
+  <% unless entity.last_seen.blank? %>
+    <div>
+      <dt><%= model.human_attribute_name(:last_seen) %></dt>
+      <dd><%= time_tag entity.last_seen %></dd>
+    </div>
+  <% end %>
+
+  <%= render partial: 'shared/entity/uuid', locals: { entity: entity } %>
+</dl>

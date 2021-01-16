@@ -1,0 +1,44 @@
+<% content_for :meta_title, t('.title', name: @entity.profile_name) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.users.nav_item.text'), admin_users_path) %>
+  <span><%= @entity.profile_name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.profile_name %></q></h1>
+
+  <% if @entity.deleted? %>
+    <div class="message-box warning"><%= t('.deleted') %></div>
+  <% end %>
+
+  <nav class="entity-actions">
+    <%= edit_icon(@entity) %>
+    <%= world_icon(@entity) %>
+    <%= destroy_icon(@entity) %>
+  </nav>
+
+  <%= render partial: 'admin/users/entity/fields', locals: { entity: @entity } %>
+
+  <%=
+    render(
+      partial: 'shared/admin/toggle',
+      locals: { entity: @entity }
+    )
+  %>
+
+  <% prefix = 'admin/users/entity/components/' %>
+  <% BiovisionComponent.list_for_administration.each do |component| %>
+    <% if lookup_context.exists?("#{prefix}_#{component.slug}") %>
+      <section>
+        <h2><%= component.name %></h2>
+        <%=
+          render(
+            partial: "#{prefix}#{component.slug}",
+            locals: { user: @entity }
+          )
+        %>
+      </section>
+    <% end %>
+  <% end %>
+</article>

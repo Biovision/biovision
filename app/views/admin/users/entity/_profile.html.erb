@@ -1,0 +1,17 @@
+<% %w[name patronymic surname].each do |field| %>
+  <% unless data[field].blank? %>
+    <div>
+      <dt><%= t("activerecord.attributes.user_profile.#{field}") %></dt>
+      <dd><%= data[field] %></dd>
+    </div>
+  <% end %>
+<% end %>
+
+<% unless data['gender'].blank? %>
+  <div>
+    <dt><%= t('activerecord.attributes.user_profile.gender') %></dt>
+    <dd>
+      <%= Biovision::Components::Users::ProfileHandler.gender(data['gender']) %>
+    </dd>
+  </div>
+<% end %>
