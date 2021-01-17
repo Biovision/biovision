@@ -56,6 +56,23 @@ module Biovision
         handler.handle(parameters, code)
       end
 
+      # @param [Hash] user_data
+      # @param [Hash] profile_data
+      def create_user(user_data, profile_data)
+        handler = Users::ProfileHandler.new(self)
+        handler.create(user_data, profile_data)
+        handler.user
+      end
+
+      # @param [User] user
+      # @param [Hash] user_data
+      # @param [Hash] profile_data
+      def update_user(user, user_data, profile_data)
+        handler = Users::ProfileHandler.new(self)
+        handler.user = user
+        handler.update(user_data, profile_data)
+      end
+
       # @param [String|Symbol] attribute_name
       def attribute(attribute_name)
         return nil if user.nil?

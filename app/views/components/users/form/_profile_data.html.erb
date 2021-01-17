@@ -1,0 +1,36 @@
+<% %w[name patronymic surname].each do |field| %>
+  <div>
+    <dt>
+      <%= label_tag "profile_#{field}", t("activerecord.attributes.user_profile.#{field}") %>
+    </dt>
+    <dd>
+      <%=
+        text_field_tag(
+          "profile[#{field}]",
+          data[field],
+          class: 'input-text',
+          maxlength: 50,
+          size: nil
+        )
+      %>
+    </dd>
+  </div>
+<% end %>
+
+<div>
+  <dt>
+    <%= label_tag :profile_gender, t('activerecord.attributes.user_profile.gender') %>
+  </dt>
+  <dd>
+    <%=
+      select_tag(
+        'profile[gender]',
+        options_for_select(
+          Biovision::Components::Users::ProfileHandler.genders_for_select,
+          data['gender']
+        ),
+        class: 'input-select'
+      )
+    %>
+  </dd>
+</div>

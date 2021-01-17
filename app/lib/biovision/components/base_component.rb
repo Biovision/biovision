@@ -65,17 +65,16 @@ module Biovision
       end
 
       # @param [ApplicationRecord] entity
-      def self.form_options(entity)
+      # @param [Symbol|nil] scope
+      # @param [Hash] options
+      def self.form_options(entity, scope = :admin, options = {})
         table_name = entity.class.table_name
+        prefix = scope.nil? ? '' : "/#{scope}"
         {
-          model: entity,
-          url: "/admin/#{table_name}/#{entity.id}",
-          method: entity.id.nil? ? :post : :patch,
-          html: {
-            id: "#{entity.class.to_s.underscore}-form",
-            data: { check_url: "/admin/#{table_name}/check" },
-          }
-        }
+          model: scope.nil? ? entity : [scope, entity],
+          id: "#{entity.class.to_s.underscore}-form",
+          data: { check_url: "#{prefix}/#{table_name}/check" }
+        }.merge(options)
       end
 
       # @param [User] user

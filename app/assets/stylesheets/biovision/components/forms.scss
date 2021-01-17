@@ -131,6 +131,7 @@ form {
   }
 }
 
+.input-select,
 .input-text {
   border: .1rem solid var(--input-border);
   border-radius: var(--spacer-xxs);
@@ -143,6 +144,14 @@ form {
     box-shadow: .1rem .1rem .2rem var(--input-border-focus);
     outline: none;
   }
+}
+
+.input-select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background: image_url('biovision/icons/dropdown.svg') no-repeat center right var(--spacer-xs) / 1.1rem auto;
+  padding-right: 3.2rem;
 }
 
 .floating-label {
@@ -206,5 +215,13 @@ form {
     cursor: pointer;
     flex: 1;
     padding-top: .1rem;
+  }
+}
+
+.image-medium {
+  width: 32rem;
+
+  img {
+    width: 100%;
   }
 }

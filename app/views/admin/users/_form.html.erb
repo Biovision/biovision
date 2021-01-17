@@ -1,7 +1,82 @@
-<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
+<%= form_with(**Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl class="fields">
+    <div>
+      <dt><%= f.label :image %></dt>
+      <dd>
+        <figure id="user-image" role="group" class="image-medium">
+          <%= f.label(:image, image_tag(entity.image.small.url)) %>
+          <figcaption>
+            <%=
+              f.file_field(
+                :image,
+                accept: 'image/jpeg,image/png,image/svg+xml',
+                data: { image: 'user-image' }
+              )
+            %>
+          </figcaption>
+        </figure>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/forms/fields', locals: { f: f, fields: %w[slug screen_name] } %>
+
+    <% if entity.id.blank? || !entity.super_user? %>
+      <div>
+        <dt><%= f.label :password %></dt>
+        <dd>
+          <%=
+            f.text_field(
+              :password,
+              class: 'input-text',
+              maxlength: 70,
+              required: entity.id.nil?,
+              size: nil
+            )
+          %>
+        </dd>
+      </div>
+
+      <div>
+        <dt><%= f.label :password_confirmation %></dt>
+        <dd>
+          <%=
+            f.text_field(
+              :password_confirmation,
+              class: 'input-text',
+              maxlength: 70,
+              required: entity.id.nil?,
+              size: nil
+            )
+          %>
+        </dd>
+      </div>
+    <% end %>
+
+    <div>
+      <dt><%= f.label :email %></dt>
+      <dd>
+        <%=
+          f.email_field(
+            :email,
+            class: 'input-text',
+            data: { check: :email },
+            maxlength: User::EMAIL_LIMIT,
+            required: entity.email_as_login? || component_handler.require_email?,
+            size: nil
+          )
+        %>
+      </dd>
+    </div>
+
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :phone, type: :phone } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :birthday } %>
+
+    <%= render partial: 'components/users/form/profile_data', locals: { data: entity.profile.to_h } %>
+
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :notice } %>
+    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
   </dl>
 
   <%= render 'shared/forms/state_container' %>
