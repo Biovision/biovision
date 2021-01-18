@@ -4,7 +4,9 @@ module Biovision
   module Components
     # Base biovision component
     class BaseComponent
-      extend ComponentSettings
+      extend Base::ComponentSettings
+      include Base::ComponentPrivileges
+      include Base::ComponentParameters
 
       attr_reader :component, :slug, :name, :user, :user_link
 
@@ -96,10 +98,6 @@ module Biovision
         @user_link
       end
 
-      def use_parameters?
-        false
-      end
-
       def use_settings?
         use_parameters? || @component.settings.any?
       end
@@ -110,22 +108,6 @@ module Biovision
         user.super_user? || @user_link&.administrator?
       end
 
-      # @param [String|Array] privileges
-      def allow?(*privileges)
-        return false if user.nil?
-        return true if administrator? || (component.nil? && privileges.blank?)
-        return false if @user_link.nil?
-
-        result = privileges.blank?
-        privileges.flatten.each { |slug| result |= privilege?(slug) }
-        result
-      end
-
-      # @param [String] privilege_name
-      def privilege?(privilege_name)
-        privilege_handler.privilege?(privilege_name)
-      end
-
       # @param [Hash] data
       def settings=(data)
         @component.settings.merge!(self.class.normalize_settings(data))
@@ -134,36 +116,6 @@ module Biovision
 
       def settings
         @component.settings
-      end
-
-      # Receive parameter value with default
-      #
-      # Returns value of component's parameter or default value
-      # when it's not found
-      #
-      # @param [String] key
-      # @param [String] default
-      # @return [String]
-      def receive(key, default = '')
-        @component.get(key, default)
-      end
-
-      # Receive parameter value or nil
-      #
-      # Returns value of component's parameter of nil when it's not found
-      #
-      # @param [String] key
-      # @return [String]
-      def [](key)
-        @component.get(key)
-      end
-
-      # Set parameter
-      #
-      # @param [String] key
-      # @param [String] value
-      def []=(key, value)
-        @component[key] = value unless key.blank?
       end
 
       # @param [String] name
@@ -183,13 +135,28 @@ module Biovision
       end
 
       def privilege_handler
-        @privilege_handler ||= PrivilegeHandler.new(self)
+        @privilege_handler ||= Base::PrivilegeHandler.new(self)
       end
 
       # @param [User] user
       # @param [String] code_type
       def find_or_create_code(user, code_type)
         @component.find_or_create_code(user, code_type)
+      end
+
+      # @param [String|Symbol] key
+      # @param default_value
+      def data_value(key, default_value = '')
+        data = user.component_data(slug)
+        data.key?(key.to_s) ? data[key.to_s] : default_value
+      end
+
+      # @param [String|Symbol] key
+      # @param new_value
+      def update_data_value(key, new_value)
+        data = user.component_data(slug)
+        data[key.to_s] = new_value
+        user.new_component_data(data)
       end
     end
   end

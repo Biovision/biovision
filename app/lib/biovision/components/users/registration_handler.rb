@@ -35,11 +35,13 @@ module Biovision
         end
 
         def open?
-          @component.settings['registration_open']
+          key = Biovision::Components::UsersComponent::SETTING_OPEN
+          @component.settings[key]
         end
 
         def confirm_email?
-          @component.settings['confirm_email']
+          key = Biovision::Components::UsersComponent::SETTING_CONFIRM_EMAIL
+          @component.settings[key]
         end
 
         def valid?

@@ -13,16 +13,25 @@ module Biovision
       METRIC_NEW_USER = 'users.new_user.hit'
       METRIC_REGISTRATION_BOT = 'users.registration.bot.hit'
       METRIC_USED_INVITATION = 'users.used_invitation.hit'
+      SETTING_BOUNCE_COUNT = 'bounce_count'
+      SETTING_BOUNCE_TIMEOUT = 'bounce_timeout'
+      SETTING_CONFIRM_EMAIL = 'confirm_email'
+      SETTING_EMAIL_AS_LOGIN = 'email_as_login'
+      SETTING_INVITE_COUNT = 'invite_count'
+      SETTING_INVITE_ONLY = 'invite_only'
+      SETTING_OPEN = 'registration_open'
+      SETTING_REQUIRE_EMAIL = 'require_email'
+      SETTING_USE_INVITES = 'use_invites'
 
       def self.settings_flags
-        %w[
-          registration_open email_as_login confirm_email require_email
-          invite_only use_invites
+        [
+          SETTING_OPEN, SETTING_EMAIL_AS_LOGIN, SETTING_CONFIRM_EMAIL,
+          SETTING_REQUIRE_EMAIL, SETTING_INVITE_ONLY, SETTING_USE_INVITES
         ]
       end
 
       def self.settings_numbers
-        %w[invite_count bounce_count bounce_timeout]
+        [SETTING_INVITE_COUNT, SETTING_BOUNCE_COUNT, SETTING_BOUNCE_TIMEOUT]
       end
 
       # @param [User] user
@@ -41,7 +50,7 @@ module Biovision
 
         parameters = {
           user: user,
-          quantity: handler.settings['invite_count'].to_i
+          quantity: handler.settings[SETTING_INVITE_COUNT].to_i
         }
 
         code = handler.component.codes.new(parameters)
@@ -81,23 +90,23 @@ module Biovision
       end
 
       def registration_open?
-        settings['registration_open']
+        settings[SETTING_OPEN]
       end
 
       def email_as_login?
-        settings['email_as_login']
+        settings[SETTING_EMAIL_AS_LOGIN]
       end
 
       def require_email?
-        settings['require_email'] || email_as_login?
+        settings[SETTING_REQUIRE_EMAIL] || email_as_login?
       end
 
       def invite_only?
-        settings['invite_only']
+        settings[SETTING_INVITE_ONLY]
       end
 
       def use_invites?
-        settings['use_invites'] || invite_only?
+        settings[SETTING_USE_INVITES] || invite_only?
       end
     end
   end

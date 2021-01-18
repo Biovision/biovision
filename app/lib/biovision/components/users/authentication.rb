@@ -22,9 +22,9 @@ module Biovision
         end
 
         def too_many_attempts?
-          timeout = settings['bounce_timeout'].to_i.abs.minutes.ago
-          limit = settings['bounce_limit'].to_i
-          LoginAttempt.owned_by(user).since(timeout).count > limit
+          timeout = settings[self.class::SETTING_BOUNCE_TIMEOUT].to_i.abs
+          limit = settings[self.class::SETTING_BOUNCE_COUNT].to_i
+          LoginAttempt.owned_by(user).since(timeout.minutes.ago).count > limit
         end
 
         def log_attempt

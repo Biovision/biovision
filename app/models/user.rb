@@ -145,6 +145,18 @@ class User < ApplicationRecord
     !data['email_as_login'].blank?
   end
 
+  # @param [String|Symbol] component_slug
+  def component_data(component_slug)
+    data.dig('components', component_slug.to_s).to_h
+  end
+
+  # @param [String|Symbol] component_slug
+  # @param [Hash] component_data
+  def new_component_data(component_slug, component_data)
+    data['components'] ||= {}
+    data['components'][component_slug.to_s] = component_data.to_h
+  end
+
   private
 
   def prepare_referral_link
