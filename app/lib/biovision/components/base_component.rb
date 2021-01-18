@@ -34,6 +34,10 @@ module Biovision
         to_s.demodulize.to_s.underscore.gsub('_component', '')
       end
 
+      def self.active?
+        BiovisionComponent[slug]&.active?
+      end
+
       # Receive component-specific handler by class name for component.
       #
       # e.g.: Biovision::Components::UsersComponent[user]

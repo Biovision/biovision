@@ -1,0 +1,21 @@
+<% content_for :meta_title, @entity.profile_name %>
+<% content_for :meta_image, (request.protocol + request.host_with_port + @entity.image.medium_url) unless @entity.image.blank? %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('.breadcrumb', name: @entity.profile_name) %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= @entity.profile_name %></h1>
+
+    <% if current_user == @entity %>
+      <aside class="users__profile-aside">
+        <nav>
+          <%= link_to t(:edit), edit_my_profile_path, class: 'button button-primary' %>
+        </nav>
+      </aside>
+    <% end %>
+
+    <%= render partial: 'profile', locals: { user: @entity } %>
+  </div>
+</article>

@@ -1,4 +1,4 @@
-<%= form_with(Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
+<%= form_with(**Biovision::Components::BaseComponent.form_options(entity)) do |f| %>
   <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
   <dl class="fields">

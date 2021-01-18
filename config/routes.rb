@@ -27,6 +27,15 @@ Rails.application.routes.draw do
     delete 'logout' => :destroy
   end
 
+  scope 'u/:slug', controller: :users, constraints: { slug: %r{[^/]+} } do
+    get '/' => :show, as: :user
+    put 'follow' => :follow, as: :follow_user
+    delete 'follow' => :unfollow, as: nil
+    put 'ban' => :ban, as: :ban_user
+    delete 'ban' => :unban, as: nil
+  end
+
+
   namespace :admin do
     get '/' => 'index#index'
 

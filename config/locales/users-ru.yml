@@ -91,6 +91,7 @@ ru:
         name: "Имя"
         patronymic: "Отчество"
         surname: "Фамилия"
+        about: "О себе"
     guidelines:
       user:
         screen_name: "Только латинские буквы, цифры, знаки подчёркивания и дефис (кроме начала и конца). От 2 до 36 символов."
@@ -144,6 +145,11 @@ ru:
         title: "Мой профиль"
       update:
         success: "Профиль успешно изменён"
+    index:
+      index:
+        title: "Личный кабинет"
+        nav_text: "Личный кабинет"
+        heading: "Личный кабинет"
   authentication:
     form:
       log_in: "Войти"
@@ -181,3 +187,11 @@ ru:
       show:
         title: "Пользователь %{name}"
         deleted: "Пользователь удалён"
+      destroy:
+        success: "Пользователь удалён"
+  users:
+    profile:
+      registration_date: "Дата регистрации"
+    show:
+      this_is_you: "Это вы"
+      breadcrumb: "Пользователь %{name}"

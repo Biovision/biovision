@@ -19,6 +19,24 @@
 
 <div>
   <dt>
+    <%= label_tag 'profile_about', t('activerecord.attributes.user_profile.about') %>
+  </dt>
+  <dd>
+    <%=
+    text_area_tag(
+      'profile[about]',
+      data['about'],
+      class: 'input-text',
+      cols: 80,
+      maxlength: 2000,
+      rows: 5
+    )
+    %>
+  </dd>
+</div>
+
+<div>
+  <dt>
     <%= label_tag :profile_gender, t('activerecord.attributes.user_profile.gender') %>
   </dt>
   <dd>

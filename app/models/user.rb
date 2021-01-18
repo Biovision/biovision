@@ -47,7 +47,7 @@ class User < ApplicationRecord
 
   attr_accessor :code
 
-  toggleable :email_confirmed, :allow_mail, :phone_confirmed, :banned
+  toggleable :email_confirmed, :allow_mail, :phone_confirmed
 
   has_secure_password
   mount_uploader :image, SimpleImageUploader
@@ -155,6 +155,11 @@ class User < ApplicationRecord
   def new_component_data(component_slug, component_data)
     data['components'] ||= {}
     data['components'][component_slug.to_s] = component_data.to_h
+  end
+
+  def world_url
+    key = screen_name.downcase == slug ? screen_name : slug
+    "/u/#{CGI.escape(key)}"
   end
 
   private

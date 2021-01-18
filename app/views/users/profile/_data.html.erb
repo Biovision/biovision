@@ -1,18 +1,12 @@
-<% %w[name patronymic surname].each do |field| %>
-  <% unless data[field].blank? %>
-    <div>
-      <dt><%= t("activerecord.attributes.user_profile.#{field}") %></dt>
-      <dd><%= data[field] %></dd>
-    </div>
-  <% end %>
-<% end %>
+<div>
+  <dt><%= t('activerecord.attributes.user_profile.name') %></dt>
+  <dd><%= user.full_name %></dd>
+</div>
 
 <% unless data['about'].blank? %>
   <div>
     <dt><%= t('activerecord.attributes.user_profile.about') %></dt>
-    <dd>
-      <div class="text"><%= simple_format(data['about']) %></div>
-    </dd>
+    <dd><%= simple_format(data['about']) %></dd>
   </div>
 <% end %>
 

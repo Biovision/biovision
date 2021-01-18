@@ -1,0 +1,30 @@
+<% if component_handler&.allow?('edit') %>
+  <nav class="entity-actions">
+    <%= gear_icon(user) %>
+  </nav>
+<% end %>
+
+<section class="users__profile">
+  <% unless user.image.blank? %>
+    <figure class="avatar">
+      <div class="image">
+        <%= simple_image_medium(user) %>
+      </div>
+    </figure>
+  <% end %>
+
+  <dl class="fields">
+    <div>
+      <dt><%= t('.registration_date') %></dt>
+      <dd><%= time_tag user.created_at %></dd>
+    </div>
+    <% unless user.last_seen.blank? %>
+      <div>
+        <dt><%= t('activerecord.attributes.user.last_seen') %></dt>
+        <dd><%= time_tag user.last_seen %></dd>
+      </div>
+    <% end %>
+
+    <%= render partial: 'users/profile/data', locals: { user: user, data: user.profile } %>
+  </dl>
+</section>
