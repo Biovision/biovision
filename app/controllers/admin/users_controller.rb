@@ -29,13 +29,16 @@ class Admin::UsersController < AdminController
 
   # post /admin/users/:id/authenticate
   def authenticate
-    cookies['pt'] = {
-      value: cookies['token'],
-      expires: 1.year.from_now,
-      domain: :all,
-      httponly: true
-    }
-    create_token_for_user(@entity)
+    unless @entity.super_user?
+      cookies['pt'] = {
+        value: cookies['token'],
+        expires: 1.year.from_now,
+        domain: :all,
+        httponly: true
+      }
+      create_token_for_user(@entity)
+    end
+
     redirect_to my_path
   end
 
@@ -43,6 +46,12 @@ class Admin::UsersController < AdminController
 
   def component_class
     Biovision::Components::UsersComponent
+  end
+
+  def entity_parameters
+    excluded = @entity&.super_user? ? User.sensitive_parameters : []
+    permitted = User.entity_parameters - excluded
+    params.require(:user).permit(permitted)
   end
 
   def creation_parameters

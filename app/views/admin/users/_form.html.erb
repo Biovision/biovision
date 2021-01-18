@@ -20,7 +20,11 @@
       </dd>
     </div>
 
-    <%= render partial: 'shared/forms/fields', locals: { f: f, fields: %w[slug screen_name] } %>
+    <% unless entity.id.nil? %>
+      <%= render partial: 'shared/forms/field', locals: { f: f, field: :slug } %>
+    <% end %>
+
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :screen_name } %>
 
     <% if entity.id.blank? || !entity.super_user? %>
       <div>
@@ -30,11 +34,13 @@
             f.text_field(
               :password,
               class: 'input-text',
+              data: { check: :password },
               maxlength: 70,
               required: entity.id.nil?,
               size: nil
             )
           %>
+          <div class="check-result-error" data-field="password"></div>
         </dd>
       </div>
 
@@ -45,11 +51,13 @@
             f.text_field(
               :password_confirmation,
               class: 'input-text',
+              data: { check: :password_confirmation },
               maxlength: 70,
               required: entity.id.nil?,
               size: nil
             )
           %>
+          <div class="check-result-error" data-field="password_confirmation"></div>
         </dd>
       </div>
     <% end %>
@@ -63,6 +71,7 @@
             class: 'input-text',
             data: { check: :email },
             maxlength: User::EMAIL_LIMIT,
+            readonly: entity.super_user?,
             required: entity.email_as_login? || component_handler.require_email?,
             size: nil
           )

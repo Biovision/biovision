@@ -4,6 +4,64 @@
 module CrudEntities
   extend ActiveSupport::Concern
 
+  # get [scope]/[table_name]
+  def index
+    @collection = if paginate_entities?
+                    model_class.page_for_administration(current_page)
+                  else
+                    model_class.list_for_administration
+                  end
+  end
+
+  # get [scope]/[table_name]/:id
+  def show
+  end
+
+  # post [scope]/[table_name]/check
+  def check
+    @entity = model_class.instance_for_check(params[:entity_id], entity_parameters)
+
+    render 'shared/forms/check'
+  end
+
+  # get [scope]/[table_name]/new
+  def new
+    @entity = model_class.new
+    render view_for_new
+  end
+
+  # post [scope]/[table_name]
+  def create
+    @entity = model_class.new(creation_parameters)
+    if @entity.save
+      form_processed_ok(path_after_save)
+    else
+      form_processed_with_error(view_for_new)
+    end
+  end
+
+  # get [scope]/[table_name]/:id/edit
+  def edit
+    render view_for_edit
+  end
+
+  # patch [scope]/[table_name]/:id
+  def update
+    if @entity.update(entity_parameters)
+      form_processed_ok(path_after_save)
+    else
+      form_processed_with_error(view_for_edit)
+    end
+  end
+
+  # delete [scope]/[table_name]/:id
+  def destroy
+    flash[:notice] = t('.success') if @entity.destroy
+    redirect_to path_after_destroy
+  end
+
+  private
+
   def view_for_new
     default_view = "#{controller_path}/new"
     lookup_context.exists?(default_view) ? default_view : 'shared/entity/new'
@@ -19,71 +77,19 @@ module CrudEntities
   end
 
   def path_after_save
-    "/admin/#{model_class.table_name}/#{@entity.id}"
+    scope = self.class.module_parent.to_s.downcase
+    prefix = scope.blank? ? '' : "/#{scope}"
+    "#{prefix}/#{model_class.table_name}/#{@entity.id}"
   end
 
   def path_after_destroy
-    "/admin/#{model_class.table_name}"
+    scope = self.class.module_parent.to_s.downcase
+    prefix = scope.blank? ? '' : "/#{scope}"
+    "#{prefix}/#{model_class.table_name}"
   end
 
   def paginate_entities?
     model_class.respond_to?(:page_for_administration)
-  end
-
-  # get /admin/[table_name]
-  def index
-    @collection = if paginate_entities?
-                    model_class.page_for_administration(current_page)
-                  else
-                    model_class.list_for_administration
-                  end
-  end
-
-  # get /admin/[table_name]/:id
-  def show
-  end
-
-  # post /[table_name]/check
-  def check
-    @entity = model_class.instance_for_check(params[:entity_id], entity_parameters)
-
-    render 'shared/forms/check'
-  end
-
-  # get /[table_name]/new
-  def new
-    @entity = model_class.new
-    render view_for_new
-  end
-
-  # post /[table_name]
-  def create
-    @entity = model_class.new(creation_parameters)
-    if @entity.save
-      form_processed_ok(path_after_save)
-    else
-      form_processed_with_error(view_for_new)
-    end
-  end
-
-  # get /[table_name]/:id/edit
-  def edit
-    render view_for_edit
-  end
-
-  # patch /[table_name]/:id
-  def update
-    if @entity.update(entity_parameters)
-      form_processed_ok(path_after_save)
-    else
-      form_processed_with_error(view_for_edit)
-    end
-  end
-
-  # delete /[table_name]/:id
-  def destroy
-    flash[:notice] = t('.success') if @entity.destroy
-    redirect_to path_after_destroy
   end
 
   def set_entity

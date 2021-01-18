@@ -80,7 +80,7 @@ module Biovision
         def create(user_data, profile_data)
           self.user = User.new(user_data)
           self.profile = profile_data
-          user.save
+          Biovision::Components::UsersComponent.created_user(user) if user.save
           user
         end
 
