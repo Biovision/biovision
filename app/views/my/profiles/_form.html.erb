@@ -1,0 +1,10 @@
+<%= form_with(model: entity, url: my_profile_path, method: :patch ) do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+  <%= render partial: 'my/profiles/form/basic_parameters', locals: { f: f, entity: entity } %>
+  <%= render partial: 'my/profiles/form/sensitive_parameters', locals: { f: f, entity: entity } %>
+  <%= render 'shared/forms/state_container' %>
+
+  <div class="buttons">
+    <%= f.button t(:save), class: 'button button-save' %>
+  </div>
+<% end %>

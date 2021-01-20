@@ -14,6 +14,7 @@ $messages-border-success: hsl(120, 75%, 25%) !default;
   box-shadow: var(--block-shadow);
   color: var(--text-color-inverted-primary);
   margin: var(--spacer-s) auto;
+  max-width: var(--content-width);
   padding: var(--spacer-s) var(--spacer-s) var(--spacer-s) calc(3.2rem + var(--spacer-s) * 2);
 
   &:empty {

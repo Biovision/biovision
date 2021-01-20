@@ -1,0 +1,14 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('my.index.index.nav_text'), my_path) %>
+  <%= link_to(t('my.profiles.show.nav_text'), my_profile_path) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= t('.heading') %></h1>
+
+    <%= render partial: 'my/profiles/form', locals: { entity: current_user } %>
+  </div>
+</article>

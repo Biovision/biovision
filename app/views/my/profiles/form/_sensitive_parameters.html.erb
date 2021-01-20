@@ -1,0 +1,68 @@
+<section class="users__profile-form">
+  <h3><%= t('.heading') %></h3>
+
+  <p class="hint"><%= t('.sensitive_parameters_require_password') %></p>
+
+  <dl class="fields">
+    <div>
+      <dt><%= label_tag :password, t('.current_password') %></dt>
+      <dd>
+        <%=
+          password_field_tag(
+            :password,
+            '',
+            class: 'input-text'
+          )
+        %>
+        <div class="guideline"><%= t('.leave_blank_if_not_changing') %></div>
+      </dd>
+    </div>
+    <div>
+      <dt><%= f.label :password, t('.new_password') %></dt>
+      <dd>
+        <%=
+          f.text_field(
+            :password,
+            class: 'input-text',
+            data: { check: :password },
+            maxlength: 70,
+            size: nil
+          )
+        %>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :password_confirmation %></dt>
+      <dd>
+        <%=
+          f.text_field(
+            :password_confirmation,
+            class: 'input-text',
+            maxlength: 70,
+            size: nil
+          )
+        %>
+      </dd>
+    </div>
+
+    <div>
+      <dt><%= f.label :email %></dt>
+      <dd>
+        <%=
+          f.email_field(
+            :email,
+            class: 'input-text',
+            maxlength: User::EMAIL_LIMIT,
+            required: entity.email_as_login?,
+            size: nil
+          )
+        %>
+      </dd>
+    </div>
+
+    <% if component_handler.use_phone? %>
+      <%= render partial: 'shared/forms/field', locals: { f: f, field: :phone, type: :phone } %>
+    <% end %>
+  </dl>
+</section>

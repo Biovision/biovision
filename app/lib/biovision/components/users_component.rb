@@ -22,11 +22,13 @@ module Biovision
       SETTING_OPEN = 'registration_open'
       SETTING_REQUIRE_EMAIL = 'require_email'
       SETTING_USE_INVITES = 'use_invites'
+      SETTING_USE_PHONE = 'use_phone'
 
       def self.settings_flags
         [
           SETTING_OPEN, SETTING_EMAIL_AS_LOGIN, SETTING_CONFIRM_EMAIL,
-          SETTING_REQUIRE_EMAIL, SETTING_INVITE_ONLY, SETTING_USE_INVITES
+          SETTING_REQUIRE_EMAIL, SETTING_INVITE_ONLY, SETTING_USE_INVITES,
+          SETTING_USE_PHONE
         ]
       end
 
@@ -107,6 +109,10 @@ module Biovision
 
       def use_invites?
         settings[SETTING_USE_INVITES] || invite_only?
+      end
+
+      def use_phone?
+        settings[SETTING_USE_PHONE]
       end
     end
   end

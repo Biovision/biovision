@@ -6,5 +6,15 @@
 <article>
   <div class="content-wrapper">
     <h1><%= t('.heading') %></h1>
+
+    <nav>
+      <%=
+        link_to(
+          t('my.profiles.show.nav_text'),
+          my_profile_path,
+          class: 'button button-ghost'
+        )
+      %>
+    </nav>
   </div>
 </article>

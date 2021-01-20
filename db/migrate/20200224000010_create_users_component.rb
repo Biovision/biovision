@@ -38,7 +38,8 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       use_invites: false,
       invite_count: 5,
       bounce_count: 10,
-      bounce_timeout: 3
+      bounce_timeout: 3,
+      use_phone: false
     }
 
     BiovisionComponent.create(slug: slug, settings: settings)

@@ -143,8 +143,23 @@ ru:
         are_you_bot: "Не нужно было отмечать галочку."
       show:
         title: "Мой профиль"
+        nav_text: "Мой Профиль"
+        heading: "Мой профиль"
       update:
         success: "Профиль успешно изменён"
+      edit:
+        title: "Редактирование профиля"
+        nav_text: "Редактировать"
+        heading: "Редактирование профиля"
+      form:
+        basic_parameters:
+          heading: "Основные параметры"
+        sensitive_parameters:
+          heading: "Пароль и почта"
+          current_password: "Текущий пароль"
+          leave_blank_if_not_changing: "Заполняйте только если собираетесь менять параметры ниже"
+          sensitive_parameters_require_password: "Это связанные с безопасностью параметры. Для их изменения нужно ввести текущий пароль."
+          new_password: "Новый пароль"
     index:
       index:
         title: "Личный кабинет"

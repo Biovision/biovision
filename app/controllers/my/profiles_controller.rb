@@ -42,7 +42,8 @@ class My::ProfilesController < ApplicationController
   # patch /my/profile
   def update
     @entity = current_user
-    if @entity.update(user_parameters)
+    profile_data = params[:profile].permit!
+    if component_handler.update_user(@entity, user_parameters, profile_data)
       flash[:notice] = t('.success')
       form_processed_ok(my_path)
     else
@@ -91,23 +92,16 @@ class My::ProfilesController < ApplicationController
     sensitive = sensitive_parameters
     editable = User.profile_parameters + sensitive
     parameters = params.require(:user).permit(editable)
-    new_data = @entity.data.merge(profile: profile_parameters)
 
-    filter_parameters(parameters.merge(data: new_data), sensitive)
+    filter_parameters(parameters.to_h, sensitive)
   end
 
   def sensitive_parameters
-    if current_user.authenticate params[:password].to_s
+    if current_user.authenticate param_from_request(:password)
       User.sensitive_parameters
     else
       []
     end
-  end
-
-  def profile_parameters
-    permitted = UserProfileHandler.allowed_parameters
-    dirty = params.require(:user_profile).permit(permitted)
-    UserProfileHandler.clean_parameters(dirty)
   end
 
   # @param [Hash] parameters

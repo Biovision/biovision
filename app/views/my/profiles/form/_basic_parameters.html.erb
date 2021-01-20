@@ -1,0 +1,9 @@
+<section class="users__profile-form">
+  <h3><%= t('.heading') %></h3>
+
+  <dl class="fields">
+    <%= render partial: 'components/users/form/image', locals: { f: f, entity: entity } %>
+    <%= render partial: 'shared/forms/field', locals: { f: f, field: :birthday } %>
+    <%= render partial: 'components/users/form/profile_data', locals: { data: entity.profile.to_h } %>
+  </dl>
+</section>

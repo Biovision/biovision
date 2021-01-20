@@ -1,0 +1,17 @@
+<div>
+  <dt><%= f.label :image %></dt>
+  <dd>
+    <figure id="user-image" role="group" class="image-medium">
+      <%= f.label(:image, image_tag(entity.image.small.url)) %>
+      <figcaption>
+        <%=
+          f.file_field(
+            :image,
+            accept: 'image/jpeg,image/png,image/svg+xml',
+            data: { image: 'user-image' }
+          )
+        %>
+      </figcaption>
+    </figure>
+  </dd>
+</div>

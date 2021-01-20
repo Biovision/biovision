@@ -1,3 +1,23 @@
 <% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('my.index.index.nav_text'), my_path) %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
 
-<%= render partial: 'profiles/profile', locals: { user: current_user } %>
+<article>
+  <div class="content-wrapper">
+    <h1><%= t('.heading') %></h1>
+
+    <nav>
+      <%=
+        link_to(
+          t('my.profiles.edit.nav_text'),
+          edit_my_profile_path,
+          class: 'button button-ghost'
+        )
+      %>
+    </nav>
+
+    <%= render partial: 'users/profile', locals: { user: current_user } %>
+  </div>
+</article>

@@ -47,3 +47,31 @@
   margin: var(--spacer-s) 0;
   padding: 0 var(--spacer-xs);
 }
+
+.users__profile-form {
+  background: #f7f7f7;
+  border: var(--border-secondary);
+  margin: var(--spacer-s) auto;
+  padding: var(--spacer-xs);
+
+  img {
+    box-shadow: var(--block-shadow);
+  }
+
+  h3 {
+    margin-bottom: var(--spacer-s);
+  }
+
+  .hint {
+    background: #fff;
+    box-shadow: var(--block-shadow);
+    font-size: var(--font-size-increased);
+    font-weight: 300;
+    padding: var(--spacer-xs);
+
+    &::before {
+      content: '☝';
+      margin-right: var(--spacer-xxs);
+    }
+  }
+}

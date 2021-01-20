@@ -1,5 +1,6 @@
 $form-control-color: hsl(220, 75%, 75%) !default;
 $form-field-error: #f00 !default;
+$form-input-bg: #fff !default;
 
 form {
   margin: 0;
@@ -133,6 +134,7 @@ form {
 
 .input-select,
 .input-text {
+  background-color: #{$form-input-bg};
   border: .1rem solid var(--input-border);
   border-radius: var(--spacer-xxs);
   font-size: var(--font-size-normal);
@@ -150,7 +152,7 @@ form {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  background: image_url('biovision/icons/dropdown.svg') no-repeat center right var(--spacer-xs) / 1.1rem auto;
+  background: #{$form-input-bg} image_url('biovision/icons/dropdown.svg') no-repeat center right var(--spacer-xs) / 1.1rem auto;
   padding-right: 3.2rem;
 }
 
