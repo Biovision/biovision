@@ -21,7 +21,7 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       drop_table model.table_name if model.table_exists?
     end
 
-    BiovisionComponent[Biovision::Components::UsersComponent.slug]&.destroy
+    BiovisionComponent[Biovision::Components::UsersComponent]&.destroy
   end
 
   private
@@ -32,7 +32,7 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     settings = {
       registration_open: true,
       email_as_login: false,
-      confirm_email: true,
+      confirm_email: false,
       require_email: false,
       invite_only: false,
       use_invites: false,

@@ -20,7 +20,7 @@ class Code < ApplicationRecord
   QUANTITY_RANGE = (0..32_767).freeze
 
   belongs_to :biovision_component
-  belongs_to :user
+  belongs_to :user, optional: true
 
   after_initialize :generate_body
 
@@ -41,7 +41,7 @@ class Code < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i[body payload quantity]
+    %i[body quantity]
   end
 
   def self.creation_parameters

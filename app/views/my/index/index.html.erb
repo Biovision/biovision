@@ -3,18 +3,31 @@
   <span><%= t('.nav_text') %></span>
 <% end %>
 
-<article>
-  <div class="content-wrapper">
-    <h1><%= t('.heading') %></h1>
+<article class="content-wrapper">
+  <h1><%= t('.heading') %></h1>
 
-    <nav>
-      <%=
-        link_to(
-          t('my.profiles.show.nav_text'),
-          my_profile_path,
-          class: 'button button-ghost'
-        )
-      %>
-    </nav>
-  </div>
+  <% if component_handler.needs_email_confirmation? %>
+    <div class="message-box warning">
+      <p><%= t('.email_is_not_confirmed') %></p>
+      <p>
+        <%=
+          link_to(
+            t('my.confirmations.show.nav_text'),
+            my_confirmation_path,
+            class: 'button button-secondary'
+          )
+        %>
+      </p>
+    </div>
+  <% end %>
+
+  <nav>
+    <%=
+      link_to(
+        t('my.profiles.show.nav_text'),
+        my_profile_path,
+        class: 'button button-ghost'
+      )
+    %>
+  </nav>
 </article>

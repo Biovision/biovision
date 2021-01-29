@@ -6,9 +6,11 @@ module Biovision
     class UsersComponent < BaseComponent
       include Users::Authentication
       include Users::Validation
+      include Users::Codes
 
       CODE_CONFIRMATION = 'confirmation'
       CODE_INVITATION = 'invitation'
+      CODE_RECOVERY = 'recovery'
       METRIC_AUTH_FAILURE = 'users.auth.failure.hit'
       METRIC_NEW_USER = 'users.new_user.hit'
       METRIC_REGISTRATION_BOT = 'users.registration.bot.hit'
@@ -91,6 +93,12 @@ module Biovision
         user.attributes[attribute_name.to_s]
       end
 
+      def needs_email_confirmation?
+        return false if user&.email_confirmed?
+
+        confirm_email? && !user.email.blank?
+      end
+
       def registration_open?
         settings[SETTING_OPEN]
       end
@@ -101,6 +109,10 @@ module Biovision
 
       def require_email?
         settings[SETTING_REQUIRE_EMAIL] || email_as_login?
+      end
+
+      def confirm_email?
+        settings[SETTING_CONFIRM_EMAIL]
       end
 
       def invite_only?

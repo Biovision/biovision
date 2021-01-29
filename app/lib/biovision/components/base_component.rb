@@ -144,8 +144,9 @@ module Biovision
 
       # @param [User] user
       # @param [String] code_type
-      def find_or_create_code(user, code_type)
-        @component.find_or_create_code(user, code_type)
+      # @param [Integer] quantity
+      def find_or_create_code(user, code_type, quantity = 1)
+        @component.find_or_create_code(user, code_type, quantity)
       end
 
       # @param [String|Symbol] key

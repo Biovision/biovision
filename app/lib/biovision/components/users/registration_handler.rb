@@ -35,13 +35,7 @@ module Biovision
         end
 
         def open?
-          key = Biovision::Components::UsersComponent::SETTING_OPEN
-          @component.settings[key]
-        end
-
-        def confirm_email?
-          key = Biovision::Components::UsersComponent::SETTING_CONFIRM_EMAIL
-          @component.settings[key]
+          @component.registration_open?
         end
 
         def valid?
@@ -61,10 +55,7 @@ module Biovision
         end
 
         def valid_invitation?
-          return false if @code.nil?
-
-          code_type = Biovision::Components::UsersComponent::CODE_INVITATION
-          @code.type?(code_type) && @code.active?
+          @component.valid_invitation?(@code)
         end
 
         def acceptable_code?
@@ -82,25 +73,12 @@ module Biovision
         end
 
         def handle_codes
-          if confirm_email?
-            code_type = Biovision::Components::UsersComponent::CODE_CONFIRMATION
-            code = @component.find_or_create_code(@user, code_type)
-            CodeSender.email(code.id).deliver_later
-          end
+          @component.send_confirmation(@user) if @component.confirm_email?
 
           return unless @component.use_invites?
 
-          activate_invitation if valid_invitation?
-        end
-
-        def activate_invitation
-          return if @code.nil? || !@code.active?
-
-          @code.decrement!(:quantity)
-          @user.update(inviter_id: @code.user_id)
-
-          metric = Biovision::Components::UsersComponent::METRIC_USED_INVITATION
-          @component.register_metric(metric)
+          @component.activate_invitation(@code, @user) if valid_invitation?
+          @component.create_invitations_for_user(@user)
         end
       end
     end

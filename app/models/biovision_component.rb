@@ -51,11 +51,12 @@ class BiovisionComponent < ApplicationRecord
 
   # @param [User] user
   # @param [String] type
-  def find_or_create_code(user, type)
+  # @param [Integer] quantity
+  def find_or_create_code(user, type, quantity = 1)
     code = codes.owned_by(user).with_type(type).active.first
 
     if code.nil?
-      code = codes.new(user: user)
+      code = codes.new(user: user, quantity: quantity)
       code.code_type = type
       code.save
     end
