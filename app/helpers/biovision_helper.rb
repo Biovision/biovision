@@ -132,4 +132,10 @@ module BiovisionHelper
     }
     link_to(text, path, options)
   end
+
+  # @param [String] phone
+  # @param [Hash] options
+  def phone_link(phone, options = {})
+    link_to(phone, "tel:#{phone.gsub(/[^+0-9]/, '')}", options)
+  end
 end

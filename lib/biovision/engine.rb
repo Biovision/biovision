@@ -36,5 +36,6 @@ module Biovision
   require 'carrierwave'
   require 'mini_magick'
   require 'carrierwave-bombshelter'
+  require 'image_optim'
   require 'rest-client'
 end

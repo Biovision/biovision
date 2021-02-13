@@ -2,6 +2,7 @@
 
 # Uploader for universal simple images
 class SimpleImageUploader < CarrierWave::Uploader::Base
+  include CarrierWave::ImageOptim
   include CarrierWave::MiniMagick
 
   storage :file
@@ -15,6 +16,7 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
   end
 
   process :auto_orient
+  process optimize: [{ jpegoptim: true, optipng: true, svgo: true }]
 
   def auto_orient
     return unless raster?
