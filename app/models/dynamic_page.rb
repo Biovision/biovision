@@ -19,6 +19,7 @@ class DynamicPage < ApplicationRecord
   include HasLanguage
   include HasSimpleImage
   include HasUuid
+  include MetaTexts
   include Toggleable
 
   NAME_LIMIT = 100
@@ -56,5 +57,15 @@ class DynamicPage < ApplicationRecord
 
   def world_url
     url.blank? ? '/' : url
+  end
+
+  def meta_title
+    title = data.dig('meta', 'title')
+    title.blank? ? name : title
+  end
+
+  def meta_header
+    header = data.dig('meta', 'header')
+    header.blank? ? name : header
   end
 end

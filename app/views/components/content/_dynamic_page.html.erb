@@ -1,4 +1,4 @@
-<% content_for :meta_title, entity.name %>
+<%= render partial: 'shared/entity/metadata', locals: { entity: @dynamic_page } %>
 <% content_for :breadcrumbs do %>
   <span><%= entity.name %></span>
 <% end %>

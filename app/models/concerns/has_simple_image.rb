@@ -8,6 +8,13 @@ module HasSimpleImage
     belongs_to :simple_image, optional: true, counter_cache: :object_count
 
     scope :included_image, -> { includes(:simple_image) }
+
+    def image_metadata
+      {
+        url: simple_image&.image&.url,
+        alt: simple_image&.image_alt_text
+      }
+    end
   end
 
   def image
