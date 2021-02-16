@@ -26,10 +26,9 @@ class BiovisionComponent < ApplicationRecord
 
   # Find component by slug
   #
-  # @param [String|Biovision::Components::BaseComponent] slug
+  # @param [String|Class] slug
   def self.[](slug)
-    slug = slug.slug if slug.is_a? Biovision::Components::BaseComponent
-    find_by(slug: slug)
+    find_by(slug: slug.respond_to?(:slug) ? slug.slug : slug)
   end
 
   # @param [String] slug

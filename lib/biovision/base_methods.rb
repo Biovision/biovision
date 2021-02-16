@@ -11,6 +11,7 @@ module Biovision
       helper_method :component_handler
       helper_method :current_page, :param_from_request
       helper_method :current_user, :current_language
+      helper_method :content_component
     end
 
     # Get current page number from request
@@ -43,6 +44,13 @@ module Biovision
     # @return [Language]
     def current_language
       @current_language ||= Language[locale]
+    end
+
+    # Get content component handler
+    #
+    # @return [Biovision::Components::ContentComponent]
+    def content_component
+      @content_component ||= Biovision::Components::ContentComponent[current_user]
     end
 
     # @return [Agent]
@@ -110,8 +118,9 @@ module Biovision
 
     # Restrict access for anonymous users
     def restrict_anonymous_access
-      error = t('application.errors.restricted_access')
-      handle_http_401(error) if current_user.nil?
+      return unless current_user.nil?
+
+      handle_http_401(t('application.errors.restricted_access'))
     end
 
     # Owner information for entity

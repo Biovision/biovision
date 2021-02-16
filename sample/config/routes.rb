@@ -5,12 +5,12 @@ Rails.application.routes.draw do
     post :check, on: :collection, defaults: { format: :json }
   end
 
-  concern :toggle do
-    post :toggle, on: :member, defaults: { format: :json }
-  end
-
   concern :priority do
     post :priority, on: :member, defaults: { format: :json }
+  end
+
+  concern :toggle do
+    post :toggle, on: :member, defaults: { format: :json }
   end
 
   root 'index#index'
