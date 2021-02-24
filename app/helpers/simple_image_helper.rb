@@ -15,7 +15,8 @@ module SimpleImageHelper
     return default_image if image.blank?
 
     default = {
-      alt: image.alt_text
+      alt: image.alt_text,
+      load: 'lazy'
     }
     image_tag(image.tiny_url, default.merge(options))
   end
@@ -33,7 +34,8 @@ module SimpleImageHelper
     return default_image if image.blank?
 
     default = {
-      alt: image.alt_text
+      alt: image.alt_text,
+      load: 'lazy'
     }
     image_tag(image.preview_url, default.merge(options))
   end
@@ -51,7 +53,8 @@ module SimpleImageHelper
     return default_image if image.blank?
 
     default = {
-      alt: image.alt_text
+      alt: image.alt_text,
+      load: 'lazy'
     }
     default[:srcset] = "#{image.medium.url} 2x" if image.raster?
 
@@ -71,7 +74,8 @@ module SimpleImageHelper
     return default_image if image.blank?
 
     default = {
-      alt: image.alt_text
+      alt: image.alt_text,
+      load: 'lazy'
     }
     default[:srcset] = "#{image.large.url} 2x" if image.raster?
 
@@ -91,7 +95,8 @@ module SimpleImageHelper
     return default_image if image.blank?
 
     default = {
-      alt: image.alt_text
+      alt: image.alt_text,
+      load: 'lazy'
     }
     default[:srcset] = "#{image.hd.url} 2x" if image.raster?
 
@@ -111,7 +116,8 @@ module SimpleImageHelper
     return default_image if image.blank?
 
     default = {
-      alt: image.alt_text
+      alt: image.alt_text,
+      load: 'lazy'
     }
 
     image_tag(image.hd_url, default.merge(options))
