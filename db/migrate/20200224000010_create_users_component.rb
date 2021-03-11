@@ -32,8 +32,11 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     settings = {
       registration_open: true,
       email_as_login: false,
+      phone_as_login: false,
       confirm_email: false,
       require_email: false,
+      confirm_phone: false,
+      require_phone: false,
       invite_only: false,
       use_invites: false,
       invite_count: 5,
@@ -136,12 +139,11 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :ip_address, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.integer :quantity, default: 1, null: false
-      t.string :body, null: false
+      t.string :body, index: true, null: false
       t.timestamps
       t.jsonb :data, default: {}, null: false
     end
 
-    add_index :codes, :body, unique: true
     add_index :codes, :data, using: :gin
   end
 

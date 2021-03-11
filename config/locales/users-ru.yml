@@ -207,6 +207,21 @@ ru:
         i_am_bot: "НЕ ОТМЕЧАЙТЕ эту галочку"
         join: "Зарегистрироваться"
         closed: "Регистрация новых пользователей закрыта"
+      settings:
+        bounce_count: "Количество неудачных попыток входа перед блокировкой"
+        bounce_timeout: "Тайм-аут для попыток входа"
+        confirm_email: "Подтверждать почту"
+        confirm_phone: "Подтверждать телефон"
+        email_as_login: "Почта в качестве логина"
+        invite_count: "Количество приглашений при регистрации"
+        invite_only: "Регистрация только по приглашениям"
+        registration_open: "Регистрация открыта"
+        phone_as_login: "Телефон в качестве логина"
+        require_email: "Почта обязательна"
+        require_phone: "Телефон обязателен"
+        skip_screen_name_validation: "Не проверять логин"
+        use_invites: "Использовать пришлашения"
+        use_phone: "Использовать телефон"
   admin:
     users:
       nav_item:

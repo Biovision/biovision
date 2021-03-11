@@ -39,6 +39,7 @@ class User < ApplicationRecord
 
   EMAIL_LIMIT = 250
   EMAIL_PATTERN = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z0-9][-a-z0-9]+)\z/i.freeze
+  FLAG_SKIP_SCREEN_NAME = 'skip_screen_name_validation'
   NOTICE_LIMIT = 255
   PHONE_LIMIT = 50
   SLUG_LIMIT = 36
@@ -63,6 +64,7 @@ class User < ApplicationRecord
   after_initialize :prepare_referral_link
 
   before_validation { self.email = nil if email.blank? }
+  before_validation { self.phone = nil if phone.blank? }
   before_validation :normalize_slug
 
   validate do |entity|
@@ -72,6 +74,7 @@ class User < ApplicationRecord
   validates_acceptance_of :consent
   validates :screen_name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
+  validates :phone, uniqueness: { case_sensitive: false }, allow_nil: true
   validates_length_of :phone, maximum: PHONE_LIMIT
   validates_length_of :notice, maximum: NOTICE_LIMIT
 
@@ -79,6 +82,10 @@ class User < ApplicationRecord
   scope :email_like, ->(v) { where('email ilike ?', "%#{v}%") unless v.blank? }
   scope :with_email, ->(v) { where('lower(email) = lower(?)', v.to_s) }
   scope :list_for_administration, -> { order('id desc') }
+
+  def self.[](login)
+    find_by(slug: login) || find_by_contact(login)
+  end
 
   # @param [Integer] page
   def self.page_for_administration(page = 1)
@@ -91,6 +98,15 @@ class User < ApplicationRecord
 
   def self.sensitive_parameters
     %i[email phone password password_confirmation]
+  end
+
+  # @param [String] login
+  def self.find_by_contact(login)
+    if login.index('@').to_i.positive?
+      User.with_email(login).first
+    elsif login[0] == '+'
+      User.find_by(phone: login)
+    end
   end
 
   # Parameters for registration
@@ -142,7 +158,11 @@ class User < ApplicationRecord
   end
 
   def email_as_login?
-    !data['email_as_login'].blank?
+    !data[Biovision::Components::UsersComponent::SETTING_EMAIL_AS_LOGIN].blank?
+  end
+
+  def phone_as_login?
+    !data[Biovision::Components::UsersComponent::SETTING_PHONE_AS_LOGIN].blank?
   end
 
   # @param [String|Symbol] component_slug

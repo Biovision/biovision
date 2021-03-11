@@ -8,22 +8,57 @@ module Biovision
         def validate
           prepare_screen_name if user.new_record?
 
-          validate_email_presence if require_email? || user.email_as_login?
-          validate_email_format unless user.email.blank?
-          validate_screen_name unless user.data['skip_screen_name_validation']
+          validate_email
+          validate_phone
+          validate_screen_name unless user.data[User::FLAG_SKIP_SCREEN_NAME]
         end
 
         private
 
         def prepare_screen_name
-          return unless email_as_login?
+          use_uuid = false
+          use_uuid = email_as_login! if email_as_login?
+          use_uuid = phone_as_login! if phone_as_login?
 
-          user.data['email_as_login'] = true
-          user.screen_name = user.uuid
+          user.screen_name = user.uuid if use_uuid
         end
 
-        def validate_email_presence
-          user.errors.add(:email, :blank) if user.email.blank?
+        def email_as_login!
+          key = Biovision::Components::UsersComponent::SETTING_EMAIL_AS_LOGIN
+          user.data[key] = true
+        end
+
+        def phone_as_login!
+          key = Biovision::Components::UsersComponent::SETTING_PHONE_AS_LOGIN
+          user.data[key] = true
+        end
+
+        def validate_phone
+          user.errors.add(:phone, :blank) if require_phone? && user.phone.blank?
+
+          normalize_phone_format
+          validate_phone_format unless user.phone.blank?
+        end
+
+        def normalize_phone_format
+          has_plus = user.phone.strip[0] == '+'
+          normalized_phone = user.phone.gsub(/\D/, '')
+          normalized_phone[0] = '7' if !has_plus && normalized_phone[0] == '8'
+
+          user.phone = "+#{normalized_phone}" unless normalized_phone.blank?
+        end
+
+        # @see https://ru.wikipedia.org/wiki/MSISDN
+        def validate_phone_format
+          return if user.phone =~ /\+\d{11,15}/
+
+          user.errors.add(:phone, :invalid)
+        end
+
+        def validate_email
+          user.errors.add(:email, :blank) if require_email? && user.email.blank?
+
+          validate_email_format unless user.email.blank?
         end
 
         def validate_email_format

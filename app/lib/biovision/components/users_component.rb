@@ -7,9 +7,11 @@ module Biovision
       include Users::Authentication
       include Users::Validation
       include Users::Codes
+      include Users::FlagHelpers
 
-      CODE_CONFIRMATION = 'confirmation'
+      CODE_EMAIL_CONFIRMATION = 'email_confirmation'
       CODE_INVITATION = 'invitation'
+      CODE_PHONE_CONFIRMATION = 'phone_confirmation'
       CODE_RECOVERY = 'recovery'
       METRIC_AUTH_FAILURE = 'users.auth.failure.hit'
       METRIC_NEW_USER = 'users.new_user.hit'
@@ -18,18 +20,22 @@ module Biovision
       SETTING_BOUNCE_COUNT = 'bounce_count'
       SETTING_BOUNCE_TIMEOUT = 'bounce_timeout'
       SETTING_CONFIRM_EMAIL = 'confirm_email'
+      SETTING_CONFIRM_PHONE = 'confirm_phone'
       SETTING_EMAIL_AS_LOGIN = 'email_as_login'
       SETTING_INVITE_COUNT = 'invite_count'
       SETTING_INVITE_ONLY = 'invite_only'
       SETTING_OPEN = 'registration_open'
+      SETTING_PHONE_AS_LOGIN = 'phone_as_login'
       SETTING_REQUIRE_EMAIL = 'require_email'
+      SETTING_REQUIRE_PHONE = 'require_phone'
       SETTING_USE_INVITES = 'use_invites'
       SETTING_USE_PHONE = 'use_phone'
 
       def self.settings_flags
         [
           SETTING_OPEN, SETTING_EMAIL_AS_LOGIN, SETTING_CONFIRM_EMAIL,
-          SETTING_REQUIRE_EMAIL, SETTING_INVITE_ONLY, SETTING_USE_INVITES,
+          SETTING_CONFIRM_PHONE, SETTING_PHONE_AS_LOGIN, SETTING_REQUIRE_EMAIL,
+          SETTING_REQUIRE_PHONE, SETTING_INVITE_ONLY, SETTING_USE_INVITES,
           SETTING_USE_PHONE
         ]
       end
@@ -91,40 +97,6 @@ module Biovision
         return nil if user.nil?
 
         user.attributes[attribute_name.to_s]
-      end
-
-      def needs_email_confirmation?
-        return false if user&.email_confirmed?
-
-        confirm_email? && !user.email.blank?
-      end
-
-      def registration_open?
-        settings[SETTING_OPEN]
-      end
-
-      def email_as_login?
-        settings[SETTING_EMAIL_AS_LOGIN]
-      end
-
-      def require_email?
-        settings[SETTING_REQUIRE_EMAIL] || email_as_login?
-      end
-
-      def confirm_email?
-        settings[SETTING_CONFIRM_EMAIL]
-      end
-
-      def invite_only?
-        settings[SETTING_INVITE_ONLY]
-      end
-
-      def use_invites?
-        settings[SETTING_USE_INVITES] || invite_only?
-      end
-
-      def use_phone?
-        settings[SETTING_USE_PHONE]
       end
     end
   end

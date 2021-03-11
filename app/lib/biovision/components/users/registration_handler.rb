@@ -73,7 +73,8 @@ module Biovision
         end
 
         def handle_codes
-          @component.send_confirmation(@user) if @component.confirm_email?
+          @component.send_email_confirmation(@user) if @component.confirm_email?
+          @component.send_phone_confirmation(@user) if @component.confirm_phone?
 
           return unless @component.use_invites?
 

@@ -15,7 +15,7 @@ class My::ConfirmationsController < ApplicationController
     if current_user.email.blank?
       redirect_to edit_my_profile_path, notice: t('.set_email')
     else
-      component_handler.send_confirmation(current_user)
+      component_handler.send_email_confirmation(current_user)
 
       redirect_to my_confirmation_path, notice: t('.success')
     end
@@ -24,8 +24,8 @@ class My::ConfirmationsController < ApplicationController
   # patch /my/confirmation
   def update
     code = Code.find_by(body: param_from_request(:code))
-    if component_handler.valid_confirmation?(code)
-      component_handler.activate_confirmation(code)
+    if component_handler.valid_email_confirmation?(code)
+      component_handler.activate_email_confirmation(code)
       create_token_for_user(code.user)
       redirect_to my_path
     else

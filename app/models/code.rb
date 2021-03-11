@@ -27,7 +27,7 @@ class Code < ApplicationRecord
   before_validation :sanitize_quantity
 
   validates_presence_of :body
-  validates_uniqueness_of :body
+  validates_uniqueness_of :body, unless: :phone?
   validates_length_of :body, maximum: BODY_LIMIT
 
   scope :recent, -> { order('id desc') }
@@ -70,13 +70,21 @@ class Code < ApplicationRecord
     data['type'] = new_type.to_s
   end
 
+  def phone?
+    type?(Biovision::Components::UsersComponent::CODE_PHONE_CONFIRMATION)
+  end
+
   private
 
   def generate_body
     return unless body.nil?
 
-    number = SecureRandom.random_number(0xffff_ffff_ffff_ffff)
-    self.body = number.to_s(36).scan(/.{4}/).join('-').upcase
+    if phone?
+      number = SecureRandom.random_number(0xffff_ffff_ffff_ffff)
+      self.body = number.to_s(36).scan(/.{4}/).join('-').upcase
+    else
+      self.body = SecureRandom.random_number(1_000_000).to_s.rjust(6, '0')
+    end
   end
 
   def sanitize_quantity
