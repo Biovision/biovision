@@ -19,6 +19,7 @@
     <%= render partial: 'shared/entity/text_fields', locals: { entity: @entity, fields: %w[name url] } %>
     <%= render partial: 'shared/entity/simple_image', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/raw_text_field', locals: { entity: @entity, field: :body } %>
+    <%= render partial: 'shared/entity/meta_texts', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/uuid', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>

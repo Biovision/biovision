@@ -4,8 +4,10 @@
     <ul class="flags">
       <% f.object.class.toggleable_attributes.each do |flag| %>
         <li>
-          <%= f.check_box flag %>
-          <%= f.label flag %>
+          <label class="flag-label">
+            <%= f.check_box flag %>
+            <span><%= f.object.class.human_attribute_name(flag) %></span>
+          </label>
         </li>
       <% end %>
     </ul>

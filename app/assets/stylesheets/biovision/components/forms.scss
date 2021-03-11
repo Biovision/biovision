@@ -106,6 +106,18 @@ form {
     }
   }
 
+  .meta-text {
+    padding-left: var(--spacer-s);
+
+    dfn {
+      font-style: normal;
+    }
+
+    &:not(:last-of-type) {
+      margin-bottom: var(--spacer-xs);
+    }
+  }
+
   .preview {
     a {
       box-shadow: var(--block-shadow);

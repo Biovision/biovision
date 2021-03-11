@@ -1,0 +1,27 @@
+<% entity = f.object %>
+<div>
+  <dt><%= t('.name') %></dt>
+  <dd>
+    <ul class="flags">
+      <% entity.class.meta_keys.each do |key| %>
+        <li>
+          <label class="floating-label" title="<%= key %>">
+            <% placeholder = t("attributes.meta.#{key}", default: key) %>
+            <%=
+              text_field_tag(
+                "meta[#{key}",
+                entity.meta(key),
+                class: 'input-text',
+                id: nil,
+                maxlength: 250,
+                placeholder: placeholder,
+                size: nil
+              )
+            %>
+            <span><%= placeholder %></span>
+          </label>
+        </li>
+      <% end %>
+    </ul>
+  </dd>
+</div>

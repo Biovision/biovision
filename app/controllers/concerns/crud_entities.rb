@@ -33,6 +33,7 @@ module CrudEntities
   # post [scope]/[table_name]
   def create
     @entity = model_class.new(creation_parameters)
+    apply_meta if @entity.respond_to?(:meta=)
     if @entity.save
       form_processed_ok(path_after_save)
     else
@@ -47,6 +48,8 @@ module CrudEntities
 
   # patch [scope]/[table_name]/:id
   def update
+    apply_meta if @entity.respond_to?(:meta=)
+
     if @entity.update(entity_parameters)
       form_processed_ok(path_after_save)
     else
@@ -109,5 +112,10 @@ module CrudEntities
   def entity_parameters
     permitted = model_class.entity_parameters
     params.require(model_class.model_name.to_s.underscore).permit(permitted)
+  end
+
+  def apply_meta
+    new_data = params[:meta].permit!
+    @entity.meta = new_data
   end
 end

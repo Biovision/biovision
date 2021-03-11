@@ -14,6 +14,11 @@ ru:
     image: "Картинка"
     language: "Язык"
     language_id: "Язык"
+    meta:
+      description: "Описание"
+      heading: "Заголовок страницы (h1/h2)"
+      keywords: "Ключевые слова"
+      title: "Заголовок окна (title)"
     name: "Название"
     object_count: "Количество объектов"
     priority: "Порядок сортировки"
@@ -104,6 +109,8 @@ ru:
     forms:
       state_container:
         saving: "Сохранение…"
+      meta_texts:
+        name: "Метаданные"
     entity:
       edit:
         nav_text: "Редактировать"

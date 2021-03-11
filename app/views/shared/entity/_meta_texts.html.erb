@@ -1,0 +1,16 @@
+<% list = entity.meta! %>
+<% unless list.blank? %>
+  <div>
+    <dt><%= t('shared.forms.meta_texts.name') %></dt>
+    <dd>
+      <% list.each do |key, value| %>
+        <div class="meta-text">
+          <dfn title="<%= key %>">
+            <%= t("attributes.meta.#{key}", default: key) %>
+          </dfn>
+          <div class="text"><%= value %></div>
+        </div>
+      <% end %>
+    </dd>
+  </div>
+<% end %>
