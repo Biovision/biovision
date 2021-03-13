@@ -21,6 +21,13 @@ module Biovision
           %w[gender name patronymic surname about]
         end
 
+        # List of parameters to be used in controllers for create/update
+        def self.permitted_for_request
+          allowed_parameters.map do |key|
+            key.respond_to?(:to_h) ? key.to_h : key
+          end
+        end
+
         # Normalize profile parameters for storage
         #
         # Makes consistent format of profile hash.
@@ -31,9 +38,26 @@ module Biovision
 
           output = normalized_parameters(input)
           (allowed_parameters - output.keys).each do |parameter|
-            output[parameter] = input.key?(parameter) ? input[parameter].to_s : nil
+            if parameter.respond_to?(:shift)
+              key = parameter.shift
+              output[key] = array_value(input[key].to_h, parameter)
+            else
+              output[parameter] = scalar_value(input, parameter)
+            end
           end
           output
+        end
+
+        # @param [Hash] input
+        # @param [String] key
+        def self.scalar_value(input, key)
+          input.key?(key) ? input[key].to_s : nil
+        end
+
+        # @param [Hash] input
+        # @param [Array] keys
+        def self.array_value(input, keys)
+          keys.each.map { |key| [key, scalar_value(input, key)] }.to_h
         end
 
         # @param [Integer|nil] gender_id

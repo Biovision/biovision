@@ -42,8 +42,7 @@ class My::ProfilesController < ApplicationController
   # patch /my/profile
   def update
     @entity = current_user
-    profile_data = params[:profile].permit!
-    if component_handler.update_user(@entity, user_parameters, profile_data)
+    if component_handler.update_user(@entity, user_parameters, profile_parameters)
       flash[:notice] = t('.success')
       form_processed_ok(my_path)
     else
@@ -101,6 +100,15 @@ class My::ProfilesController < ApplicationController
       User.sensitive_parameters
     else
       []
+    end
+  end
+
+  def profile_parameters
+    if params.key?(:profile)
+      list = Biovision::Components::Users::ProfileHandler.permitted_for_request
+      params.require(:profile).permit(list)
+    else
+      {}
     end
   end
 

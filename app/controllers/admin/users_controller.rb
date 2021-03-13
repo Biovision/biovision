@@ -61,8 +61,8 @@ class Admin::UsersController < AdminController
 
   def profile_parameters
     if params.key?(:profile)
-      permitted = Biovision::Components::Users::ProfileHandler.allowed_parameters
-      params.require(:profile).permit(permitted)
+      list = Biovision::Components::Users::ProfileHandler.permitted_for_request
+      params.require(:profile).permit(list)
     else
       {}
     end

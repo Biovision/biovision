@@ -69,8 +69,8 @@ module Biovision
       end
 
       # @param [Hash] parameters
-      # @param [Code] code
-      def register_user(parameters, code)
+      # @param [Code|nil] code
+      def register_user(parameters, code = nil)
         handler = Users::RegistrationHandler.new(self)
         handler.handle(parameters, code)
       end

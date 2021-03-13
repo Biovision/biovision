@@ -6,4 +6,12 @@ Rails.application.configure do
   config.i18n.default_locale = :ru
 
   config.exceptions_app = routes
+
+  overrides = "#{Rails.root}/app/overrides"
+  Rails.autoloaders.main.ignore(overrides)
+  config.to_prepare do
+    Dir.glob("#{overrides}/**/*_override.rb").each do |override|
+      load override
+    end
+  end
 end

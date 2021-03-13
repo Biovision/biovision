@@ -6,6 +6,8 @@ module Biovision
       # Validating instances of User
       module Validation
         def validate
+          return if user.nil?
+
           prepare_screen_name if user.new_record?
 
           validate_email

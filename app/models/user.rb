@@ -65,7 +65,7 @@ class User < ApplicationRecord
 
   before_validation { self.email = nil if email.blank? }
   before_validation { self.phone = nil if phone.blank? }
-  before_validation :normalize_slug
+  after_validation :normalize_slug
 
   validate do |entity|
     Biovision::Components::UsersComponent[entity].validate

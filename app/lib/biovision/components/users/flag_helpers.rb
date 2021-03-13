@@ -28,7 +28,7 @@ module Biovision
         end
 
         def phone_as_login?
-          key = Biovision::Components::UsersComponent::SETTING_EMAIL_AS_LOGIN
+          key = Biovision::Components::UsersComponent::SETTING_PHONE_AS_LOGIN
           settings[key]
         end
 
