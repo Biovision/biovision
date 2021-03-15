@@ -24,6 +24,25 @@ module BiovisionHelper
   # @param [ApplicationRecord] entity
   # @param [String] text
   # @param [Hash] options
+  def my_entity_link(entity, text = nil, options = {})
+    return '∅' if entity.nil?
+
+    if text.nil?
+      text = entity.respond_to?(:text_for_link) ? entity.text_for_link : entity.id
+    end
+
+    href = if entity.respond_to?(:my_url)
+             entity.my_url
+           else
+             "/my/#{entity.class.table_name}/#{entity.id}"
+           end
+
+    link_to(text, href, options)
+  end
+
+  # @param [ApplicationRecord] entity
+  # @param [String] text
+  # @param [Hash] options
   def entity_link(entity, text = nil, options = {})
     return '' if entity.nil?
 

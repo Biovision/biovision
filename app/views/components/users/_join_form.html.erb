@@ -40,31 +40,31 @@
           <div class="check-result-error" data-field="screen_name"></div>
           <div class="guideline"><%= t('activerecord.guidelines.user.screen_name') %></div>
         </div>
-      <% end %>
 
-      <% if handler.use_phone? %>
-        <div>
-          <label class="floating-label">
-            <%=
-              f.telephone_field(
-                :phone,
-                class: 'input-text',
-                data: { check: :phone },
-                maxlength: User::PHONE_LIMIT,
-                placeholder: User.human_attribute_name(:phone),
-                required: handler.require_phone?,
-                size: nil,
-                value: handler.attribute(:phone)
-              )
-            %>
-            <span><%= User.human_attribute_name(:email) %></span>
-          </label>
-          <div class="check-result-error" data-field="email"></div>
-          <% unless handler.email_as_login? %>
-            <div class="guideline"><%= t('activerecord.guidelines.user.email') %></div>
-          <% end %>
-        </div>
-    <% end %>
+        <% if handler.use_phone? %>
+          <div>
+            <label class="floating-label">
+              <%=
+                f.telephone_field(
+                  :phone,
+                  class: 'input-text',
+                  data: { check: :phone },
+                  maxlength: User::PHONE_LIMIT,
+                  placeholder: User.human_attribute_name(:phone),
+                  required: handler.require_phone?,
+                  size: nil,
+                  value: handler.attribute(:phone)
+                )
+              %>
+              <span><%= User.human_attribute_name(:email) %></span>
+            </label>
+            <div class="check-result-error" data-field="email"></div>
+            <% unless handler.email_as_login? %>
+              <div class="guideline"><%= t('activerecord.guidelines.user.email') %></div>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
 
       <div>
         <label class="floating-label">
@@ -161,17 +161,19 @@
           <span><%= User.human_attribute_name(:consent) %></span>
         </label>
       </li>
+<!--
       <li>
         <label class="flag-label">
-          <%=
+          <%#=
             f.check_box(
               :allow_mail,
               checked: handler.user.nil? ? true : handler.attribute(:allow_mail)
             )
           %>
-          <span><%= User.human_attribute_name(:allow_mail) %></span>
+          <span><%#= User.human_attribute_name(:allow_mail) %></span>
         </label>
       </li>
+-->
     </ul>
 
     <div class="visually-hidden">

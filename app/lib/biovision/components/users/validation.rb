@@ -38,7 +38,7 @@ module Biovision
         def validate_phone
           user.errors.add(:phone, :blank) if require_phone? && user.phone.blank?
 
-          normalize_phone_format
+          normalize_phone_format unless user.phone.blank?
           validate_phone_format unless user.phone.blank?
         end
 

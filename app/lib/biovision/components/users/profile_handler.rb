@@ -24,7 +24,7 @@ module Biovision
         # List of parameters to be used in controllers for create/update
         def self.permitted_for_request
           allowed_parameters.map do |key|
-            key.respond_to?(:to_h) ? key.to_h : key
+            key.respond_to?(:to_h) ? [[key.shift, key]].to_h : key
           end
         end
 

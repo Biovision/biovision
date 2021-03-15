@@ -21,7 +21,7 @@ module MetaTexts
     end
 
     def meta!
-      data.dig('meta').to_h
+      data['meta'].to_h
     end
 
     # @param [Hash] new_data

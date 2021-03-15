@@ -64,8 +64,8 @@ class DynamicPage < ApplicationRecord
     title.blank? ? name : title
   end
 
-  def meta_header
-    header = data.dig('meta', 'header')
-    header.blank? ? name : header
+  def meta_heading
+    heading = data.dig('meta', 'heading')
+    heading.blank? ? name : heading
   end
 end
