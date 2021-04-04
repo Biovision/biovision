@@ -1,0 +1,6 @@
+<% unless entity.parent.blank? %>
+  <div>
+    <dt><%= entity.class.human_attribute_name(:parent) %></dt>
+    <dd><%= admin_entity_link(entity.parent) %></dd>
+  </div>
+<% end %>

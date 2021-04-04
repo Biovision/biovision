@@ -50,10 +50,10 @@ end
 ## Изменения в `config/environments/production.rb`
 
 Нужно раскомментировать строку `config.require_master_key = true` (на момент 
-написания это `19` строка).
+написания это `21` строка).
 
 Нужно выставить уровень сообщения об ошибках в `:warn` 
-(`config.log_level = :warn` в районе `54` строки).
+(`config.log_level = :warn` в районе `53` строки).
 
 ## Изменения в `app/mailers/application_mailer.rb`
 
@@ -171,7 +171,34 @@ bundle binstub puma
 
 Также имеет смысл запустить `EDITOR=vim rails credentials:edit`, чтобы создать 
 зашированный файл с ключом шифрования сессии (чтобы выйти из vim с сохранением, 
-надо набрать `:wq`).
+надо нажать `esc` и набрать `:wq`).
+
+Чтобы проходила сборка на сервере, следует запустить эту команду:
+
+```bash
+bundle lock --add-platform x86_64-linux
+```
+
+## Настройка БД на сервере
+
+Если нужно создать пользователя (заменить `example` на пользователя из
+`config/database.yml` из раздела `production`):
+
+```bash
+sudo su postgres
+createuser -d -P example
+```
+
+Для создания БД (заменить `example` на пользователя из `config/database.yml` 
+из раздела `production`):
+
+```bash
+psql -h localhost -U example postgres
+```
+
+```postgresql
+create database example template template0 encoding='UTF8' LC_COLLATE='ru_RU.UTF-8' LC_CTYPE='ru_RU.UTF-8';
+```
 
 ## Настройка отгрузки через mina
 

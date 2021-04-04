@@ -1,0 +1,98 @@
+ru:
+  activerecord:
+    models:
+      contact_method: "Способ связи"
+      contact_type: "Тип связи"
+      feedback_message: "Сообщение от посетителя"
+      feedback_response: "Ответ на сообщение посетителя"
+    attributes:
+      contact_method:
+        contact_type: "Тип связи"
+        contact_type_id: "Тип связи"
+        value: "Значение"
+      feedback_message:
+        attachment: "Приложение"
+        comment: "Комментарий"
+        email: "Электронная почта"
+        name: "Имя"
+        phone: "Телефон"
+        processed: "Обработано"
+      feedback_response:
+        body: "Текст"
+        feedback_message: "Сообщение посетителя"
+        feedback_message_id: "Сообщение посетителя"
+  biovision:
+    components:
+      contact:
+        name: "Контакты"
+        settings:
+          feedback_email: "Email для обратной связи"
+  admin:
+    contact_methods:
+      destroy:
+        success: "Способ связи удалён"
+      edit:
+        title: "Редактирование способа связи"
+        nav_text: "Редактировать"
+        heading: "Редактирование способа связи"
+      index:
+        title: "Все способы связи"
+        heading: "Способы связи"
+      nav_item:
+        text: "Способы связи"
+        description: "Управление способами связи"
+      new:
+        title: "Добавление способа связи"
+        nav_text: "Создать"
+        heading: "Новый способ связи"
+      show:
+        title: "Способ связи «%{name}»"
+    contact_types:
+      destroy:
+        success: "Тип связи удалён"
+      edit:
+        title: "Редактирование типа связи"
+        nav_text: "Редактировать"
+        heading: "Редактирование типа связи"
+      index:
+        title: "Все типы связи"
+        heading: "Типы связи"
+      nav_item:
+        text: "Типы связи"
+        description: "Управление типами связи"
+      new:
+        title: "Добавление типа связи"
+        nav_text: "Создать"
+        heading: "Новый тип связи"
+      show:
+        title: "Тип связи «%{slug}»"
+    feedback_messages:
+      destroy:
+        success: "Сообщение от посетилеля удалено"
+      edit:
+        title: "Редактирование сообщения от посетителя"
+        nav_text: "Редактировать"
+        heading: "Редактирование сообщения от посетителя"
+      index:
+        title: "Сообщения от посетителей, страница %{page}"
+        heading: "Сообщения от посетителей"
+      nav_item:
+        text: "Сообщения от посетителей"
+        description: "Управление сообщениями от посетителей"
+      show:
+        title: "Сообщение от посетителя №%{id}"
+    feedback_responses:
+      destroy:
+        success: "Ответ на сообщение от посетилеля удалён"
+      edit:
+        title: "Редактирование ответа на сообщение от посетителя"
+        nav_text: "Редактировать"
+        heading: "Редактирование ответ на сообщение от посетителя"
+      index:
+        title: "Ответы на сообщения от посетителей, страница %{page}"
+        heading: "Ответы на сообщения от посетителей"
+      nav_item:
+        text: "Ответы на сообщения от посетителей"
+        description: "Управление ответами на сообщения от посетителей"
+      show:
+        title: "Ответ на сообщение от посетителя №%{id}"

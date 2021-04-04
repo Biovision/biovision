@@ -50,8 +50,6 @@ ru:
   attributes:
     biovision_component: "Компонент"
     biovision_component_id: "Компонент"
-    language: "Язык"
-    language_id: "Язык"
     simple_image: "Изображение"
     simple_image_id: "Изображение"
   languages:
