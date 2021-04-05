@@ -11,6 +11,13 @@ module Biovision
       def use_parameters?
         true
       end
+
+      # @param [ApplicationRecord] entity
+      def editable?(entity)
+        return false if entity.nil?
+
+        allow?(:edit)
+      end
     end
   end
 end

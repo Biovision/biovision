@@ -1,0 +1,13 @@
+<%= render partial: 'shared/entity/metadata', locals: { entity: @dynamic_page } %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('contact.index.nav_text'), contact_path) %>
+  <span><%= @dynamic_page&.name %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= @dynamic_page&.meta('heading') %></h1>
+
+    <%= render partial: 'form' %>
+  </div>
+</article>

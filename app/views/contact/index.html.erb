@@ -1,0 +1,16 @@
+<% if @dynamic_page.nil? %>
+  <% content_for :meta_title, t('.title') %>
+<% else %>
+  <%= render partial: 'shared/entity/metadata', locals: { entity: @dynamic_page } %>
+<% end %>
+<% content_for :breadcrumbs do %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= @dynamic_page&.meta('heading') %></h1>
+
+    <div class="text"><%= raw @dynamic_page&.body %></div>
+  </div>
+</article>

@@ -1,0 +1,5 @@
+<% if @dynamic_page.nil? %>
+  <% content_for :meta_title, t('.title') %>
+<% else %>
+  <%= render partial: 'components/content/dynamic_page', locals: { entity: @dynamic_page } %>
+<% end %>

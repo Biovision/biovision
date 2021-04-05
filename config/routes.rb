@@ -21,6 +21,19 @@ Rails.application.routes.draw do
   match '/422' => 'errors#unprocessable_entity', via: :all
   match '/500' => 'errors#internal_server_error', via: :all
 
+  # Contact component
+  scope 'contact', controller: :contact do
+    get '/' => :index, as: :contact
+    get 'feedback'
+    post 'feedback_messages' => :create_feedback_message
+  end
+
+  controller :legal do
+    get 'tos'
+    get 'privacy'
+  end
+
+  # Users component
   controller :authentication do
     get 'login' => :new
     post 'login' => :create
@@ -34,7 +47,6 @@ Rails.application.routes.draw do
     put 'ban' => :ban, as: :ban_user
     delete 'ban' => :unban, as: nil
   end
-
 
   namespace :admin do
     get '/' => 'index#index'

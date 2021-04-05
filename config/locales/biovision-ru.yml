@@ -102,6 +102,15 @@ ru:
     admin:
       footer:
         support: "Поддержка"
+  legal:
+    tos:
+      heading: "Пользовательское соглашение"
+      nav_text: "Пользовательское соглашение"
+      title: "Пользовательское соглашение"
+    privacy:
+      heading: "Политика конфиденциальности"
+      nav_text: "Конфиденциальность"
+      title: "Политика конфиденциальности"
   site_name: "example.com"
   my:
     recoveries:

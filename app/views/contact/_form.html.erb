@@ -1,0 +1,108 @@
+<%
+  entity ||= FeedbackMessage.new
+  form_class ||= 'contact__feedback-form'
+  form_id ||= 'feedback_form'
+  fields ||= %i[name email comment]
+  required_fields ||= %i[name email comment]
+  message ||= t('.message')
+%>
+<%=
+  form_with(
+    model: entity,
+    url: feedback_messages_path,
+    html: {
+      id: form_id,
+      class: form_class
+    }
+  ) do |f|
+%>
+  <div class="state-1">
+    <div class="fields">
+      <% if fields.include?(:name) %>
+        <label class="floating-label feedback-name">
+          <%=
+            f.text_field(
+              :name,
+              class: 'input-text',
+              maxlength: FeedbackMessage::NAME_LIMIT,
+              placeholder: entity.class.human_attribute_name(:name),
+              required: required_fields.include?(:name)
+            )
+          %>
+          <span><%= entity.class.human_attribute_name(:name) %></span>
+        </label>
+      <% end %>
+      <% if fields.include?(:email) %>
+        <label class="floating-label feedback-email">
+          <%=
+            f.email_field(
+              :email,
+              class: 'input-text',
+              maxlength: FeedbackMessage::EMAIL_LIMIT,
+              placeholder: entity.class.human_attribute_name(:email),
+              required: required_fields.include?(:email)
+            )
+          %>
+          <span><%= entity.class.human_attribute_name(:email) %></span>
+        </label>
+      <% end %>
+      <% if fields.include?(:phone) %>
+        <label class="floating-label feedback-phone">
+          <%=
+            f.telephone_field(
+              :phone,
+              class: 'input-text',
+              maxlength: FeedbackMessage::PHONE_LIMIT,
+              placeholder: entity.class.human_attribute_name(:phone),
+              required: required_fields.include?(:phone)
+            )
+          %>
+          <span><%= entity.class.human_attribute_name(:phone) %></span>
+        </label>
+      <% end %>
+      <% if fields.include?(:comment) %>
+        <label class="floating-label feedback-comment">
+          <%=
+            f.text_area(
+              :comment,
+              class: 'input-text',
+              maxlength: FeedbackMessage::COMMENT_LIMIT,
+              placeholder: entity.class.human_attribute_name(:comment),
+              required: required_fields.include?(:comment)
+            )
+          %>
+          <span><%= entity.class.human_attribute_name(:comment) %></span>
+        </label>
+      <% end %>
+      <% if fields.include?(:attachment) %>
+        <label class="floating-label feedback-attachment">
+          <%=
+            f.file_field(
+              :attachment,
+              class: 'input-text',
+              placeholder: entity.class.human_attribute_name(:attachment),
+              required: required_fields.include?(:attachment)
+            )
+          %>
+          <span><%= entity.class.human_attribute_name(:attachment) %></span>
+        </label>
+      <% end %>
+    </div>
+    <div class="disclaimer">
+      <%= check_box_tag :agree, '1', false, class: 'visually-hidden', id: nil, tabindex: -1 %>
+      <p>
+        <%= t('.disclaimer') %>
+        (<%= link_to(t('legal.privacy.nav_text'), privacy_path) %>).
+      </p>
+    </div>
+    <div class="actions">
+      <%= hidden_field_tag 'form_id', form_id %>
+      <%= button_tag(t('.submit'), class: 'button button-primary') %>
+    </div>
+  </div>
+  <div class="state-2">
+    <div class="result">
+      <p><%= raw message %></p>
+    </div>
+  </div>
+<% end %>

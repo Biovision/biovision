@@ -1,10 +1,21 @@
-<%= render partial: 'shared/entity/metadata', locals: { entity: @dynamic_page } %>
-<% content_for :breadcrumbs do %>
-  <span><%= entity.name %></span>
-<% end %>
+<% unless entity.nil? %>
+  <%= render partial: 'shared/entity/metadata', locals: { entity: entity } %>
+  <% content_for :breadcrumbs do %>
+    <span><%= entity.name %></span>
+  <% end %>
 
-<article>
-  <div class="content-wrapper">
-    <%= raw(entity.body) %>
-  </div>
-</article>
+  <article>
+    <div class="content-wrapper">
+      <h1><%= entity.meta('heading') %></h1>
+
+      <% if content_component.editable?(entity) %>
+        <nav class="entity-actions">
+          <%= gear_icon(entity) %>
+          <%= edit_icon(entity) %>
+        </nav>
+      <% end %>
+
+      <div class="text"><%= raw(entity.body) %></div>
+    </div>
+  </article>
+<% end %>
