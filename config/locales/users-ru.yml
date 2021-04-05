@@ -20,6 +20,7 @@ ru:
   attributes:
     user: "Пользователь"
     user_id: "Пользователь"
+    user_count: "Количество пользователей"
   activerecord:
     models:
       biovision_component_user: "Компонент для пользователя"

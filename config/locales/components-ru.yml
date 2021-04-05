@@ -8,12 +8,17 @@ ru:
   activerecord:
     models:
       biovision_component: "Компонент"
+      group: "Группа доступа"
       language: "Язык"
       metric: "Метрика"
       metric_value: "Значение метрики"
+      role: "Роль доступа"
+      role_group: "Роль доступа в группе"
       simple_image: "Простое изображение"
       simple_image_tag: "Метка простого изображения"
       simple_image_tag_image: "Связь метки и простого изображения"
+      user_group: "Пользователь в группе доступа"
+      user_role: "Роль доступа для пользователя"
     attributes:
       biovision_component:
         active: "Активен"
@@ -47,9 +52,15 @@ ru:
       simple_image_tag_image:
         simple_image_tag: "Метка"
         simple_image_tag_id: "Метка"
+      user_role:
+        inclusive: "Инклюзивно"
   attributes:
     biovision_component: "Компонент"
     biovision_component_id: "Компонент"
+    group: "Группа доступа"
+    group_id: "Группа доступа"
+    role: "Роль доступа"
+    role_id: "Роль доступа"
     simple_image: "Изображение"
     simple_image_id: "Изображение"
   languages:
