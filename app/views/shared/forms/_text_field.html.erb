@@ -10,7 +10,7 @@
       required: validators.select { |v| v.kind == :presence }.any?,
       size: nil
   }.merge(local_assigns[:options].to_h)
-  guide_key = "#{model.table_name}.form.guidelines.#{field}"
+  guide_key = "#{controller_path.gsub('/', '.')}.form.guidelines.#{field}"
 %>
 <div>
   <dt><%= f.label field %></dt>
