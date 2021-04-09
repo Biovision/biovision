@@ -157,4 +157,10 @@ module BiovisionHelper
   def phone_link(phone, options = {})
     link_to(phone, "tel:#{phone.gsub(/[^+0-9]/, '')}", options)
   end
+
+  # @param [String] email
+  # @param [Hash] options
+  def email_link(email, options = {})
+    link_to(email, "mailto:#{email}", options)
+  end
 end
