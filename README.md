@@ -216,6 +216,26 @@ set :shared_dirs, fetch(:shared_dirs, []).push('public/uploads', 'tmp', 'log')
 set :shared_files, fetch(:shared_files, []).push('config/master.key', '.env')
 ```
 
+Если используется `nvm`, то нужно добавить его инициализацию:
+
+В блок `:remote_environment` добавить строку:
+
+```ruby
+invoke :'nvm:load'
+```
+
+Сама загрузка `nvm`:
+
+```ruby
+namespace :nvm do
+  task :load do
+    command 'echo "-----> Loading nvm"'
+    command %{source ~/.nvm/nvm.sh}
+    command 'echo "-----> Now using nvm v.`nvm --version`"'
+  end
+end
+```
+
 На серверной стороне нужно создать папку для пумы и файла с ключом шифрования: 
 
 ```bash
