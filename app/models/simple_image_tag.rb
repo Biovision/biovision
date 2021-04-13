@@ -18,7 +18,7 @@ class SimpleImageTag < ApplicationRecord
 
   scope :list_for_administration, -> { order('name asc') }
 
-  def self.entity_parameters
+  def self.entity_parameters(*)
     %i[name]
   end
 

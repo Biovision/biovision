@@ -4,8 +4,14 @@ module Biovision
   module Components
     # Contact and feedback
     class ContactComponent < BaseComponent
+      SETTING_FEEDBACK_MAIL = 'feedback_email'
+
       def self.settings_strings
-        %w[feedback_email]
+        [SETTING_FEEDBACK_MAIL]
+      end
+
+      def self.dependent_models
+        [ContactMethod, ContactType, FeedbackResponse, FeedbackMessage]
       end
 
       def use_parameters?

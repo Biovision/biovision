@@ -54,7 +54,13 @@ module Biovision
       end
 
       # Privilege names for using in biovision_component_user.data
+      # @deprecated use roles instead
       def self.privilege_names
+        []
+      end
+
+      # Model list for automatic role creation
+      def self.dependent_models
         []
       end
 

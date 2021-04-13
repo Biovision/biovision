@@ -45,11 +45,11 @@ class Token < ApplicationRecord
     list_for_owner(user).page(page)
   end
 
-  def self.entity_parameters
+  def self.entity_parameters(*)
     %i[active]
   end
 
-  def self.creation_parameters
+  def self.creation_parameters(*)
     entity_parameters + %i[user_id]
   end
 
@@ -64,7 +64,7 @@ class Token < ApplicationRecord
     return if input.blank?
 
     pair = input.split(':')
-    user_by_pair(pair[0], pair[1], touch_user)
+    user_by_pair(pair[0].to_i, pair[1], touch_user)
   end
 
   # @param [Integer] user_id
@@ -87,7 +87,7 @@ class Token < ApplicationRecord
   def editable_by?(user)
     return true if owned_by?(user)
 
-    Biovision::Components::UsersComponent[user].allow?('edit')
+    Biovision::Components::UsersComponent[user].permit?('edit', self)
   end
 
   def cookie_pair

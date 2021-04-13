@@ -25,6 +25,11 @@ class Role < ApplicationRecord
   validates_uniqueness_of :slug, scope: :biovision_component_id
   validates_format_of :slug, with: SLUG_PATTERN
 
+  # @param [String] slug
+  def self.[](slug)
+    find_by(slug: slug)
+  end
+
   def groups
     # group_ids = role_groups.map(&:group).map(&:branch_ids).flatten.uniq
     # Group.where(id: group_ids)

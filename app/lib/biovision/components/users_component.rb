@@ -31,6 +31,13 @@ module Biovision
       SETTING_USE_INVITES = 'use_invites'
       SETTING_USE_PHONE = 'use_phone'
 
+      def self.dependent_models
+        [
+          Notification, Code, BiovisionComponentUser, UserLanguage,
+          LoginAttempt, Token, User
+        ]
+      end
+
       def self.settings_flags
         [
           SETTING_OPEN, SETTING_EMAIL_AS_LOGIN, SETTING_CONFIRM_EMAIL,

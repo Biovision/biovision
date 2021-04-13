@@ -43,7 +43,7 @@ class DynamicPage < ApplicationRecord
     find_by(slug: slug)
   end
 
-  def self.entity_parameters
+  def self.entity_parameters(*)
     %i[body language_id name simple_image_id slug url visible]
   end
 

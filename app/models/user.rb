@@ -110,12 +110,12 @@ class User < ApplicationRecord
   end
 
   # Parameters for registration
-  def self.new_profile_parameters
+  def self.new_profile_parameters(*)
     profile_parameters + sensitive_parameters + %i[screen_name]
   end
 
   # Administrative parameters
-  def self.entity_parameters
+  def self.entity_parameters(*)
     flags = %i[banned bot email_confirmed phone_confirmed]
 
     new_profile_parameters + flags + %i[notice screen_name slug]
@@ -125,6 +125,15 @@ class User < ApplicationRecord
     min = User.minimum(:id).to_i
     max = User.maximum(:id).to_i
     (min..max)
+  end
+
+  # @param [String] role_name
+  def role?(role_name)
+    return true if super_user?
+
+    parts = role_name.split('.')
+    handler = Biovision::Components::BaseComponent.handler(parts.shift, self)
+    handler.role?(parts.join)
   end
 
   # Name to be shown as profile

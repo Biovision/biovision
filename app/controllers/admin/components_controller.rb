@@ -13,18 +13,18 @@ class Admin::ComponentsController < AdminController
   # get /admin/components/:slug
   def show
     error = 'Viewing component is not allowed'
-    handle_http_401(error) unless @handler.allow?
+    handle_http_401(error) unless @handler.permit?('view')
   end
 
   # get /admin/components/:slug/settings
   def settings
     error = 'Viewing settings is not allowed'
-    handle_http_401(error) unless @handler.allow?('settings')
+    handle_http_401(error) unless @handler.permit?('settings.view')
   end
 
   # patch /admin/components/:slug/settings
   def update_settings
-    if @handler.allow?('settings')
+    if @handler.permit?('settings.edit')
       new_settings = params.dig(:component, :settings).permit!
       @handler.settings = new_settings.to_h
       flash[:success] = t('.success')
@@ -36,7 +36,7 @@ class Admin::ComponentsController < AdminController
 
   # patch /admin/components/:slug/parameters
   def update_parameter
-    if @handler.allow?('settings')
+    if @handler.permit?('settings.edit')
       slug = param_from_request(:key, :slug).downcase
       value = param_from_request(:key, :value)
 
@@ -48,7 +48,7 @@ class Admin::ComponentsController < AdminController
 
   # delete /admin/components/:slug/parameters/:parameter_slug
   def delete_parameter
-    if @handler.allow?('settings')
+    if @handler.permit?('settings.edit')
       @handler.component.parameters.delete(params[:parameter_slug])
       @handler.component.save
     end
@@ -99,32 +99,22 @@ class Admin::ComponentsController < AdminController
 
   # put /admin/components/:slug/users/:user_id/privileges/:privilege_slug
   def add_privilege
-    if @handler.administrator?
-      @handler.user = User.find_by(id: params[:user_id])
-      @handler.privilege_handler.add_privilege(params[:privilege_slug])
-    end
-
     head :no_content
   end
 
   # put /admin/components/:slug/users/:user_id/privileges/:privilege_slug
   def remove_privilege
-    if @handler.administrator?
-      @handler.user = User.find_by(id: params[:user_id])
-      @handler.privilege_handler.remove_privilege(params[:privilege_slug])
-    end
-
     head :no_content
   end
 
   # get /admin/components/:slug/images
   def images
     list = SimpleImage.in_component(@handler.component).list_for_administration
-    @collection = @handler.allow? ? list.page(current_page) : []
+    @collection = @handler.permit?('simple_images.view') ? list.page(current_page) : []
   end
 
   def create_image
-    if @handler.allow?
+    if @handler.permit?('simple_images.create')
       @entity = @handler.component.simple_images.new(image_parameters)
       if @entity.save
         render 'image', formats: :json

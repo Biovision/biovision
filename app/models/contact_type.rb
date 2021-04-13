@@ -21,7 +21,7 @@ class ContactType < ApplicationRecord
     find_by(slug: slug)
   end
 
-  def self.entity_parameters
+  def self.entity_parameters(*)
     %i[slug]
   end
 end

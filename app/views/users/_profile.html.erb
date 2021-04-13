@@ -1,4 +1,4 @@
-<% if component_handler&.allow?('edit') %>
+<% if component_handler&.permit?('edit', user) %>
   <nav class="entity-actions">
     <%= gear_icon(user) %>
   </nav>

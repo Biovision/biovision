@@ -33,7 +33,7 @@ class DynamicBlock < ApplicationRecord
     visible.find_by(slug: slug)&.body.to_s
   end
 
-  def self.entity_parameters
+  def self.entity_parameters(*)
     %i[body slug visible]
   end
 

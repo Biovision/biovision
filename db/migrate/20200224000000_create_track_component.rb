@@ -11,7 +11,7 @@ class CreateTrackComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
-    [IpAddress, Agent, Browser].each do |model|
+    Biovision::Components::TrackComponent.dependent_models.each do |model|
       drop_table model.table_name if model.table_exists?
     end
 

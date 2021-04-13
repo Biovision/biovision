@@ -41,7 +41,7 @@ class ContactMethod < ApplicationRecord
     ContactType[slug]&.contact_methods&.list_for_visitors
   end
 
-  def self.entity_parameters
+  def self.entity_parameters(*)
     %i[contact_type_id language_id name priority value visible]
   end
 end

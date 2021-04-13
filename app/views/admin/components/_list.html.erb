@@ -1,7 +1,7 @@
 <% collection.each do |component| %>
   <%
     handler = Biovision::Components::BaseComponent.handler(component, current_user)
-    next if handler.component.nil? || !handler.allow?
+    next if handler.component.nil? || !handler.permit?
   %>
   <%=
     render(

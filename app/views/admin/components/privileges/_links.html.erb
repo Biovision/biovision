@@ -14,22 +14,4 @@
     %>
     <%= label_tag(element_id, t('activerecord.attributes.biovision_component_user.administrator')) %>
   </li>
-  <%
-    privilege_names = handler.class.privilege_names
-    privilege_names.unshift('settings') if handler.use_settings?
-  %>
-  <% privilege_names.each do |privilege_slug| %>
-    <li>
-      <%=
-        render(
-            partial: 'admin/components/privileges/privilege_flag',
-            locals: {
-                entity: entity,
-                handler: handler,
-                slug: privilege_slug
-            }
-        )
-      %>
-    </li>
-  <% end %>
 </ul>

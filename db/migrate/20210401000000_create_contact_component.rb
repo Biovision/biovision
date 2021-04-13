@@ -11,9 +11,7 @@ class CreateContactComponent < ActiveRecord::Migration[6.1]
   end
 
   def down
-    [
-      ContactMethod, ContactType, FeedbackResponse, FeedbackMessage
-    ].each do |model|
+    Biovision::Components::ContactComponent.dependent_models.each do |model|
       drop_table model.table_name if model.table_exists?
     end
 

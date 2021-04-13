@@ -59,6 +59,11 @@ module BiovisionHelper
     link_to(text, href, options)
   end
 
+  # @param [Hash] options
+  def my_home_link(options = {})
+    link_to(t('my.index.index.nav_text'), my_path, options)
+  end
+
   # @param [String|ApplicationRecord] path
   # @param [String] title
   # @param [Hash] options

@@ -79,6 +79,10 @@ module CrudEntities
     @model_class ||= controller_name.classify.constantize
   end
 
+  def model_key
+    model_class.model_name.to_s.underscore
+  end
+
   def path_after_save
     scope = self.class.module_parent.to_s.downcase
     prefix = scope.blank? ? '' : "/#{scope}"
@@ -102,16 +106,23 @@ module CrudEntities
 
   def creation_parameters
     if model_class.respond_to?(:creation_parameters)
-      permitted = model_class.creation_parameters
-      params.require(model_class.model_name.to_s.underscore).permit(permitted)
+      explicit_creation_parameters
     else
       entity_parameters
     end
   end
 
+  def explicit_creation_parameters
+    permitted = model_class.creation_parameters(current_user)
+    parameters = params.require(model_key).permit(permitted)
+    parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
+    parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
+    parameters
+  end
+
   def entity_parameters
-    permitted = model_class.entity_parameters
-    params.require(model_class.model_name.to_s.underscore).permit(permitted)
+    permitted = model_class.entity_parameters(current_user)
+    params.require(model_key).permit(permitted)
   end
 
   def apply_meta

@@ -14,10 +14,7 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
-    [
-      Notification, Code, BiovisionComponentUser, UserLanguage, LoginAttempt,
-      Token, User
-    ].each do |model|
+    Biovision::Components::UsersComponent.dependent_models.each do |model|
       drop_table model.table_name if model.table_exists?
     end
 

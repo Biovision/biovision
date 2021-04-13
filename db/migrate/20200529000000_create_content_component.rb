@@ -12,9 +12,7 @@ class CreateContentComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
-    [
-      DynamicBlock, NavigationGroupPage, NavigationGroup, DynamicPage
-    ].each do |model|
+    Biovision::Components::ContentComponent.dependent_models.each do |model|
       drop_table model.table_name if model.table_exists?
     end
 

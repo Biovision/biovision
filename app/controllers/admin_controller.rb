@@ -7,8 +7,9 @@ class AdminController < ApplicationController
   private
 
   def restrict_access
+    user_action = "#{controller_name}.default"
     error = t('admin.errors.unauthorized.message')
 
-    handle_http_401(error) unless component_handler.allow?
+    handle_http_401(error) unless component_handler.permit?(user_action)
   end
 end

@@ -40,11 +40,11 @@ class Code < ApplicationRecord
     list_for_administration.page(page)
   end
 
-  def self.entity_parameters
+  def self.entity_parameters(*)
     %i[body quantity]
   end
 
-  def self.creation_parameters
+  def self.creation_parameters(*)
     entity_parameters + %i[user_id biovision_component_id]
   end
 
