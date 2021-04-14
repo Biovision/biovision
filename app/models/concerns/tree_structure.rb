@@ -10,6 +10,7 @@ module TreeStructure
 
     before_save { children_cache.uniq! }
     after_create :cache_parents!
+    after_destroy { parent&.cache_children! }
     after_save { parent&.cache_children! }
 
     def self.tree(collection)
