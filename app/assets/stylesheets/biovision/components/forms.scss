@@ -142,6 +142,11 @@ form {
   textarea {
     width: 100%;
   }
+
+  .secondary-data {
+    color: var(--text-color-secondary);
+    font-size: var(--font-size-decreased);
+  }
 }
 
 .input-select,
