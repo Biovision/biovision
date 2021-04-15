@@ -76,7 +76,7 @@ class CreateAcl < ActiveRecord::Migration[6.1]
 
   def create_component_roles
     BiovisionComponent.pluck(:slug).each do |component|
-      Biovision::Components::Base.handler(component).create_roles
+      Biovision::Components::BaseComponent.handler(component).create_roles
     end
   end
 end
