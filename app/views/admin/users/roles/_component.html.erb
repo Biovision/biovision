@@ -1,0 +1,22 @@
+<section class="component-for-user">
+  <h2><%= component_name(component) %></h2>
+
+  <ul class="entity-links">
+    <% component.roles.each do |role| %>
+      <li>
+        <label class="flag-label">
+          <%=
+            check_box_tag(
+              'role_id',
+              role.id,
+              entity.role_ids.include?(role.id),
+              data: { url: role_admin_user_path(id: entity.id, role_id: role.id) },
+              id: nil
+            )
+          %>
+          <span><%= role.slug %></span>
+        </label>
+      </li>
+    <% end %>
+  </ul>
+</section>

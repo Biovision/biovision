@@ -5,7 +5,7 @@ class CreateContactComponent < ActiveRecord::Migration[6.1]
   COMPONENT = Biovision::Components::ContactComponent
 
   def up
-    create_component
+    COMPONENT.create
     create_feedback_messages unless FeedbackMessage.table_exists?
     create_feedback_responses unless FeedbackResponse.table_exists?
     create_contact_types unless ContactType.table_exists?
@@ -20,13 +20,6 @@ class CreateContactComponent < ActiveRecord::Migration[6.1]
   end
 
   private
-
-  def create_component
-    settings = { feedback_email: '' }
-    slug = Biovision::Components::ContactComponent.slug
-
-    BiovisionComponent.create(slug: slug, settings: settings)
-  end
 
   def create_feedback_messages
     create_table :feedback_messages, comment: 'Feedback messages from visitors' do |t|

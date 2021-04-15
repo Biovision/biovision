@@ -236,6 +236,10 @@ ru:
         deleted: "Пользователь удалён"
       destroy:
         success: "Пользователь удалён"
+      roles:
+        nav_text: "Роли"
+        title: "Роли пользователя %{user}"
+        heading: "Роли и группы в компонентах"
   users:
     profile:
       registration_date: "Дата регистрации"

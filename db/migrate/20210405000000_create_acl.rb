@@ -78,5 +78,10 @@ class CreateAcl < ActiveRecord::Migration[6.1]
     BiovisionComponent.pluck(:slug).each do |component|
       Biovision::Components::BaseComponent.handler(component).create_roles
     end
+
+    base_component = BiovisionComponent[Biovision::Components::BaseComponent]
+    %w[admin components.view].each do |role|
+      Role.create(base_component, role)
+    end
   end
 end

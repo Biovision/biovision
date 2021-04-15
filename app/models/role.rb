@@ -25,7 +25,12 @@ class Role < ApplicationRecord
 
   # @param [String] slug
   def self.[](slug)
-    find_by(slug: slug)
+    parts = slug.to_s.split('.')
+    criteria = {
+      biovision_components: { slug: parts.shift },
+      slug: parts.join('.')
+    }
+    joins(:biovision_component).where(criteria).first
   end
 
   def groups
@@ -35,7 +40,7 @@ class Role < ApplicationRecord
   end
 
   def users
-    User.where(id: user_ids)
+    User.where("data->'role_cache' @> '[?]'::jsonb", id)
   end
 
   def user_ids

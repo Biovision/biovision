@@ -42,17 +42,30 @@ class Admin::UsersController < AdminController
     redirect_to my_path
   end
 
+  # get /admin/users/:id/roles
+  def roles
+    if current_user&.super_user?
+      @components = BiovisionComponent.list_for_administration
+    else
+      handle_http_401
+    end
+  end
+
   # put /admin/users/:id/roles/:role_id
   def add_role
+    if current_user&.super_user?
+      role = Role.find_by(id: params[:role_id])
+      @entity.add_role(role)
+    end
 
+    head :no_content
   end
 
   # delete /admin/users/:id/roles/:role_id
   def remove_role
-    role = Role.find_by(params[:role_id])
-
     if current_user&.super_user?
-      @entity.remove_role
+      role = Role.find_by(id: params[:role_id])
+      @entity.remove_role(role)
     end
 
     head :no_content

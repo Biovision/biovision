@@ -1,7 +1,7 @@
 <footer class="main-footer">
   <div class="content-wrapper">
     <div class="copyright">&copy; <%= t(:copyright) %></div>
-    <% if Biovision::Components::BaseComponent.privileged?(current_user) %>
+    <% if current_user&.role?('base.admin') %>
       <%= link_to(t('admin.index.index.nav_text'), admin_path) %>
     <% end %>
   </div>

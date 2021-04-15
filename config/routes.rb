@@ -58,8 +58,6 @@ Rails.application.routes.draw do
         get 'settings' => :settings, as: :component_settings
         patch 'settings' => :update_settings, as: nil
         patch 'parameters' => :update_parameter, as: :component_parameters
-        get 'privileges' => :privileges, as: :component_privileges
-        patch 'privileges' => :update_privileges, as: nil
         put 'administrators/:user_id' => :add_administrator, as: :component_administrators
         delete 'administrators/:user_id' => :remove_administrator, as: nil
         get 'images' => :images, as: :component_images
@@ -81,7 +79,14 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :users, concerns: %i[check toggle]
+    # Users component
+    resources :users, concerns: %i[check toggle] do
+      member do
+        get 'roles'
+        put 'roles/:role_id' => :add_role, as: :role
+        delete 'roles/:role_id' => :remove_role
+      end
+    end
   end
 
   namespace :my do

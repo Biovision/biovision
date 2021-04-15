@@ -132,9 +132,8 @@ class User < ApplicationRecord
   def role?(role_name)
     return true if super_user?
 
-    parts = role_name.split('.')
-    handler = Biovision::Components::BaseComponent.handler(parts.shift, self)
-    handler.role?(parts.join)
+    role = Role[role_name]
+    role_ids.include?(role&.id)
   end
 
   def role_ids

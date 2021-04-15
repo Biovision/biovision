@@ -5,7 +5,7 @@ class CreateContentComponent < ActiveRecord::Migration[6.0]
   COMPONENT = Biovision::Components::ContentComponent
 
   def up
-    BiovisionComponent.create(slug: COMPONENT.slug)
+    COMPONENT.create
     create_dynamic_pages unless DynamicPage.table_exists?
     create_navigation_groups unless NavigationGroup.table_exists?
     create_pages_in_groups unless NavigationGroupPage.table_exists?

@@ -51,6 +51,24 @@ module Biovision
         [SETTING_INVITE_COUNT, SETTING_BOUNCE_COUNT, SETTING_BOUNCE_TIMEOUT]
       end
 
+      def self.default_settings
+        {
+          registration_open: true,
+          email_as_login: false,
+          phone_as_login: false,
+          confirm_email: false,
+          require_email: false,
+          confirm_phone: false,
+          require_phone: false,
+          invite_only: false,
+          use_invites: false,
+          invite_count: 5,
+          bounce_count: 10,
+          bounce_timeout: 3,
+          use_phone: false
+        }
+      end
+
       # @param [User] user
       def self.created_user(user)
         BiovisionComponent.active.pluck(:slug).each do |slug|

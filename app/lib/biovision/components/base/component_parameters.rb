@@ -13,6 +13,10 @@ module Biovision
           false
         end
 
+        def manage_settings?
+          use_parameters? || component.settings.any?
+        end
+
         # Receive parameter value with default
         #
         # Returns value of component's parameter or default value

@@ -17,6 +17,14 @@ module Biovision
           []
         end
 
+        def default_settings
+          {}
+        end
+
+        def reset_settings
+          BiovisionComponent[slug]&.update(settings: default_settings)
+        end
+
         # @param [Hash] data
         def normalize_settings(data)
           result = {}

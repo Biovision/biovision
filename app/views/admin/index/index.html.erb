@@ -3,12 +3,14 @@
 <article>
   <h1><%= t('.heading') %></h1>
 
-  <%=
-    render(
+  <% if component_handler.permit?('components.view') %>
+    <%=
+      render(
         partial: 'admin/components/list',
         locals: {
-            collection: BiovisionComponent.list_for_administration
+          collection: BiovisionComponent.list_for_administration
         }
-    )
-  %>
+      )
+    %>
+  <% end %>
 </article>

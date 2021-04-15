@@ -4,8 +4,14 @@
 class Admin::IndexController < AdminController
   # get /admin
   def index
-    return if Biovision::Components::BaseComponent.privileged?(current_user)
+  end
 
-    handle_http_401
+  private
+
+  def restrict_access
+    role_name = "#{component_handler.slug}.admin"
+    error = t('admin.errors.unauthorized.missing_role', role: role_name)
+
+    handle_http_401(error) unless component_handler.permit?('admin')
   end
 end

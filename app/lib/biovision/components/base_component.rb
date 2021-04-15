@@ -64,16 +64,8 @@ module Biovision
         []
       end
 
-      # @param [User] user
-      def self.privileged?(user)
-        return false if user.nil? || user.banned?
-        return true if user.super_user?
-
-        BiovisionComponentUser.owned_by(user).each do |link|
-          return true if link.administrator? || !link.data['privileges'].blank?
-        end
-
-        false
+      def self.create
+        BiovisionComponent.create(slug: slug, settings: default_settings)
       end
 
       # @param [ApplicationRecord] entity
@@ -110,12 +102,6 @@ module Biovision
 
       def use_settings?
         use_parameters? || @component.settings.any?
-      end
-
-      def administrator?
-        return false if user.nil?
-
-        user.super_user? || @user_link&.administrator?
       end
 
       # @param [Hash] data

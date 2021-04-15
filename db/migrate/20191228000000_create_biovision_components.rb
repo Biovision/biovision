@@ -7,6 +7,8 @@ class CreateBiovisionComponents < ActiveRecord::Migration[6.0]
     create_metrics unless Metric.table_exists?
     create_metric_values unless MetricValue.table_exists?
     create_languages unless Language.table_exists?
+
+    Biovision::Components::BaseComponent.create
   end
 
   def down

@@ -7,9 +7,24 @@ class AdminController < ApplicationController
   private
 
   def restrict_access
-    user_action = "#{controller_name}.default"
-    error = t('admin.errors.unauthorized.message')
+    user_action = "#{controller_name}.#{role_end_from_action}"
+    role_name = "#{component_handler.slug}.#{user_action}"
+    error = t('admin.errors.unauthorized.missing_role', role: role_name)
 
     handle_http_401(error) unless component_handler.permit?(user_action)
+  end
+
+  def role_end_from_action
+    role = action_to_role_map.select { |k| k.include?(action_name) }.values.last
+    role || 'default'
+  end
+
+  def action_to_role_map
+    {
+      %w[index show] => 'view',
+      %w[new create] => 'create',
+      %w[edit update] => 'edit',
+      %w[destroy] => 'destroy'
+    }
   end
 end

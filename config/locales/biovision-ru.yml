@@ -69,7 +69,7 @@ ru:
       previous: "←"
       next: "→"
       truncate: "…"
-  copyright: "2020 example.com"
+  copyright: "2021 example.com"
   home: "Главная"
   application:
     errors:
@@ -93,6 +93,7 @@ ru:
       unauthorized:
         heading: "Не хватает прав"
         message: "У вас не хватает прав для просмотра этой страницы"
+        missing_role: "У вас не хватает роли %{role} для просмотра этой страницы"
     index:
       index:
         nav_text: "Администрирование"

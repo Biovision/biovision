@@ -10,6 +10,10 @@ module Biovision
         [SETTING_FEEDBACK_MAIL]
       end
 
+      def self.default_settings
+        { feedback_email: '' }
+      end
+
       def self.dependent_models
         [FeedbackMessage, FeedbackResponse, ContactType, ContactMethod]
       end

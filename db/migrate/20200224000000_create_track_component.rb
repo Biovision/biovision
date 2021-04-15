@@ -4,11 +4,10 @@
 class CreateTrackComponent < ActiveRecord::Migration[6.0]
   COMPONENT = Biovision::Components::TrackComponent
   def up
-    BiovisionComponent.create(slug: COMPONENT.slug)
+    COMPONENT.create
     create_browsers unless Browser.table_exists?
     create_agents unless Agent.table_exists?
     create_ip_addresses unless IpAddress.table_exists?
-    COMPONENT[nil].create_roles
   end
 
   def down

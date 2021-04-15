@@ -5,18 +5,12 @@ module Biovision
     module Base
       # Handling component privileges
       module ComponentPrivileges
-        # @param [String|Array] privileges
-        # @deprecated use #role? or #permit?
-        def allow?(*privileges)
-          permit?(*privileges)
-        end
-
         # @param [String] action
         # @param [Object] context
         def permit?(action = 'default', context = nil)
           return false if user.nil?
 
-          parts = []
+          parts = [slug]
           model = model_from_context(context)
           parts << model.table_name if model.respond_to?(:table_name)
           parts << action
@@ -33,7 +27,7 @@ module Biovision
         # @param [String] role_name
         def role?(role_name)
           return false if user.nil?
-          return true if user.super_user? || administrator?
+          return true if user.super_user?
 
           role = Role[role_name]
           return false if role.nil?
@@ -48,7 +42,7 @@ module Biovision
         end
 
         def create_roles
-          slugs = %w[view edit settings.view settings.edit]
+          slugs = %w[default view edit settings.view settings.edit]
           tables = self.class.dependent_models.map(&:table_name)
           tables << 'simple_images' if use_images?
           slugs += crud_role_names(tables)
@@ -60,7 +54,7 @@ module Biovision
 
         # @param [Array] entity_list
         def crud_role_names(entity_list)
-          model_roles = %w[list view create edit destroy]
+          model_roles = %w[view create edit destroy]
           role_names = []
           entity_list.each do |entity_name|
             role_names += model_roles.map { |role| "#{entity_name}.#{role}" }

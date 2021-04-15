@@ -249,3 +249,14 @@ form {
     width: 100%;
   }
 }
+
+.entity-links {
+  list-style: none;
+  margin: var(--spacer-s) 0;
+  padding: 0 0 0 var(--spacer-s);
+
+  > li {
+    margin: 0;
+    padding: 0;
+  }
+}

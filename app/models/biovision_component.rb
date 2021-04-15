@@ -20,6 +20,8 @@ class BiovisionComponent < ApplicationRecord
   has_many :biovision_component_users, dependent: :delete_all
   has_many :simple_images, dependent: :destroy
   has_many :codes, dependent: :delete_all
+  has_many :roles, dependent: :destroy
+  has_many :groups, dependent: :destroy
 
   scope :active, -> { where(active: true) }
   scope :list_for_administration, -> { ordered_by_priority }

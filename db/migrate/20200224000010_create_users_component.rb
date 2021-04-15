@@ -5,7 +5,7 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
   COMPONENT = Biovision::Components::UsersComponent
 
   def up
-    create_component
+    COMPONENT.create
     create_users unless User.table_exists?
     create_tokens unless Token.table_exists?
     create_login_attempts unless LoginAttempt.table_exists?
@@ -24,26 +24,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
   end
 
   private
-
-  def create_component
-    settings = {
-      registration_open: true,
-      email_as_login: false,
-      phone_as_login: false,
-      confirm_email: false,
-      require_email: false,
-      confirm_phone: false,
-      require_phone: false,
-      invite_only: false,
-      use_invites: false,
-      invite_count: 5,
-      bounce_count: 10,
-      bounce_timeout: 3,
-      use_phone: false
-    }
-
-    BiovisionComponent.create(slug: COMPONENT.slug, settings: settings)
-  end
 
   def create_users
     create_table :users, comment: 'Users' do |t|
@@ -121,7 +101,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     create_table :biovision_component_users, comment: 'Privileges and settings for users in components' do |t|
       t.references :biovision_component, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.boolean :administrator, default: false, null: false
       t.timestamps
       t.jsonb :data, default: {}, null: false
     end
