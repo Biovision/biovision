@@ -2,9 +2,10 @@
 
 # Create Content component and tables
 class CreateContentComponent < ActiveRecord::Migration[6.0]
-  def up
-    BiovisionComponent.create(slug: Biovision::Components::ContentComponent.slug)
+  COMPONENT = Biovision::Components::ContentComponent
 
+  def up
+    BiovisionComponent.create(slug: COMPONENT.slug)
     create_dynamic_pages unless DynamicPage.table_exists?
     create_navigation_groups unless NavigationGroup.table_exists?
     create_pages_in_groups unless NavigationGroupPage.table_exists?
@@ -12,11 +13,10 @@ class CreateContentComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
-    Biovision::Components::ContentComponent.dependent_models.each do |model|
+    COMPONENT.dependent_models.reverse.each do |model|
       drop_table model.table_name if model.table_exists?
     end
-
-    BiovisionComponent[Biovision::Components::ContentComponent]&.destroy
+    BiovisionComponent[COMPONENT]&.destroy
   end
 
   private

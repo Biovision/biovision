@@ -9,6 +9,10 @@ module Biovision
           false
         end
 
+        def use_images?
+          false
+        end
+
         # Receive parameter value with default
         #
         # Returns value of component's parameter or default value

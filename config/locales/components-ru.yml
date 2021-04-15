@@ -71,8 +71,6 @@ ru:
       privileges:
         nav_text: "Привилегии"
         title: "Привилении компонента «%{slug}»"
-        users:
-          heading: "Привилегии"
       settings:
         nav_text: "Настройки"
         title: "Настройки компонента «%{slug}»"

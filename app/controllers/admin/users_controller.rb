@@ -42,6 +42,22 @@ class Admin::UsersController < AdminController
     redirect_to my_path
   end
 
+  # put /admin/users/:id/roles/:role_id
+  def add_role
+
+  end
+
+  # delete /admin/users/:id/roles/:role_id
+  def remove_role
+    role = Role.find_by(params[:role_id])
+
+    if current_user&.super_user?
+      @entity.remove_role
+    end
+
+    head :no_content
+  end
+
   private
 
   def component_class
@@ -50,12 +66,13 @@ class Admin::UsersController < AdminController
 
   def entity_parameters
     excluded = @entity&.super_user? ? User.sensitive_parameters : []
-    permitted = User.entity_parameters - excluded
+    permitted = User.entity_parameters(current_user) - excluded
     params.require(:user).permit(permitted)
   end
 
   def creation_parameters
-    parameters = params.require(:user).permit(User.entity_parameters)
+    permitted = User.entity_parameters(current_user)
+    parameters = params.require(:user).permit(permitted)
     parameters.merge(tracking_for_entity)
   end
 

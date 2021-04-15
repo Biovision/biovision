@@ -9,10 +9,14 @@ module Biovision
       end
 
       def self.dependent_models
-        [DynamicBlock, NavigationGroupPage, NavigationGroup, DynamicPage]
+        [DynamicPage, NavigationGroup, NavigationGroupPage, DynamicBlock]
       end
 
       def use_parameters?
+        true
+      end
+
+      def use_images?
         true
       end
 

@@ -33,8 +33,8 @@ module Biovision
 
       def self.dependent_models
         [
-          Notification, Code, BiovisionComponentUser, UserLanguage,
-          LoginAttempt, Token, User
+          User, Token, LoginAttempt, UserLanguage, BiovisionComponentUser, Code,
+          Notification
         ]
       end
 

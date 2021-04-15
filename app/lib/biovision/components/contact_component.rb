@@ -11,7 +11,7 @@ module Biovision
       end
 
       def self.dependent_models
-        [ContactMethod, ContactType, FeedbackResponse, FeedbackMessage]
+        [FeedbackMessage, FeedbackResponse, ContactType, ContactMethod]
       end
 
       def use_parameters?

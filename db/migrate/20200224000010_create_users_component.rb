@@ -2,6 +2,8 @@
 
 # Create tables for Users component
 class CreateUsersComponent < ActiveRecord::Migration[6.0]
+  COMPONENT = Biovision::Components::UsersComponent
+
   def up
     create_component
     create_users unless User.table_exists?
@@ -14,18 +16,16 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
   end
 
   def down
-    Biovision::Components::UsersComponent.dependent_models.each do |model|
+    COMPONENT.dependent_models.reverse.each do |model|
       drop_table model.table_name if model.table_exists?
     end
 
-    BiovisionComponent[Biovision::Components::UsersComponent]&.destroy
+    BiovisionComponent[COMPONENT]&.destroy
   end
 
   private
 
   def create_component
-    slug = Biovision::Components::UsersComponent.slug
-
     settings = {
       registration_open: true,
       email_as_login: false,
@@ -42,7 +42,7 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
       use_phone: false
     }
 
-    BiovisionComponent.create(slug: slug, settings: settings)
+    BiovisionComponent.create(slug: COMPONENT.slug, settings: settings)
   end
 
   def create_users

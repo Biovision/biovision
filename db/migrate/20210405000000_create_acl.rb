@@ -8,6 +8,8 @@ class CreateAcl < ActiveRecord::Migration[6.1]
     create_role_groups unless RoleGroup.table_exists?
     create_user_groups unless UserGroup.table_exists?
     create_user_roles unless UserRole.table_exists?
+
+    create_component_roles
   end
 
   def down
@@ -69,6 +71,12 @@ class CreateAcl < ActiveRecord::Migration[6.1]
       t.references :role, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.boolean :inclusive, default: true, null: false
       t.timestamps
+    end
+  end
+
+  def create_component_roles
+    BiovisionComponent.pluck(:slug).each do |component|
+      Biovision::Components::Base.handler(component).create_roles
     end
   end
 end

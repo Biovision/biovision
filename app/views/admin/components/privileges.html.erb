@@ -6,15 +6,5 @@
 <% end %>
 
 <article>
-  <h1><%= @handler.name %></h1>
-
-  <%=
-    render(
-        partial: 'admin/components/privileges/users',
-        locals: {
-            collection: @handler.component.privileges,
-            handler: @handler
-        }
-    )
-  %>
+  <div class="message-box warning">Страница устарела</div>
 </article>

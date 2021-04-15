@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # User
-# 
+#
 # Attributes:
 #   agent_id [Agent], optional
 #   allow_mail [boolean]
@@ -20,14 +20,14 @@
 #   last_seen [datetime], optional
 #   notice [string], optional
 #   password_digest [string]
+#   phone [string], optional
 #   phone_confirmed [boolean]
 #   primary_id [User], optional
 #   profile [Jsonb]
+#   referral_link [string]
 #   screen_name [string]
 #   slug [string]
 #   super_user [boolean]
-#   phone [string], optional
-#   referral_link [string]
 #   updated_at [DateTime]
 #   uuid [uuid]
 class User < ApplicationRecord
@@ -60,6 +60,8 @@ class User < ApplicationRecord
   has_many :foreign_users, dependent: :delete_all if Gem.loaded_specs.key?('biovision-oauth')
   has_many :login_attempts, dependent: :delete_all
   has_many :user_languages, dependent: :delete_all
+  has_many :user_roles, dependent: :destroy
+  has_many :user_groups, dependent: :destroy
 
   after_initialize :prepare_referral_link
 
@@ -71,7 +73,6 @@ class User < ApplicationRecord
     Biovision::Components::UsersComponent[entity].validate
   end
 
-  validates_acceptance_of :consent
   validates :screen_name, presence: true, uniqueness: { case_sensitive: false }
   validates :email, uniqueness: { case_sensitive: false }, allow_nil: true
   validates :phone, uniqueness: { case_sensitive: false }, allow_nil: true
@@ -93,7 +94,7 @@ class User < ApplicationRecord
   end
 
   def self.profile_parameters
-    %i[image allow_mail birthday consent]
+    %i[image allow_mail birthday]
   end
 
   def self.sensitive_parameters
@@ -134,6 +135,20 @@ class User < ApplicationRecord
     parts = role_name.split('.')
     handler = Biovision::Components::BaseComponent.handler(parts.shift, self)
     handler.role?(parts.join)
+  end
+
+  def role_ids
+    Array(data[Role::CACHE_KEY]).map(&:to_i)
+  end
+
+  # @param [Role] role
+  def add_role(role)
+    role&.add_user(self)
+  end
+
+  # @param [Role] role
+  def remove_role(role)
+    role&.remove_user(self)
   end
 
   # Name to be shown as profile

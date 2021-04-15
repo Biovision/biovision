@@ -12,18 +12,16 @@ class Role < ApplicationRecord
   include Checkable
   include HasUuid
 
-  SLUG_LIMIT = 50
-  SLUG_PATTERN = /\A[a-z][_a-z]*[a-z]\z/.freeze
+  CACHE_KEY = 'role_cache'
 
   belongs_to :biovision_component
   has_many :role_groups, dependent: :destroy
-  has_many :user_groups, dependent: :destroy
+  has_many :user_roles, dependent: :destroy
 
   before_validation { self.slug = slug.to_s.downcase }
 
   validates_presence_of :slug
   validates_uniqueness_of :slug, scope: :biovision_component_id
-  validates_format_of :slug, with: SLUG_PATTERN
 
   # @param [String] slug
   def self.[](slug)
@@ -52,5 +50,40 @@ class Role < ApplicationRecord
   def count_users!
     self.user_count = user_ids.count
     save
+  end
+
+  # @param [User] user
+  def add_to_cache!(user)
+    return if user.nil?
+
+    ids = user.role_ids + [id]
+    user.data[CACHE_KEY] = ids.uniq
+    user.save
+  end
+
+  # @param [User] user
+  def remove_from_cache!(user)
+    return if user.nil?
+
+    new_ids = user.role_ids - [id]
+    user.data[CACHE_KEY] = new_ids
+    user.save
+  end
+
+  # @param [User] user
+  # @param [Hash] options
+  def add_user(user, options = { inclusive: true })
+    inclusive = !options[:inclusive].blank?
+
+    user_roles.create(user: user, inclusive: inclusive)
+    inclusive ? add_to_cache!(user) : remove_from_cache!(user)
+  end
+
+  # @param [User] user
+  def remove_user(user)
+    return if user.nil?
+
+    user_roles.where(user: user).destroy_all
+    remove_from_cache!(user)
   end
 end

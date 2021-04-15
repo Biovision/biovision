@@ -5,7 +5,7 @@ module Biovision
     # Component for tracking UA and IP
     class TrackComponent < BaseComponent
       def self.dependent_models
-        [IpAddress, Agent, Browser]
+        [Browser, Agent, IpAddress]
       end
     end
   end

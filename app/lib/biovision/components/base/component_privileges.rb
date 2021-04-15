@@ -38,7 +38,7 @@ module Biovision
           role = Role[role_name]
           return false if role.nil?
 
-          Array(user.data['role_cache']).include?(role.id)
+          user.role_ids.include?(role.id)
         end
 
         # @param [Class|Object] context
@@ -48,16 +48,24 @@ module Biovision
         end
 
         def create_roles
-          slugs = %w[view edit]
-          model_roles = %w[list view create edit destroy]
-          model_roles.each { |role| slugs << "simple_images.#{role}" }
-          self.class.dependent_models.each do |model|
-            model_roles.each { |role| slugs << "#{model.table_name}.#{role}" }
-          end
+          slugs = %w[view edit settings.view settings.edit]
+          tables = self.class.dependent_models.map(&:table_name)
+          tables << 'simple_images' if use_images?
+          slugs += crud_role_names(tables)
 
           slugs.each do |slug|
             Role.create(biovision_component: component, slug: slug)
           end
+        end
+
+        # @param [Array] entity_list
+        def crud_role_names(entity_list)
+          model_roles = %w[list view create edit destroy]
+          role_names = []
+          entity_list.each do |entity_name|
+            role_names += model_roles.map { |role| "#{entity_name}.#{role}" }
+          end
+          role_names
         end
       end
     end

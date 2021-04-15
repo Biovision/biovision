@@ -2,20 +2,20 @@
 
 # Create entry and tables for track component
 class CreateTrackComponent < ActiveRecord::Migration[6.0]
+  COMPONENT = Biovision::Components::TrackComponent
   def up
-    BiovisionComponent.create(slug: Biovision::Components::TrackComponent.slug)
-
+    BiovisionComponent.create(slug: COMPONENT.slug)
     create_browsers unless Browser.table_exists?
     create_agents unless Agent.table_exists?
     create_ip_addresses unless IpAddress.table_exists?
+    COMPONENT[nil].create_roles
   end
 
   def down
-    Biovision::Components::TrackComponent.dependent_models.each do |model|
+    COMPONENT.dependent_models.reverse.each do |model|
       drop_table model.table_name if model.table_exists?
     end
-
-    BiovisionComponent[Biovision::Components::TrackComponent]&.destroy
+    BiovisionComponent[COMPONENT]&.destroy
   end
 
   private
