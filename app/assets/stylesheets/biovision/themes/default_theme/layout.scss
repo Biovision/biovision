@@ -1,6 +1,3 @@
-@import "biovision/themes/default_theme/components";
-@import "biovision/themes/default_theme/layout/header";
-
 //* { outline: solid pink 1px }
 
 html {
@@ -8,12 +5,14 @@ html {
 }
 
 body {
+  background: var(--layout-bg-body);
   display: flex;
   flex-direction: column;
   //height: 100%;
 }
 
 #main {
+  background: var(--layout-bg-main);
   flex: 1;
 }
 
@@ -28,3 +27,7 @@ body {
   width: 100%;
   z-index: 5;
 }
+
+@import "biovision/themes/default_theme/components";
+@import "biovision/themes/default_theme/layout/header";
+@import "biovision/themes/default_theme/layout/footer";

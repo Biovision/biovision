@@ -41,10 +41,10 @@ $border-color-secondary: rgb(230, 230, 230) !default;
 $border-primary: .1rem solid $border-color-primary !default;
 $border-secondary: .1rem solid $border-color-secondary !default;
 
-$background-body: #f4f4f4 linear-gradient(to top, #f4f4f4, #dfdedc) no-repeat center / cover !default;
-$background-header: #fff !default;
-$background-main: #fff !default;
-$background-footer: #fff !default;
+$layout-bg-body: #f4f4f4 linear-gradient(to top, #f4f4f4, #dfdedc) no-repeat center / cover !default;
+$layout-bg-header: #fff !default;
+$layout-bg-main: #fff !default;
+$layout-bg-footer: #fff !default;
 
 $link-color: rgb(20, 127, 255) !default;
 $link-color-visited: rgb(20, 77, 250) !default;
