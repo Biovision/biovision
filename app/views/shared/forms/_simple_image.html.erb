@@ -23,15 +23,23 @@
       </figure>
       <div class="js-change" data-url="<%= handler_url %>">
         <div class="buttons">
-          <button class="button button-ghost js-new-image" type="button">
-            <%= t('.new_image') %>
-          </button>
+          <label class="button button-ghost js-new-image">
+            <%=
+              file_field_tag(
+                nil,
+                accept: 'image/jpeg,image/png,image/svg+xml',
+                class: 'input-text visually-hidden'
+              )
+            %>
+            <span><%= t('.new_image') %></span>
+          </label>
+
           <button class="button button-ghost js-select-image" type="button">
             <%= t('.select') %>
           </button>
         </div>
         <%= render 'shared/forms/simple_image/browse' %>
-        <%= render 'shared/forms/simple_image/load_image' %>
+        <%#= render 'shared/forms/simple_image/load_image' %>
       </div>
       <%= f.hidden_field(:simple_image_id) %>
     </div>
