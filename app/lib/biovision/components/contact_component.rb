@@ -21,6 +21,10 @@ module Biovision
       def use_parameters?
         true
       end
+
+      def administrative_parts
+        []
+      end
     end
   end
 end

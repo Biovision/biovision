@@ -1,4 +1,4 @@
-<% if settings.any? %>
+<% if keys.any? %>
   <section class="biovision-component-settings">
     <h2><%= t('.heading') %></h2>
 
@@ -10,14 +10,14 @@
       ) do
     %>
       <div class="fields">
-        <% settings.each do |key, value| %>
+        <% keys.each do |key| %>
           <%=
             render(
                 partial: 'admin/components/settings/setting',
                 locals: {
                     slug: handler.slug,
                     key: key,
-                    value: value
+                    value: settings[key.to_s]
                 }
             )
           %>

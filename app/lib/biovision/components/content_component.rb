@@ -4,10 +4,6 @@ module Biovision
   module Components
     # Content
     class ContentComponent < BaseComponent
-      def self.privilege_names
-        %w[content_manager]
-      end
-
       def self.dependent_models
         [DynamicPage, NavigationGroup, NavigationGroupPage, DynamicBlock]
       end
@@ -18,6 +14,10 @@ module Biovision
 
       def use_images?
         true
+      end
+
+      def administrative_parts
+        %w[navigation_groups dynamic_blocks dynamic_pages]
       end
 
       # @param [ApplicationRecord] entity

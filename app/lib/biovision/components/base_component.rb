@@ -130,10 +130,6 @@ module Biovision
         metric << quantity
       end
 
-      def privilege_handler
-        @privilege_handler ||= Base::PrivilegeHandler.new(self)
-      end
-
       # @param [User] user
       # @param [String] code_type
       # @param [Integer] quantity

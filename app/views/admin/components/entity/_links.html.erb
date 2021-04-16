@@ -10,14 +10,36 @@
   <% end %>
 
   <% prefix = 'admin/components/links/' %>
-  <% if lookup_context.exists?("#{prefix}_#{handler.slug}") %>
-    <ul class="biovision-component-links">
+  <ul class="biovision-component-links">
+    <% if lookup_context.exists?("#{prefix}_#{handler.slug}") %>
       <%=
         render(
           partial: "#{prefix}#{handler.slug}",
           locals: { handler: handler }
         )
       %>
-    </ul>
+    <% else %>
+      <% handler.administrative_parts.each do |part| %>
+        <% context = "admin/#{part}/_nav_item" %>
+        <% if handler.permit?("#{part}.view") && lookup_context.exists?(context) %>
+          <li>
+            <%=
+              render(
+                partial: "admin/#{part}/nav_item",
+                locals: { handler: handler }
+              )
+            %>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if lookup_context.exists?("admin/components/links/extra/_#{handler.slug}") %>
+      <%=
+        render(
+          partial: "admin/components/links/extra/#{handler.slug}",
+          locals: { handler: handler }
+        )
+      %>
   <% end %>
+  </ul>
 </nav>

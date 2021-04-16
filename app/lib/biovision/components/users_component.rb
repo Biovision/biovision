@@ -53,19 +53,19 @@ module Biovision
 
       def self.default_settings
         {
-          registration_open: true,
-          email_as_login: false,
-          phone_as_login: false,
-          confirm_email: false,
-          require_email: false,
-          confirm_phone: false,
-          require_phone: false,
-          invite_only: false,
-          use_invites: false,
-          invite_count: 5,
-          bounce_count: 10,
-          bounce_timeout: 3,
-          use_phone: false
+          SETTING_OPEN => true,
+          SETTING_EMAIL_AS_LOGIN => false,
+          SETTING_PHONE_AS_LOGIN => false,
+          SETTING_CONFIRM_EMAIL => false,
+          SETTING_REQUIRE_EMAIL => false,
+          SETTING_USE_PHONE => false,
+          SETTING_REQUIRE_PHONE => false,
+          SETTING_CONFIRM_PHONE => false,
+          SETTING_INVITE_ONLY => false,
+          SETTING_USE_INVITES => false,
+          SETTING_INVITE_COUNT => 5,
+          SETTING_BOUNCE_COUNT => 10,
+          SETTING_BOUNCE_TIMEOUT => 3,
         }
       end
 
@@ -122,6 +122,10 @@ module Biovision
         return nil if user.nil?
 
         user.attributes[attribute_name.to_s]
+      end
+
+      def administrative_parts
+        %w[users]
       end
     end
   end

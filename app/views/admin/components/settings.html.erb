@@ -13,7 +13,8 @@
         partial: 'admin/components/settings/settings',
         locals: {
             handler: @handler,
-            settings: @handler.component.settings
+            settings: @handler.component.settings,
+            keys: @handler.class.default_settings.keys
         }
     )
   %>

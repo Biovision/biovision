@@ -21,7 +21,7 @@ class AdminController < ApplicationController
 
   def action_to_role_map
     {
-      %w[index show] => 'view',
+      %w[index show search] => 'view',
       %w[new create] => 'create',
       %w[edit update] => 'edit',
       %w[destroy] => 'destroy'

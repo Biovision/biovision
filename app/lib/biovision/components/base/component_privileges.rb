@@ -61,6 +61,10 @@ module Biovision
           end
           role_names
         end
+
+        def administrative_parts
+          []
+        end
       end
     end
   end
