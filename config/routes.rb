@@ -91,6 +91,7 @@ Rails.application.routes.draw do
         delete 'roles/:role_id' => :remove_role
       end
     end
+    resources :tokens, concerns: %i[toggle]
   end
 
   namespace :my do

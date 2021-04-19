@@ -227,22 +227,37 @@ ru:
         use_invites: "Использовать пришлашения"
         use_phone: "Использовать телефон"
   admin:
-    users:
+    tokens:
+      destroy:
+        success: "Жетон пользователя удалён"
+      index:
+        title: "Жетоны пользователей, страница %{page}"
+        heading: "Жетоны пользователей"
       nav_item:
-        description: "Управление пользователями сайта"
-        text: "Список пользователей"
+        description: "Управление жетонами пользователей сайта"
+        text: "Жетоны доступа (сессии)"
+      show:
+        title: "Жетон доступа №%{id}"
+    users:
+      destroy:
+        success: "Пользователь удалён"
       index:
         title: "Пользователи, страница %{page}"
         heading: "Пользователи"
-      show:
-        title: "Пользователь %{name}"
-        deleted: "Пользователь удалён"
-      destroy:
-        success: "Пользователь удалён"
+      nav_item:
+        description: "Управление пользователями сайта"
+        text: "Список пользователей"
       roles:
         nav_text: "Роли"
         title: "Роли пользователя %{user}"
         heading: "Роли и группы в компонентах"
+      show:
+        title: "Пользователь %{name}"
+        deleted: "Пользователь удалён"
+      tokens:
+        nav_text: "Жетоны"
+        title: "Жетоны доступа пользователя %{user}"
+        heading: "Жетоны доступа"
   users:
     profile:
       registration_date: "Дата регистрации"

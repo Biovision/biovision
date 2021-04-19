@@ -1,0 +1,27 @@
+<figure class="image"><%= simple_image_preview(entity.user) %></figure>
+<div class="data">
+  <div><%= admin_entity_link(entity) %></div>
+  <div class="info">
+    <% unless entity.last_used.nil? %>
+      <div>
+        <%= entity.class.human_attribute_name(:last_used) %>
+        <%= time_tag entity.last_used %>
+      </div>
+    <% end %>
+  </div>
+  <div class="secondary info">
+    <div><%= entity.ip_address&.ip %></div>
+    <% unless entity.agent.blank? %>
+      <div class="truncate"><%= entity.agent.name %></div>
+    <% end %>
+  </div>
+
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
+
+  <% if local_assigns[:handler] && handler.permit?('edit', entity) %>
+    <div class="entity-actions">
+      <%= edit_icon(entity) %>
+      <%= destroy_icon(entity) %>
+    </div>
+  <% end %>
+</div>

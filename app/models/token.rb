@@ -83,6 +83,10 @@ class Token < ApplicationRecord
     "[#{id}] #{user.profile_name}"
   end
 
+  def text_for_link
+    name
+  end
+
   # @param [User] user
   def editable_by?(user)
     return true if owned_by?(user)

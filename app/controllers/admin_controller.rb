@@ -22,7 +22,7 @@ class AdminController < ApplicationController
   def action_to_role_map
     {
       %w[index show search] => 'view',
-      %w[new create edit update destroy] => 'edit'
+      %w[create destroy edit new priority toggle update] => 'edit'
     }
   end
 end

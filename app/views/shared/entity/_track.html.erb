@@ -1,0 +1,12 @@
+<% unless entity.ip_address.blank? %>
+  <div>
+    <dt><%= entity.class.human_attribute_name(:ip_address) %></dt>
+    <dd><%= entity.ip_address.ip %></dd>
+  </div>
+<% end %>
+<% unless entity.agent.blank? %>
+  <div>
+    <dt><%= entity.class.human_attribute_name(:agent) %></dt>
+    <dd><%= entity.agent.name %></dd>
+  </div>
+<% end %>

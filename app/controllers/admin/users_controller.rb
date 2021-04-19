@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Administrative part for handling dynamic_pages
+# Administrative part for handling users
 class Admin::UsersController < AdminController
   include Authentication
   include CrudEntities

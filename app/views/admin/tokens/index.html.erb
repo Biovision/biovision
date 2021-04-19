@@ -1,17 +1,11 @@
-<% content_for :meta_title, t('.title') %>
+<% content_for :meta_title, t('.title', page: current_page) %>
 <% content_for :breadcrumbs do %>
   <%= admin_biovision_component_link(component_handler.component) %>
-  <span><%= t('admin.dynamic_pages.nav_item.text') %></span>
+  <span><%= t('admin.tokens.nav_item.text') %></span>
 <% end %>
 
 <article>
   <h1><%= t('.heading') %></h1>
-
-  <% if component_handler.permit?("#{controller_name}.edit") %>
-    <nav class="entity-actions">
-      <%= create_icon(new_admin_dynamic_page_path) %>
-    </nav>
-  <% end %>
 
   <%=
     render(

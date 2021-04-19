@@ -1,0 +1,26 @@
+<% content_for :meta_title, t('.title', id: @entity.id) %>
+<% content_for :breadcrumbs do %>
+  <%= admin_biovision_component_link(component_handler.component) %>
+  <%= link_to(t('admin.tokens.nav_item.text'), admin_tokens_path) %>
+  <span><%= @entity.token %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.class.model_name.human %> <%= @entity.id %></h1>
+
+  <% if component_handler.permit?('edit', @entity) %>
+    <nav class="entity-actions">
+      <%= edit_icon(@entity) %>
+      <%= destroy_icon(@entity) %>
+    </nav>
+  <% end %>
+
+  <dl class="fields">
+    <%= render partial: 'shared/entity/linked_entity', locals: { entity: @entity.user } %>
+    <%= render partial: 'shared/entity/time_field', locals: { entity: @entity, field: :last_used } %>
+    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+    <%= render partial: 'shared/entity/track', locals: { entity: @entity } %>
+  </dl>
+
+  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
+</article>
