@@ -30,4 +30,21 @@
       )
     %>
   </nav>
+
+  <% prefix = 'my/components/' %>
+  <% BiovisionComponent.list_for_user.each do |component| %>
+    <% handler = Biovision::Components::BaseComponent.handler(component, current_user) %>
+    <% next unless handler&.permit?('default') %>
+    <% if lookup_context.exists?("#{prefix}_#{component.slug}") %>
+      <section>
+        <h2><%= component.name %></h2>
+        <%=
+          render(
+            partial: "#{prefix}#{component.slug}",
+            locals: { user: @entity, handler: handler }
+          )
+        %>
+      </section>
+    <% end %>
+  <% end %>
 </article>

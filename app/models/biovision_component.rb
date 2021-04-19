@@ -25,6 +25,7 @@ class BiovisionComponent < ApplicationRecord
 
   scope :active, -> { where(active: true) }
   scope :list_for_administration, -> { ordered_by_priority }
+  scope :list_for_user, -> { active.ordered_by_priority }
 
   # Find component by slug
   #
