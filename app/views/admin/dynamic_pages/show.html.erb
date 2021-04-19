@@ -10,7 +10,7 @@
 
   <nav class="entity-actions">
     <%= world_icon(@entity) unless @entity.url.blank? %>
-    <%= edit_icon(@entity) %>
+    <%= edit_icon(@entity) if component_handler.permit?('edit', @entity) %>
   </nav>
 
   <dl class="fields">

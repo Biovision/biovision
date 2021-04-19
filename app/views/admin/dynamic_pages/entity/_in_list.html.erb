@@ -9,7 +9,9 @@
 
   <div class="entity-actions">
     <%= world_icon(entity) unless entity.url.blank? %>
-    <%= edit_icon(entity) %>
-    <%= destroy_icon(entity) %>
+    <% if local_assigns[:handler] && handler.permit?('edit', entity) %>
+      <%= edit_icon(entity) %>
+      <%= destroy_icon(entity) %>
+    <% end %>
   </div>
 </div>

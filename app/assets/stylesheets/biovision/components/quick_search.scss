@@ -1,0 +1,24 @@
+.widgets__quick-search {
+  --row-background-even: hsl(250, 75%, 95%);
+  --row-background-odd: hsl(250, 75%, 98%);
+
+  background: hsl(250, 75%, 98%);
+  box-shadow: var(--block-shadow);
+  margin: var(--spacer-s) 0 var(--spacer-m);
+  padding: var(--spacer-s) var(--spacer-xxs);
+  position: relative;
+
+  h3 {
+    font-weight: 400;
+  }
+
+  .results {
+    background: hsla(250, 75%, 98%, .5);
+    box-shadow: var(--block-shadow);
+    margin-top: 0;
+    min-width: 28rem;
+    position: absolute;
+    top: 100%;
+    z-index: 3;
+  }
+}

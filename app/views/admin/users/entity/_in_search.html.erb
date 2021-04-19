@@ -1,0 +1,18 @@
+<figure class="image"><%= simple_image_preview(entity) %></figure>
+<div class="data">
+  <div><%= admin_entity_link(entity) %></div>
+  <% unless entity.notice.blank? %>
+    <div><%= entity.notice %></div>
+  <% end %>
+  <div class="info"><%= entity.slug %></div>
+  <% unless entity.email.blank? %>
+    <div class="info"><%= entity.email %></div>
+  <% end %>
+  <div class="secondary info">UUID: <%= entity.uuid %></div>
+  <% unless entity.last_seen.nil? %>
+    <div class="secondary info">
+      <%= entity.class.human_attribute_name(:last_seen) %>:
+      <%= time_tag entity.last_seen %>
+    </div>
+  <% end %>
+</div>

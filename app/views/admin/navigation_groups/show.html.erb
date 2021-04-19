@@ -8,9 +8,11 @@
 <article>
   <h1><%= @entity.class.model_name.human %> <q><%= @entity.name %></q></h1>
 
-  <nav class="entity-actions">
-    <%= edit_icon(@entity) %>
-  </nav>
+  <% if component_handler.permit?('edit', @entity) %>
+    <nav class="entity-actions">
+      <%= edit_icon(@entity) %>
+    </nav>
+  <% end %>
 
   <dl class="fields">
     <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :name } %>

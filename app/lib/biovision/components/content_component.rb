@@ -16,6 +16,10 @@ module Biovision
         true
       end
 
+      def crud_table_names
+        super - %w[navigation_group_pages]
+      end
+
       def administrative_parts
         %w[navigation_groups dynamic_blocks dynamic_pages]
       end

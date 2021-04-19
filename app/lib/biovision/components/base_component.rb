@@ -85,9 +85,12 @@ module Biovision
       def user=(user)
         @user = user
 
-        criteria = { biovision_component: @component, user: user }
-
-        @user_link = BiovisionComponentUser.find_by(criteria)
+        if @user.nil?
+          @user_link = nil
+        else
+          criteria = { biovision_component: @component, user: user }
+          @user_link = BiovisionComponentUser.find_by(criteria)
+        end
       end
 
       def user_link!(force_create = false)

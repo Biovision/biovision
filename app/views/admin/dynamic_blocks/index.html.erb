@@ -7,9 +7,11 @@
 <article>
   <h1><%= t('.heading') %></h1>
 
-  <nav class="entity-actions">
-    <%= create_icon(new_admin_dynamic_block_path) %>
-  </nav>
+  <% if component_handler.permit?("#{controller_name}.create") %>
+    <nav class="entity-actions">
+      <%= create_icon(new_admin_dynamic_block_path) %>
+    </nav>
+  <% end %>
 
   <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
 </article>

@@ -4,6 +4,11 @@
 module CrudEntities
   extend ActiveSupport::Concern
 
+  # get [scope]/[table_name]/search?q=
+  def search
+    @collection = model_class.search(param_from_request(:q)).page(current_page)
+  end
+
   # get [scope]/[table_name]
   def index
     @collection = if paginate_entities?

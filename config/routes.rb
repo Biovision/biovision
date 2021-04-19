@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     post :toggle, on: :member, defaults: { format: :json }
   end
 
+  concern :search do
+    get :search, on: :collection
+  end
+
   # Handling errors
   match '/400' => 'errors#bad_request', via: :all
   match '/401' => 'errors#unauthorized', via: :all
@@ -80,7 +84,7 @@ Rails.application.routes.draw do
     end
 
     # Users component
-    resources :users, concerns: %i[check toggle] do
+    resources :users, concerns: %i[check search toggle] do
       member do
         get 'roles'
         put 'roles/:role_id' => :add_role, as: :role

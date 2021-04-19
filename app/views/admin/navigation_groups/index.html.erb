@@ -7,9 +7,16 @@
 <article>
   <h1><%= t('.heading') %></h1>
 
-  <nav class="entity-actions">
-    <%= create_icon(new_admin_navigation_group_path) %>
-  </nav>
+  <% if component_handler.permit?("#{controller_name}.edit") %>
+    <nav class="entity-actions">
+      <%= create_icon(new_admin_navigation_group_path) %>
+    </nav>
+  <% end %>
 
-  <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
+  <%=
+    render(
+      partial: 'shared/admin/list',
+      locals: { collection: @collection, handler: component_handler }
+    )
+  %>
 </article>

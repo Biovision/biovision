@@ -41,25 +41,28 @@ module Biovision
           context.is_a?(Class) ? context : context.class
         end
 
-        def create_roles
-          slugs = %w[default view edit settings.view settings.edit]
+        def crud_table_names
           tables = self.class.dependent_models.map(&:table_name)
           tables << 'simple_images' if use_images?
-          slugs += crud_role_names(tables)
-
-          slugs.each do |slug|
-            Role.create(biovision_component: component, slug: slug)
-          end
+          tables
         end
 
-        # @param [Array] entity_list
-        def crud_role_names(entity_list)
-          model_roles = %w[view create edit destroy]
-          role_names = []
-          entity_list.each do |entity_name|
-            role_names += model_roles.map { |role| "#{entity_name}.#{role}" }
+        def role_tree
+          tree = { nil => %w[default view] }
+          tree['settings'] = %w[view edit] if use_settings?
+          crud_table_names.each do |table_name|
+            tree[table_name] = %w[view edit]
           end
-          role_names
+          tree
+        end
+
+        def create_roles
+          role_tree.each do |prefix, postfixes|
+            postfixes.each do |postfix|
+              slug = prefix.blank? ? postfix : "#{prefix}.#{postfix}"
+              Role.create(biovision_component: component, slug: slug)
+            end
+          end
         end
 
         def administrative_parts

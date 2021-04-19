@@ -1,0 +1,13 @@
+<section class="widgets__quick-search js-quick-search" data-url="<%= local_assigns[:endpoint] %>">
+  <div class="content-wrapper">
+    <h3><%= t('.heading') %></h3>
+
+    <div class="search">
+      <label class="floating-label">
+        <input type="search" class="input-text" placeholder="<%= t('.search_string') %>"/>
+        <span><%= t('.search_string') %></span>
+      </label>
+    </div>
+    <ul class="results list-of-entities"></ul>
+  </div>
+</section>

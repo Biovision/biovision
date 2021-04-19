@@ -99,6 +99,10 @@ ru:
         nav_text: "Администрирование"
         title: "Администрирование"
         heading: "Администрирование"
+    widgets:
+      quick_search:
+        heading: "Быстрый поиск"
+        search_string: "Строка поиска"
   layouts:
     admin:
       footer:

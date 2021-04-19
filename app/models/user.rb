@@ -83,6 +83,7 @@ class User < ApplicationRecord
   scope :email_like, ->(v) { where('email ilike ?', "%#{v}%") unless v.blank? }
   scope :with_email, ->(v) { where('lower(email) = lower(?)', v.to_s) }
   scope :list_for_administration, -> { order('id desc') }
+  scope :search, ->(q) { where('screen_name ilike ?', "%#{q}%") unless q.blank? }
 
   def self.[](login)
     find_by(slug: login) || find_by_contact(login)

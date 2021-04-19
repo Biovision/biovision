@@ -13,9 +13,11 @@
 <article>
   <h1><%= t("#{prefix}.edit.heading", default: default_title) %></h1>
 
-  <nav class="entity-actions">
-    <%= destroy_icon(@entity) %>
-  </nav>
+  <% if component_handler.permit?('edit', @entity) %>
+    <nav class="entity-actions">
+      <%= destroy_icon(@entity) %>
+    </nav>
+  <% end %>
 
   <%= render partial: "#{controller_path}/form", locals: { entity: @entity } %>
 </article>

@@ -3,6 +3,7 @@
 # Create entry and tables for track component
 class CreateTrackComponent < ActiveRecord::Migration[6.0]
   COMPONENT = Biovision::Components::TrackComponent
+
   def up
     COMPONENT.create
     create_browsers unless Browser.table_exists?
