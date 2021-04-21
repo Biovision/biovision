@@ -1,0 +1,26 @@
+<div class="data">
+  <div><%= admin_entity_link(entity.dynamic_page) %></div>
+  <div class="info"><%= entity.dynamic_page.url %></div>
+  <div class="secondary info"><%= entity.dynamic_page.name %></div>
+
+  <% if local_assigns[:handler] && handler.permit?('edit', entity.navigation_group) %>
+    <div class="entity-actions">
+      <% url = page_priority_admin_navigation_group_path(id: entity.navigation_group_id, page_id: entity.id) %>
+      <div class="priority-changer" data-url="<%= url %>">
+        <button data-delta="-1" type="button">&uarr;</button>
+        <button data-delta="1" type="button">&darr;</button>
+      </div>
+
+      <%=
+        button_tag(
+          '',
+          class: 'danger destroy',
+          data: {
+            url: dynamic_page_admin_navigation_group_path(id: entity.navigation_group_id, page_id: entity.id)
+          },
+          type: 'button'
+        )
+      %>
+    </div>
+  <% end %>
+</div>

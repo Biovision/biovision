@@ -1,0 +1,38 @@
+<section
+  class="js-entity-list-with-search"
+  data-prefix="<%= dynamic_page_admin_navigation_group_path(id: entity.id, page_id: '') %>"
+>
+  <h2><%= t('.heading') %></h2>
+
+  <div class="list">
+    <%=
+      render(
+        partial: 'shared/admin/list_with_priority',
+        locals: { collection: collection, handler: handler }
+      )
+    %>
+  </div>
+
+  <% if component_handler.permit?('edit', entity) %>
+    <section>
+      <h3><%= t('.add') %></h3>
+
+      <div class="search">
+        <label class="floating-label">
+          <%=
+            search_field_tag(
+              'q',
+              '',
+              class: 'input-text',
+              data: { url: search_admin_dynamic_pages_url(format: :json) },
+              placeholder: DynamicPage.human_attribute_name(:url)
+            )
+          %>
+          <span><%= DynamicPage.human_attribute_name(:url) %></span>
+        </label>
+      </div>
+
+      <ul class="results"></ul>
+    </section>
+  <% end %>
+</section>

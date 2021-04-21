@@ -36,7 +36,9 @@ class DynamicPage < ApplicationRecord
   validates_length_of :slug, maximum: SLUG_LIMIT
   validates_length_of :url, maximum: URL_LIMIT
 
+  scope :visible, -> { where(visible: true) }
   scope :list_for_administration, -> { included_image.order('slug asc, language_id asc nulls first') }
+  scope :search, ->(q) { where('url ilike ? or slug ilike ?', "#{q}%", "#{q}%") unless q.blank? }
 
   # @param [String] slug
   def self.[](slug)

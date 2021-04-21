@@ -74,7 +74,7 @@ Rails.application.routes.draw do
     resources :agents, :ip_addresses, only: :index
 
     # Content component
-    resources :dynamic_pages, :dynamic_blocks, concerns: %i[check toggle]
+    resources :dynamic_pages, :dynamic_blocks, concerns: %i[check search toggle]
     resources :navigation_groups, concerns: :check do
       member do
         put 'dynamic_pages/:page_id' => :add_page, as: :dynamic_page

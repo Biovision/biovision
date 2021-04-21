@@ -82,6 +82,10 @@ ru:
         title: "Добавление группы навигации"
         nav_text: "Создать"
         heading: "Новая группа навигации"
+      entity:
+        dynamic_pages:
+          heading: "Ссылки"
+          add: "Добавить страницу"
   biovision:
     components:
       content:

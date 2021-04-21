@@ -19,4 +19,15 @@
     <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
     <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
   </dl>
+
+  <%=
+    render(
+      partial: 'admin/navigation_groups/entity/dynamic_pages',
+      locals: {
+        collection: @entity.navigation_group_pages,
+        entity: @entity,
+        handler: component_handler
+      }
+    )
+  %>
 </article>

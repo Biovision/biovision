@@ -8,7 +8,7 @@ json.meta do
   json.html(
     render(
       partial: 'admin/users/entity/in_search',
-      locals: { entity: user, skip_toggle: true },
+      locals: { entity: user },
       formats: [:html]
     )
   )

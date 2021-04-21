@@ -167,6 +167,14 @@ textarea {
     width: 2.4rem;
   }
 
+  .destroy {
+    background: image_url('biovision/icons/destroy.svg') no-repeat center / 1.6rem auto;
+    border: none;
+    border-radius: .4rem;
+    box-shadow: 0 0 .2rem hsla(0, 75%, 75%, .75);
+    cursor: pointer;
+  }
+
   img {
     height: 100%;
     object-fit: contain;

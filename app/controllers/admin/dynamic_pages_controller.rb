@@ -5,7 +5,7 @@ class Admin::DynamicPagesController < AdminController
   include CrudEntities
   include ToggleableEntity
 
-  before_action :set_entity, except: %i[check create index new]
+  before_action :set_entity, except: %i[check create index new search]
 
   private
 

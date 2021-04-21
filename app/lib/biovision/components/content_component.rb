@@ -24,12 +24,30 @@ module Biovision
         %w[navigation_groups dynamic_blocks dynamic_pages]
       end
 
-      # @param [ApplicationRecord] entity
-      # @deprecated use #permit?
-      def editable?(entity)
-        return false if entity.nil?
+      def navigation
+        @navigation ||= prepare_navigation
+      end
 
-        permit?('edit', entity)
+      private
+
+      def prepare_navigation
+        result = {}
+        NavigationGroup.connection.execute(grouped_links_query).each do |row|
+          result[row['slug']] = [] unless result.key?(row['slug'])
+          result[row['slug']] << { text: row['name'], url: row['url'] }
+        end
+        result
+      end
+
+      def grouped_links_query
+        <<~SQL
+          select g.slug, p.name, p.url
+          from "#{NavigationGroupPage.table_name}" gp
+          join "#{NavigationGroup.table_name}" g on gp.navigation_group_id = g.id
+          join "#{DynamicPage.table_name}" p on gp.dynamic_page_id = p.id
+          where p.visible = true
+          order by g.slug asc, gp.priority asc
+        SQL
       end
     end
   end

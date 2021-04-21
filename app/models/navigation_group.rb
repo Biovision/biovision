@@ -30,4 +30,14 @@ class NavigationGroup < ApplicationRecord
   def text_for_link
     name
   end
+
+  # @param [DynamicPage] entity
+  def add_dynamic_page(entity)
+    navigation_group_pages.create(dynamic_page: entity)
+  end
+
+  # @param [DynamicPage] entity
+  def remove_dynamic_page(entity)
+    navigation_group_pages.where(dynamic_page: entity).destroy_all
+  end
 end

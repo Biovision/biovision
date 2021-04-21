@@ -1,0 +1,7 @@
+<figure class="image"><%= simple_image_preview(entity) %></figure>
+<div class="data">
+  <div><%= admin_entity_link(entity) %></div>
+  <% unless entity.name.blank? %>
+    <div class="info"><%= entity.name %></div>
+  <% end %>
+</div>
