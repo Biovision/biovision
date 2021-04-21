@@ -7,10 +7,6 @@ module Biovision
       def self.dependent_models
         [Browser, Agent, IpAddress]
       end
-
-      def administrative_parts
-        %w[agents ip_addresses]
-      end
     end
   end
 end

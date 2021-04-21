@@ -129,7 +129,7 @@ module Biovision
       end
 
       def administrative_parts
-        %w[users tokens]
+        %w[users tokens login_attempts codes notifications]
       end
     end
   end

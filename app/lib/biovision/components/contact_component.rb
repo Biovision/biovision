@@ -11,7 +11,7 @@ module Biovision
       end
 
       def self.default_settings
-        { feedback_email: '' }
+        { SETTING_FEEDBACK_MAIL => '' }
       end
 
       def self.dependent_models
@@ -20,10 +20,6 @@ module Biovision
 
       def use_parameters?
         true
-      end
-
-      def administrative_parts
-        []
       end
     end
   end

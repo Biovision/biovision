@@ -66,7 +66,7 @@ module Biovision
         end
 
         def administrative_parts
-          []
+          self.class.dependent_models.map(&:table_name)
         end
       end
     end
