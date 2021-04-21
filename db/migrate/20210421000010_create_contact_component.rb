@@ -2,22 +2,7 @@
 
 # Create tables for contact component
 class CreateContactComponent < ActiveRecord::Migration[6.1]
-  COMPONENT = Biovision::Components::ContactComponent
-
-  def up
-    COMPONENT.create
-    create_feedback_messages unless FeedbackMessage.table_exists?
-    create_feedback_responses unless FeedbackResponse.table_exists?
-    create_contact_types unless ContactType.table_exists?
-    create_contact_methods unless ContactMethod.table_exists?
-  end
-
-  def down
-    COMPONENT.dependent_models.reverse.each do |model|
-      drop_table model.table_name if model.table_exists?
-    end
-    BiovisionComponent[COMPONENT]&.destroy
-  end
+  include Biovision::Migrations::ComponentMigration
 
   private
 

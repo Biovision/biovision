@@ -1,26 +1,17 @@
 # frozen_string_literal: true
 
 # Create tables for Users component
-class CreateUsersComponent < ActiveRecord::Migration[6.0]
-  COMPONENT = Biovision::Components::UsersComponent
+class CreateUsersComponent < ActiveRecord::Migration[6.1]
+  include Biovision::Migrations::ComponentMigration
 
   def up
-    COMPONENT.create
-    create_users unless User.table_exists?
-    create_tokens unless Token.table_exists?
-    create_login_attempts unless LoginAttempt.table_exists?
-    create_user_languages unless UserLanguage.table_exists?
-    create_component_links unless BiovisionComponentUser.table_exists?
-    create_codes unless Code.table_exists?
-    create_notifications unless Notification.table_exists?
-  end
+    component.create
+    component.dependent_models.each do |model|
+      next if model.table_exists?
 
-  def down
-    COMPONENT.dependent_models.reverse.each do |model|
-      drop_table model.table_name if model.table_exists?
+      message = "create_#{model.table_name}".to_sym
+      send(message) if respond_to?(message, true)
     end
-
-    BiovisionComponent[COMPONENT]&.destroy
   end
 
   private
@@ -97,8 +88,8 @@ class CreateUsersComponent < ActiveRecord::Migration[6.0]
     end
   end
 
-  def create_component_links
-    create_table :biovision_component_users, comment: 'Privileges and settings for users in components' do |t|
+  def create_biovision_component_users
+    create_table :biovision_component_users, comment: 'Settings for users in components' do |t|
       t.references :biovision_component, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.timestamps

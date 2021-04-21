@@ -1,23 +1,8 @@
 # frozen_string_literal: true
 
 # Create Content component and tables
-class CreateContentComponent < ActiveRecord::Migration[6.0]
-  COMPONENT = Biovision::Components::ContentComponent
-
-  def up
-    COMPONENT.create
-    create_dynamic_pages unless DynamicPage.table_exists?
-    create_navigation_groups unless NavigationGroup.table_exists?
-    create_pages_in_groups unless NavigationGroupPage.table_exists?
-    create_dynamic_blocks unless DynamicBlock.table_exists?
-  end
-
-  def down
-    COMPONENT.dependent_models.reverse.each do |model|
-      drop_table model.table_name if model.table_exists?
-    end
-    BiovisionComponent[COMPONENT]&.destroy
-  end
+class CreateContentComponent < ActiveRecord::Migration[6.1]
+  include Biovision::Migrations::ComponentMigration
 
   private
 
@@ -50,7 +35,7 @@ class CreateContentComponent < ActiveRecord::Migration[6.0]
     add_index :dynamic_pages, :data, using: :gin
   end
 
-  def create_pages_in_groups
+  def create_navigation_group_pages
     create_table :navigation_group_pages, comment: 'Dynamic pages in navigation groups' do |t|
       t.references :navigation_group, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :dynamic_page, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }

@@ -1,21 +1,17 @@
 # frozen_string_literal: true
 
 # Create entry and tables for track component
-class CreateTrackComponent < ActiveRecord::Migration[6.0]
-  COMPONENT = Biovision::Components::TrackComponent
+class CreateTrackComponent < ActiveRecord::Migration[6.1]
+  include Biovision::Migrations::ComponentMigration
 
   def up
-    COMPONENT.create
-    create_browsers unless Browser.table_exists?
-    create_agents unless Agent.table_exists?
-    create_ip_addresses unless IpAddress.table_exists?
-  end
+    component.create
+    component.dependent_models.each do |model|
+      next if model.table_exists?
 
-  def down
-    COMPONENT.dependent_models.reverse.each do |model|
-      drop_table model.table_name if model.table_exists?
+      message = "create_#{model.table_name}".to_sym
+      send(message) if respond_to?(message, true)
     end
-    BiovisionComponent[COMPONENT]&.destroy
   end
 
   private
