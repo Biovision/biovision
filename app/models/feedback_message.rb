@@ -53,7 +53,7 @@ class FeedbackMessage < ApplicationRecord
     list_for_administration.page(page)
   end
 
-  def self.entity_parameters(*)
+  def self.entity_parameters
     %i[attachment comment email language_id name phone]
   end
 end

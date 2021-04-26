@@ -27,6 +27,7 @@ ru:
       keywords: "Ключевые слова"
       title: "Заголовок окна (title)"
     name: "Название"
+    nav_text: "Текст для ссылки"
     object_count: "Количество объектов"
     parent: "Родитель"
     parent_id: "Родитель"

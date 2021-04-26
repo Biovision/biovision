@@ -45,11 +45,11 @@ class Token < ApplicationRecord
     list_for_owner(user).page(page)
   end
 
-  def self.entity_parameters(*)
+  def self.entity_parameters
     %i[active]
   end
 
-  def self.creation_parameters(*)
+  def self.creation_parameters
     entity_parameters + %i[user_id]
   end
 

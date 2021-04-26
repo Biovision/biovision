@@ -43,7 +43,7 @@ class SimpleImage < ApplicationRecord
   scope :filtered, ->(v) { where('image ilike ? or caption ilike ?', "%#{v}%", "%#{v}%") unless v.blank? }
   scope :list_for_administration, -> { order('image asc') }
 
-  def self.entity_parameters(*)
+  def self.entity_parameters
     %i[caption image image_alt_text source_link source_name]
   end
 

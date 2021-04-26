@@ -23,7 +23,7 @@ class NavigationGroup < ApplicationRecord
 
   scope :list_for_administration, -> { ordered_by_name }
 
-  def self.entity_parameters(*)
+  def self.entity_parameters
     %i[name slug]
   end
 

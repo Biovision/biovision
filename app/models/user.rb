@@ -112,12 +112,12 @@ class User < ApplicationRecord
   end
 
   # Parameters for registration
-  def self.new_profile_parameters(*)
+  def self.new_profile_parameters
     profile_parameters + sensitive_parameters + %i[screen_name]
   end
 
   # Administrative parameters
-  def self.entity_parameters(*)
+  def self.entity_parameters
     flags = %i[banned bot email_confirmed phone_confirmed]
 
     new_profile_parameters + flags + %i[notice screen_name slug]

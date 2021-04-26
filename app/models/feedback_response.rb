@@ -40,11 +40,11 @@ class FeedbackResponse < ApplicationRecord
     list_for_administration.page(page)
   end
 
-  def self.entity_parameters(*)
+  def self.entity_parameters
     %i[body]
   end
 
-  def self.creation_parameters(*)
+  def self.creation_parameters
     entity_parameters + %i[feedback_message_id]
   end
 end

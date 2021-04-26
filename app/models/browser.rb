@@ -28,7 +28,7 @@ class Browser < ApplicationRecord
 
   scope :list_for_administration, -> { order('name asc, version asc') }
 
-  def self.entity_parameters(*)
+  def self.entity_parameters
     %i[banned mobile name version]
   end
 end
