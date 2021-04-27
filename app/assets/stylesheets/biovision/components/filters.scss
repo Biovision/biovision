@@ -20,9 +20,16 @@
 
   dfn {
     font-style: normal;
+    font-weight: 500;
+
+    &::after {
+      content: ':';
+    }
   }
 
   label {
+    padding: 0 var(--spacer-xxs);
+
     input:checked + span {
       text-decoration: underline;
     }

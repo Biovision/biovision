@@ -7,7 +7,7 @@
           <div class="flag">
             <dfn><%= t("filters.#{scope}.#{key}", default: key.to_s) %></dfn>
             <label class="flag-label">
-              <%= f.radio_button(key, '', id: nil, checked: filter[key] == '') %>
+              <%= f.radio_button(key, '', id: nil, checked: filter[key].blank?) %>
               <span><%= t('.any') %></span>
             </label>
             <label class="flag-label">
@@ -19,8 +19,6 @@
               <span><%= t('.unset') %></span>
             </label>
           </div>
-          <label class="flag-label">
-          </label>
         <% end %>
       <% end %>
     </div>
