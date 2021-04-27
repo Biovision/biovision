@@ -1,0 +1,14 @@
+<%= render partial: 'shared/entity/metadata', locals: { entity: @dynamic_page } %>
+
+<article class="frontpage">
+  <div class="content-wrapper">
+    <% unless @dynamic_page.blank? %>
+      <%=
+        render(
+          partial: 'components/content/dynamic_page_content',
+          locals: { entity: @dynamic_page }
+        )
+      %>
+    <% end %>
+  </div>
+</article>

@@ -6,16 +6,12 @@
 
   <article>
     <div class="content-wrapper">
-      <h1><%= entity.meta('heading') %></h1>
-
-      <% if content_component.permit?('edit', entity) %>
-        <nav class="entity-actions">
-          <%= gear_icon(entity) %>
-          <%= edit_icon(entity) %>
-        </nav>
-      <% end %>
-
-      <div class="text"><%= raw(entity.body) %></div>
+      <%=
+        render(
+          partial: 'components/content/dynamic_page_content',
+          locals: { entity: entity }
+        )
+      %>
     </div>
   </article>
 <% end %>

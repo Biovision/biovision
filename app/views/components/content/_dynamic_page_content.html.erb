@@ -1,0 +1,14 @@
+<% unless entity.simple_image.nil? %>
+  <figure><%= simple_image_hd(entity) %></figure>
+<% end %>
+
+<h1><%= entity.meta('heading') %></h1>
+
+<% if content_component.permit?('edit', entity) %>
+  <nav class="entity-actions">
+    <%= gear_icon(entity) %>
+    <%= edit_icon(entity) %>
+  </nav>
+<% end %>
+
+<div class="text"><%= raw(entity.body) %></div>
