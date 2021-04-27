@@ -13,5 +13,9 @@ Rails.application.routes.draw do
     post :toggle, on: :member, defaults: { format: :json }
   end
 
+  concern :search do
+    get :search, on: :collection
+  end
+
   root 'index#index'
 end

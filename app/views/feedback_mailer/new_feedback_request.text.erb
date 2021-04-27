@@ -1,0 +1,6 @@
+<%= t('.title') %>
+
+<% %w[name email phone comment attachment].each do |a| %>
+  <% next if @entity.attributes[a].blank? %>
+  <%= @entity.class.human_attribute_name(a) %>: <%= @entity.attributes[a] %>
+<% end %>

@@ -56,4 +56,10 @@ class FeedbackMessage < ApplicationRecord
   def self.entity_parameters
     %i[attachment comment email language_id name phone]
   end
+
+  def attachment_name
+    return if attachment.blank?
+
+    File.basename(attachment.path)
+  end
 end

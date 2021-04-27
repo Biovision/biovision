@@ -104,3 +104,7 @@ ru:
     index:
       nav_text: "Контакты"
       title: "Контакты"
+  feedback_mailer:
+    new_feedback_request:
+      subject: "Новый запрос обратной связи"
+      title: "Поступил новый запрос на обратную связь"

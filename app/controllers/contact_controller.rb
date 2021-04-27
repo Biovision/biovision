@@ -27,7 +27,7 @@ class ContactController < ApplicationController
   def save_entity
     if @entity.save
       show_result
-      # FeedbackMailer.new_feedback_request(@entity.id).deliver_later
+      FeedbackMailer.new_feedback_request(@entity.id).deliver_later
     else
       redirect_to root_path
     end
