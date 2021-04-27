@@ -1,0 +1,15 @@
+<div class="flag">
+  <dfn><%= t("filters.#{scope}.#{key}", default: key.to_s) %></dfn>
+  <label class="flag-label">
+    <%= f.radio_button(key, '', id: nil, checked: value.blank?) %>
+    <span><%= t('.any') %></span>
+  </label>
+  <label class="flag-label">
+    <%= f.radio_button(key, '1', id: nil, checked: value == '1') %>
+    <span><%= t('.set') %></span>
+  </label>
+  <label class="flag-label">
+    <%= f.radio_button(key, '0', id: nil, checked: value == '0') %>
+    <span><%= t('.unset') %></span>
+  </label>
+</div>

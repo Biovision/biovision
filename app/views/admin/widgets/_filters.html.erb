@@ -4,21 +4,7 @@
     <div class="list">
       <% fields.each do |key, type| %>
         <% if type == :flag %>
-          <div class="flag">
-            <dfn><%= t("filters.#{scope}.#{key}", default: key.to_s) %></dfn>
-            <label class="flag-label">
-              <%= f.radio_button(key, '', id: nil, checked: filter[key].blank?) %>
-              <span><%= t('.any') %></span>
-            </label>
-            <label class="flag-label">
-              <%= f.radio_button(key, '1', id: nil, checked: filter[key] == '1') %>
-              <span><%= t('.set') %></span>
-            </label>
-            <label class="flag-label">
-              <%= f.radio_button(key, '0', id: nil, checked: filter[key] == '0') %>
-              <span><%= t('.unset') %></span>
-            </label>
-          </div>
+          <%= render partial: 'admin/widgets/filters/flag', locals: { f: f, key: key, scope: scope, value: filter[key] } %>
         <% end %>
       <% end %>
     </div>

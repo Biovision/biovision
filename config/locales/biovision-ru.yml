@@ -105,11 +105,12 @@ ru:
         heading: "Быстрый поиск"
         search_string: "Строка поиска"
       filters:
-        heading: "Фильтры"
         apply: "Применить"
-        any: "Неважно"
-        set: "Да"
-        unset: "Нет"
+        flag:
+          any: "Неважно"
+          set: "Да"
+          unset: "Нет"
+        heading: "Фильтры"
   layouts:
     admin:
       footer:
