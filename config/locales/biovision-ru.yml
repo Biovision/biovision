@@ -104,6 +104,12 @@ ru:
       quick_search:
         heading: "Быстрый поиск"
         search_string: "Строка поиска"
+      filters:
+        heading: "Фильтры"
+        apply: "Применить"
+        any: "Неважно"
+        set: "Да"
+        unset: "Нет"
   layouts:
     admin:
       footer:

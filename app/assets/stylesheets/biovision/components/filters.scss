@@ -1,0 +1,34 @@
+.widgets__filters {
+  fieldset {
+    box-shadow: var(--block-shadow);
+  }
+
+  .list {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacer-s);
+  }
+
+  .flag {
+    align-items: center;
+    border: var(--border-secondary);
+    display: flex;
+    gap: var(--spacer-xs);
+    padding: var(--spacer-xs);
+  }
+
+  dfn {
+    font-style: normal;
+  }
+
+  label {
+    input:checked + span {
+      text-decoration: underline;
+    }
+  }
+
+  .actions {
+    margin-top: var(--spacer-xs);
+  }
+}

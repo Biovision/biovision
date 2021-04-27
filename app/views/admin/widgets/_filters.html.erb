@@ -1,0 +1,31 @@
+<%= form_with(scope: 'filter', url: url_for, method: :get, class: 'widgets__filters') do |f| %>
+  <fieldset>
+    <legend><%= t('.heading') %></legend>
+    <div class="list">
+      <% fields.each do |key, type| %>
+        <% if type == :flag %>
+          <div class="flag">
+            <dfn><%= t("filters.#{scope}.#{key}", default: key.to_s) %></dfn>
+            <label class="flag-label">
+              <%= f.radio_button(key, '', id: nil, checked: filter[key] == '') %>
+              <span><%= t('.any') %></span>
+            </label>
+            <label class="flag-label">
+              <%= f.radio_button(key, '1', id: nil, checked: filter[key] == '1') %>
+              <span><%= t('.set') %></span>
+            </label>
+            <label class="flag-label">
+              <%= f.radio_button(key, '0', id: nil, checked: filter[key] == '0') %>
+              <span><%= t('.unset') %></span>
+            </label>
+          </div>
+          <label class="flag-label">
+          </label>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="actions">
+      <%= button_tag(t('.apply'), class: 'button button-secondary', name: nil) %>
+    </div>
+  </fieldset>
+<% end %>

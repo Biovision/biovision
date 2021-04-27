@@ -11,11 +11,9 @@ module CrudEntities
 
   # get [scope]/[table_name]
   def index
-    @collection = if paginate_entities?
-                    model_class.page_for_administration(current_page)
-                  else
-                    model_class.list_for_administration
-                  end
+    @filter = params[:filter]&.permit!.to_h
+    data_helper = Biovision::Helpers::DataHelper.new(model_class)
+    @collection = data_helper.administrative_collection(current_page, @filter)
   end
 
   # get [scope]/[table_name]/:id
@@ -100,10 +98,6 @@ module CrudEntities
     "#{prefix}/#{model_class.table_name}"
   end
 
-  def paginate_entities?
-    model_class.respond_to?(:page_for_administration)
-  end
-
   def set_entity
     @entity = model_class.find_by(id: params[:id])
     handle_http_404("Cannot find #{model_class.model_name}") if @entity.nil?
@@ -130,6 +124,7 @@ module CrudEntities
     params.require(model_key).permit(permitted)
   end
 
+  # @param [Symbol] method_name
   def parameter_list_with_context(method_name)
     reflection = model_class.singleton_method(method_name)
     arguments = reflection.parameters.any? ? [current_user] : []
