@@ -6,7 +6,8 @@ module CrudEntities
 
   # get [scope]/[table_name]/search?q=
   def search
-    @collection = model_class.search(param_from_request(:q)).page(current_page)
+    q = param_from_request(:q)
+    @collection = model_class.search(q).list_for_administration.page(current_page)
   end
 
   # get [scope]/[table_name]
