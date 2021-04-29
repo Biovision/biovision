@@ -154,6 +154,18 @@ module Biovision
         data[key.to_s] = new_value
         user.new_component_data(data)
       end
+
+      # @param [ApplicationRecord] entity
+      # @param [Hash] new_attributes
+      def update_entity(entity, new_attributes)
+        entity.update(new_attributes)
+      end
+
+      # @param [Class] model_class
+      # @param [Hash] parameters
+      def new_entity(model_class, parameters)
+        model_class.new(parameters)
+      end
     end
   end
 end

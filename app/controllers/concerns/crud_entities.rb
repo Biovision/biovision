@@ -36,7 +36,7 @@ module CrudEntities
 
   # post [scope]/[table_name]
   def create
-    @entity = model_class.new(creation_parameters)
+    @entity = component_handler.new_entity(model_class, creation_parameters)
     apply_meta if @entity.respond_to?(:meta=)
     if @entity.save
       form_processed_ok(path_after_save)
@@ -54,7 +54,7 @@ module CrudEntities
   def update
     apply_meta if @entity.respond_to?(:meta=)
 
-    if @entity.update(entity_parameters)
+    if component_handler.update_entity(@entity, entity_parameters)
       form_processed_ok(path_after_save)
     else
       form_processed_with_error(view_for_edit)
@@ -113,7 +113,7 @@ module CrudEntities
   end
 
   def explicit_creation_parameters
-    permitted = parameter_list_with_context(:creation_parameters)
+    permitted = model_class.creation_parameters
     parameters = params.require(model_key).permit(permitted)
     parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
     parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
@@ -121,15 +121,8 @@ module CrudEntities
   end
 
   def entity_parameters
-    permitted = parameter_list_with_context(:entity_parameters)
+    permitted = model_class.entity_parameters
     params.require(model_key).permit(permitted)
-  end
-
-  # @param [Symbol] method_name
-  def parameter_list_with_context(method_name)
-    reflection = model_class.singleton_method(method_name)
-    arguments = reflection.parameters.any? ? [current_user] : []
-    model_class.send(method_name, *arguments)
   end
 
   def apply_meta
