@@ -79,12 +79,12 @@ class Admin::UsersController < AdminController
 
   def entity_parameters
     excluded = @entity&.super_user? ? User.sensitive_parameters : []
-    permitted = User.entity_parameters(current_user) - excluded
+    permitted = User.entity_parameters - excluded
     params.require(:user).permit(permitted)
   end
 
   def creation_parameters
-    permitted = User.entity_parameters(current_user)
+    permitted = User.entity_parameters
     parameters = params.require(:user).permit(permitted)
     parameters.merge(tracking_for_entity)
   end
