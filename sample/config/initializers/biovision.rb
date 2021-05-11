@@ -6,6 +6,7 @@ Rails.application.configure do
   config.i18n.default_locale = :ru
 
   config.exceptions_app = routes
+  # config.optimize_images = true
 
   overrides = "#{Rails.root}/app/overrides"
   Rails.autoloaders.main.ignore(overrides)

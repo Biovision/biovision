@@ -16,7 +16,7 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
   end
 
   process :auto_orient
-  process optimize: [{ jpegoptim: true, optipng: true, svgo: true }]
+  process optimize: [{ jpegoptim: true, optipng: true, svgo: true }], if: :optimize_images?
 
   def auto_orient
     return unless raster?
@@ -72,6 +72,12 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
   # @param [SanitizedFile]
   def raster_image?(new_file)
     !new_file.extension.match?(/svgz?\z/i)
+  end
+
+  def optimize_images?(*)
+    return false unless Rails.application.config.respond_to? :optimize_images
+
+    Rails.application.config.optimize_images
   end
 
   def raster?

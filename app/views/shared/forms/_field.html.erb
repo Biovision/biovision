@@ -28,7 +28,7 @@
     <% when :date %>
       <%= f.date_field(field, options.merge(local_assigns[:options].to_h)) %>
     <% when :datetime %>
-      <%= f.datetime_field(field, options.merge(local_assigns[:options].to_h)) %>
+      <%= f.datetime_field(field, options.merge(local_assigns[:options].to_h).merge(step: 1)) %>
     <% when :url %>
       <%= f.url_field(field, options.merge(local_assigns[:options].to_h)) %>
     <% when :email %>

@@ -31,7 +31,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'bcrypt', '~> 3.1'
   spec.add_dependency 'carrierwave', '~> 2.0'
   spec.add_dependency 'carrierwave-bombshelter', '~> 0.2'
-  spec.add_dependency 'image_optim', '~> 0.27'
+  spec.add_dependency 'image_optim', '~> 0.30'
   spec.add_dependency 'kaminari', '~> 1.1'
   spec.add_dependency 'mini_magick', '~> 4.9', '>= 4.9.5'
   spec.add_dependency 'rest-client', '~> 2.1'
