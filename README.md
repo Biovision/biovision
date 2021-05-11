@@ -31,7 +31,7 @@
 ```ruby
 gem 'dotenv-rails'
 
-gem 'autoprefixer-rails', group: :production
+# gem 'autoprefixer-rails', group: :production
 
 gem 'biovision', git: 'https://github.com/Biovision/biovision.git'
 # gem 'biovision', path: '/Users/maxim/Projects/Biovision/gems/biovision'
@@ -237,7 +237,7 @@ invoke :'nvm:load'
 namespace :nvm do
   task :load do
     command 'echo "-----> Loading nvm"'
-    command %{source ~/.nvm/nvm.sh}
+    command %(source ~/.nvm/nvm.sh)
     command 'echo "-----> Now using nvm v.`nvm --version`"'
   end
 end
