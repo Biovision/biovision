@@ -33,6 +33,7 @@
     </div>
   </div>
   <div class="actions">
+    <%= hidden_field_tag(:from, local_assigns[:from], id: nil) %>
     <%= button_tag t('.log_in'), class: 'button button-primary', name: nil %>
     <%=
       link_to(

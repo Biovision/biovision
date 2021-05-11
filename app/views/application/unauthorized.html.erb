@@ -9,7 +9,10 @@
     <%=
       render(
         partial: 'components/users/form_tabs',
-        locals: { current: 'login' }
+        locals: {
+          current: 'login',
+          from: url_for
+        }
       )
     %>
   </div>
