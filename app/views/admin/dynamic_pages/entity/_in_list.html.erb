@@ -1,6 +1,6 @@
 <figure class="image"><%= simple_image_preview(entity) %></figure>
 <div class="data">
-  <div><%= admin_entity_link(entity) %></div>
+  <div><%= admin_entity_link(entity, handler: local_assigns[:handler]) %></div>
   <% unless entity.name.blank? %>
     <div class="info"><%= entity.name %></div>
   <% end %>
@@ -9,7 +9,7 @@
 
   <div class="entity-actions">
     <%= world_icon(entity) unless entity.url.blank? %>
-    <% if local_assigns[:handler] && handler.permit?('edit', entity) %>
+    <% if local_assigns[:handler]&.permit?('edit', entity) %>
       <%= edit_icon(entity) %>
       <%= destroy_icon(entity) %>
     <% end %>

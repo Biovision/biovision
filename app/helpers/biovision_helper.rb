@@ -3,58 +3,42 @@
 # Helper methods for common cases
 module BiovisionHelper
   # @param [ApplicationRecord] entity
-  # @param [String] text
+  # @param [Biovision::Components::BaseComponent] handler
   # @param [Hash] options
-  def admin_entity_link(entity, text = nil, options = {})
+  def admin_entity_link(entity, handler: nil, **options)
     return '∅' if entity.nil?
 
-    if text.nil?
-      text = entity.respond_to?(:text_for_link) ? entity.text_for_link : entity.id
-    end
+    component = (handler || Biovision::Components::BaseComponent[])
+    text = options.delete(:text) { component.text_for_link(entity) }
 
-    href = if entity.respond_to?(:admin_url)
-             entity.admin_url
-           else
-             "/admin/#{entity.class.table_name}/#{entity.id}"
-           end
+    if handler.nil? || handler.permit?('view', entity)
+      href = component.entity_link(entity, :admin)
+      link_to(text, href, options)
+    else
+      text
+    end
+  end
+
+  # @param [ApplicationRecord] entity
+  # @param [Hash] options
+  def my_entity_link(entity, **options)
+    return '∅' if entity.nil?
+
+    handler = Biovision::Components::BaseComponent[]
+    text = options.delete(:text) { handler.text_for_link(entity) }
+    href = handler.entity_link(entity, :my)
 
     link_to(text, href, options)
   end
 
   # @param [ApplicationRecord] entity
-  # @param [String] text
   # @param [Hash] options
-  def my_entity_link(entity, text = nil, options = {})
-    return '∅' if entity.nil?
-
-    if text.nil?
-      text = entity.respond_to?(:text_for_link) ? entity.text_for_link : entity.id
-    end
-
-    href = if entity.respond_to?(:my_url)
-             entity.my_url
-           else
-             "/my/#{entity.class.table_name}/#{entity.id}"
-           end
-
-    link_to(text, href, options)
-  end
-
-  # @param [ApplicationRecord] entity
-  # @param [String] text
-  # @param [Hash] options
-  def entity_link(entity, text = nil, options = {})
+  def entity_link(entity, **options)
     return '' if entity.nil?
 
-    if text.nil?
-      text = entity.respond_to?(:text_for_link) ? entity.text_for_link : entity.id
-    end
-
-    href = if entity.respond_to?(:world_url)
-             entity.world_url
-           else
-             "/#{entity.class.table_name}/#{entity.id}"
-           end
+    handler = Biovision::Components::BaseComponent[]
+    text = options.delete(:text) { handler.text_for_link(entity) }
+    href = handler.entity_link(entity)
 
     link_to(text, href, options)
   end

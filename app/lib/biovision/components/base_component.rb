@@ -7,6 +7,7 @@ module Biovision
       extend Base::ComponentSettings
       include Base::ComponentPrivileges
       include Base::ComponentParameters
+      include Base::EntityLinks
 
       attr_reader :component, :slug, :name, :user, :user_link
 
@@ -51,12 +52,6 @@ module Biovision
       def self.handler_class(slug)
         handler_name = "biovision/components/#{slug}_component".classify
         handler_name.safe_constantize || BaseComponent
-      end
-
-      # Privilege names for using in biovision_component_user.data
-      # @deprecated use roles instead
-      def self.privilege_names
-        []
       end
 
       # Model list for automatic role creation

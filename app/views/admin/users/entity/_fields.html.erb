@@ -7,7 +7,7 @@
   <% unless entity.inviter_id.nil? %>
     <div>
       <dt><%= model.human_attribute_name(:inviter) %></dt>
-      <dd><%= admin_entity_link(entity.inviter) %></dd>
+      <dd><%= admin_entity_link(entity.inviter, handler: local_assigns[:handler]) %></dd>
     </div>
   <% end %>
 

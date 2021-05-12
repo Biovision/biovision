@@ -1,11 +1,11 @@
 <div class="data">
-  <div><%= admin_entity_link(entity) %></div>
+  <div><%= admin_entity_link(entity, handler: local_assigns[:handler]) %></div>
   <div class="info"><%= entity.slug %></div>
   <div class="secondary info">
     <%= t(:page_count, count: entity.dynamic_pages_count) %>
   </div>
 
-  <% if local_assigns[:handler] && handler.permit?('edit', entity) %>
+  <% if local_assigns[:handler]&.permit?('edit', entity) %>
     <div class="entity-actions">
       <%= edit_icon(entity) %>
       <%= destroy_icon(entity) %>

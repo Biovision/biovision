@@ -11,7 +11,7 @@ module Biovision
       helper_method :component_handler
       helper_method :current_page, :param_from_request
       helper_method :current_user, :current_language
-      helper_method :content_component
+      helper_method :content_component, :users_component
     end
 
     # Get current page number from request
@@ -51,6 +51,13 @@ module Biovision
     # @return [Biovision::Components::ContentComponent]
     def content_component
       @content_component ||= Biovision::Components::ContentComponent[current_user]
+    end
+
+    # Get users component handler
+    #
+    # @return [Biovision::Components::UsersComponent]
+    def users_component
+      @users_component ||= Biovision::Components::UsersComponent[current_user]
     end
 
     # @return [Agent]
