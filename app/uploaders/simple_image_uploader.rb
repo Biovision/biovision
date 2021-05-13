@@ -2,14 +2,11 @@
 
 # Uploader for universal simple images
 class SimpleImageUploader < CarrierWave::Uploader::Base
+  include Uploaders::PathSlug
   include CarrierWave::ImageOptim
   include CarrierWave::MiniMagick
 
   storage :file
-
-  def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{path_slug}"
-  end
 
   def default_url(*)
     ActionController::Base.helpers.asset_path('biovision/placeholders/1x1.svg')
@@ -106,17 +103,5 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
 
   def hd_url
     raster? ? hd.url : url
-  end
-
-  private
-
-  def path_slug
-    if model.respond_to?(:uuid)
-      uuid = model&.uuid.to_s
-      "#{uuid[0..2]}/#{uuid[3..5]}/#{uuid[6..7]}/#{uuid}"
-    else
-      id = model&.id.to_i
-      "#{id / 1000}/#{id}"
-    end
   end
 end
