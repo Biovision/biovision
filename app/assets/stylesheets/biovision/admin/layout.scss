@@ -73,4 +73,8 @@ h2 {
   padding: var(--spacer-xs);
 }
 
+.breadcrumbs {
+  margin-bottom: var(--spacer-s);
+}
+
 @import "biovision/admin/components";
