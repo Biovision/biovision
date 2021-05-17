@@ -260,3 +260,17 @@ form {
     padding: 0;
   }
 }
+
+.searchable-list {
+  .current {
+    margin: var(--spacer-xs) 0;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  .text:empty {
+    display: none;
+  }
+}

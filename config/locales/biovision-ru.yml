@@ -143,6 +143,8 @@ ru:
         saving: "Сохранение…"
       meta_texts:
         name: "Метаданные"
+      field_with_search:
+        search: "Поиск"
     entity:
       edit:
         nav_text: "Редактировать"
