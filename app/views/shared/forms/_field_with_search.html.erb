@@ -1,7 +1,7 @@
 <% placeholder ||= t('.search') %>
 <div>
   <dt><%= f.label field %></dt>
-  <dd class="js-searchable-list searchable-list" data-url="<%= endponit %>">
+  <dd class="js-searchable-list searchable-list" data-url="<%= endpoint %>">
     <div class="current">
       <%= f.hidden_field field %>
       <span class="text"><%= local_assigns[:current] %></span>
