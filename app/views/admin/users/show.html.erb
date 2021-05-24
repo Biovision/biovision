@@ -42,12 +42,13 @@
   <% prefix = 'admin/users/entity/components/' %>
   <% BiovisionComponent.list_for_administration.each do |component| %>
     <% if lookup_context.exists?("#{prefix}_#{component.slug}") %>
+      <% handler = Biovision::Components::BaseComponent.handler(component, @entity) %>
       <section>
-        <h2><%= component.name %></h2>
+        <h2><%= handler.name %></h2>
         <%=
           render(
             partial: "#{prefix}#{component.slug}",
-            locals: { user: @entity }
+            locals: { user: @entity, handler: handler }
           )
         %>
       </section>
