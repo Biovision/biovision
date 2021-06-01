@@ -23,7 +23,6 @@
     <% prefix = 'my/profiles/components/' %>
     <% BiovisionComponent.list_for_user.each do |component| %>
       <% handler = Biovision::Components::BaseComponent.handler(component, current_user) %>
-      <% next unless handler&.permit?('default') %>
       <% if lookup_context.exists?("#{prefix}_#{component.slug}") %>
         <%=
           render(
