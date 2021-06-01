@@ -19,5 +19,19 @@
     </nav>
 
     <%= render partial: 'users/profile', locals: { user: current_user } %>
+
+    <% prefix = 'my/profiles/components/' %>
+    <% BiovisionComponent.list_for_user.each do |component| %>
+      <% handler = Biovision::Components::BaseComponent.handler(component, current_user) %>
+      <% next unless handler&.permit?('default') %>
+      <% if lookup_context.exists?("#{prefix}_#{component.slug}") %>
+        <%=
+          render(
+            partial: "#{prefix}#{component.slug}",
+            locals: { handler: handler }
+          )
+        %>
+      <% end %>
+    <% end %>
   </div>
 </article>
