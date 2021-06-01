@@ -3,8 +3,13 @@
     <legend><%= t('.heading') %></legend>
     <div class="list">
       <% fields.each do |key, type| %>
-        <% if type == :flag %>
-          <%= render partial: 'admin/widgets/filters/flag', locals: { f: f, key: key, scope: scope, value: filter[key] } %>
+        <% if lookup_context.exists?("admin/widgets/filters/_#{type}") %>
+          <%=
+            render(
+              partial: "admin/widgets/filters/#{type}",
+              locals: { f: f, key: key, scope: scope, value: filter[key] }
+            )
+          %>
         <% end %>
       <% end %>
     </div>

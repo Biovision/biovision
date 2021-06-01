@@ -1,0 +1,7 @@
+<% placeholder = t("filters.#{scope}.#{key}", default: key.to_s) %>
+<div class="text">
+  <label class="floating-label">
+    <%= f.text_field(key, value: value, class: 'input-text', placeholder: placeholder) %>
+    <span><%= placeholder %></span>
+  </label>
+</div>
