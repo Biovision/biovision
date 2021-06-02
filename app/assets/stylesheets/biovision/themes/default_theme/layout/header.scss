@@ -25,11 +25,13 @@
 .header-authentication {
   align-items: center;
   display: flex;
+  gap: var(--spacer-xxs);
   margin: 0 0 0 auto;
 
   .avatar {
     display: inline-block;
     height: 2.4rem;
+    overflow: hidden;
     width: 2.4rem;
 
     img {
@@ -37,5 +39,13 @@
       object-fit: cover;
       width: 100%;
     }
+  }
+
+  .current-user {
+    align-items: center;
+    color: inherit;
+    display: flex;
+    font-size: var(--font-size-decreased);
+    gap: var(--spacer-xs);
   }
 }

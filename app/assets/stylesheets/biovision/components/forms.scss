@@ -2,6 +2,12 @@ $form-control-color: hsl(220, 75%, 75%) !default;
 $form-field-error: #f00 !default;
 $form-input-bg: #fff !default;
 
+:root {
+  --form-control-color: #{$form-control-color};
+  --form-field-error: #{$form-field-error};
+  --form-input-bg: #{$form-input-bg};
+}
+
 form {
   margin: 0;
   padding: 0;
@@ -18,7 +24,7 @@ form {
   }
 
   .check-result-error {
-    color: $form-field-error;
+    color: var(--form-field-error);
 
     &::before {
       content: '\261D';
@@ -51,7 +57,7 @@ form {
   }
 
   .errors {
-    color: $form-field-error;
+    color: var(--form-field-error);
     padding: var(--spacer-xxs) var(--spacer-xxs) 0 var(--spacer-s);
 
     li {
@@ -62,7 +68,7 @@ form {
       }
 
       &:last-of-type {
-        border-bottom: .1rem solid $form-field-error;
+        border-bottom: .1rem solid var(--form-field-error);
         padding-bottom: var(--spacer-xs);
       }
     }
@@ -151,7 +157,7 @@ form {
 
 .input-select,
 .input-text {
-  background-color: #{$form-input-bg};
+  background-color: var(--form-input-bg);
   border: .1rem solid var(--input-border);
   border-radius: var(--spacer-xxs);
   font-size: var(--font-size-normal);
@@ -169,12 +175,12 @@ form {
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  background: #{$form-input-bg} image_url('biovision/icons/dropdown.svg') no-repeat center right var(--spacer-xs) / 1.1rem auto;
+  background: var(--form-input-bg) image_url('biovision/icons/dropdown.svg') no-repeat center right var(--spacer-xs) / 1.1rem auto;
   padding-right: 3.2rem;
 }
 
 .floating-label {
-  display: block;
+  display: inline-block;
   padding: 1.4rem 0 0 0;
   position: relative;
 
@@ -198,17 +204,17 @@ form {
 
 .flag-label {
   align-items: flex-start;
-  display: flex;
+  display: inline-flex;
+  gap: var(--spacer-xxs);
 
   input {
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
-    border: .2rem solid $form-control-color;
+    border: .2rem solid var(--form-control-color);
     border-radius: .2rem;
     display: inline-block;
     height: 1.6rem;
-    margin-right: var(--spacer-xxs);
     outline: none;
     width: 1.6rem;
 
@@ -221,7 +227,7 @@ form {
     }
 
     &:checked {
-      background: radial-gradient(#fff, #fff 25%, $form-control-color 25%, $form-control-color);
+      background: radial-gradient(#fff, #fff 25%, var(--form-control-color) 25%, var(--form-control-color));
     }
 
     &:disabled {
