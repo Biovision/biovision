@@ -17,6 +17,9 @@ ru:
       simple_image: "Простое изображение"
       simple_image_tag: "Метка простого изображения"
       simple_image_tag_image: "Связь метки и простого изображения"
+      uploaded_file: "Загруженный файл"
+      uploaded_file_tag: "Метка загруженного файла"
+      uploaded_file_tag_file: "Связь метки и загруженного файла"
       user_group: "Пользователь в группе доступа"
       user_role: "Роль доступа для пользователя"
     attributes:
@@ -52,6 +55,8 @@ ru:
       simple_image_tag_image:
         simple_image_tag: "Метка"
         simple_image_tag_id: "Метка"
+      uploaded_file:
+        attachment: "Приложение"
       user_role:
         inclusive: "Инклюзивно"
   attributes:
@@ -63,6 +68,8 @@ ru:
     role_id: "Роль доступа"
     simple_image: "Изображение"
     simple_image_id: "Изображение"
+    uploaded_file: "Загруженный файл"
+    uploaded_file_id: "Загруженный файл"
   languages:
     english: "Английский"
     russian: "Русский"

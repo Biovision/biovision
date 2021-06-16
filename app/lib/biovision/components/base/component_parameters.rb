@@ -13,6 +13,10 @@ module Biovision
           false
         end
 
+        def use_files?
+          false
+        end
+
         def manage_settings?
           use_parameters? || component.settings.any?
         end

@@ -7,6 +7,7 @@
 #   biovision_component_id [BiovisionComponent]
 #   caption [string], optional
 #   created_at [DateTime]
+#   data [jsonb]
 #   image [SimpleImageUploader]
 #   image_alt_text [string]
 #   ip_address_id [IpAddress], optional
@@ -16,7 +17,6 @@
 #   updated_at [DateTime]
 #   user_id [User], optional
 #   uuid [uuid]
-#   data [jsonb]
 class SimpleImage < ApplicationRecord
   include Checkable
   include HasOwner
