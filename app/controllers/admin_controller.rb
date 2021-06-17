@@ -7,7 +7,7 @@ class AdminController < ApplicationController
   private
 
   def restrict_access
-    user_action = "#{controller_name}.#{role_end_from_action}"
+    user_action = role_end_from_action
     role_name = "#{component_handler.slug}.#{user_action}"
     error = t('admin.errors.unauthorized.missing_role', role: role_name)
 
@@ -20,9 +20,11 @@ class AdminController < ApplicationController
   end
 
   def action_to_role_map
+    view = %w[index show search]
+    edit = %w[create destroy edit new priority toggle update]
     {
-      %w[index show search] => 'view',
-      %w[create destroy edit new priority toggle update] => 'edit'
+      view => "#{controller_name}.view",
+      edit => "#{controller_name}.edit"
     }
   end
 end

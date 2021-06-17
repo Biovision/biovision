@@ -14,7 +14,7 @@ module Biovision
           model = model_from_context(context)
           parts << model.table_name if model.respond_to?(:table_name)
           parts << action
-          owner?(context) || role?(parts.join('.'))
+          owner?(context) || role?(parts.join('.')) || role?("#{slug}.all")
         end
 
         # @param [ApplicationRecord|nil] entity
@@ -49,7 +49,7 @@ module Biovision
         end
 
         def role_tree
-          tree = { nil => %w[default view] }
+          tree = { nil => %w[all default view] }
           tree['settings'] = %w[view edit] if use_settings?
           crud_table_names.each do |table_name|
             tree[table_name] = %w[view edit]

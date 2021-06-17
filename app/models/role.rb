@@ -44,12 +44,7 @@ class Role < ApplicationRecord
   end
 
   def user_ids
-    # direct_inclusive = user_roles.where(inclusive: true).pluck(:user_id).uniq
-    # direct_exclusive = user_roles.where(inclusive: false).pluck(:user_id).uniq
-    # group_inclusive = groups.map(&:user_ids).flatten
-    #
-    # group_inclusive + direct_inclusive - direct_exclusive
-    []
+    (user_roles.pluck(:user_id).uniq + groups.map(&:user_ids).flatten).uniq
   end
 
   def count_users!
@@ -76,12 +71,9 @@ class Role < ApplicationRecord
   end
 
   # @param [User] user
-  # @param [Hash] options
-  def add_user(user, options = { inclusive: true })
-    inclusive = !options[:inclusive].blank?
-
-    user_roles.create(user: user, inclusive: inclusive)
-    inclusive ? add_to_cache!(user) : remove_from_cache!(user)
+  def add_user(user)
+    user_roles.create(user: user)
+    add_to_cache!(user)
   end
 
   # @param [User] user
