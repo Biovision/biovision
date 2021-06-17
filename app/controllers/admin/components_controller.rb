@@ -104,7 +104,8 @@ class Admin::ComponentsController < AdminController
       %w[images] => 'simple_images.view',
       %w[create_image ckeditor] => 'simple_images.create',
       %w[settings] => 'settings.view',
-      %w[update_settings update_parameter delete_parameter] => 'settings.edit'
+      %w[update_settings update_parameter delete_parameter] => 'settings.edit',
+      %w[show] => 'view'
     )
   end
 end
