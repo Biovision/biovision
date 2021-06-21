@@ -18,8 +18,8 @@
     <%= destroy_icon(@entity) if component_handler.permit?('edit', @entity) %>
   </nav>
 
-  <% if current_user.super_user? %>
-    <nav>
+  <nav>
+    <% if current_user.super_user? %>
       <%=
         link_to(
           "#{t('admin.users.roles.nav_text')} (#{@entity.role_ids.count})",
@@ -27,8 +27,18 @@
           class: 'button button-ghost'
         )
       %>
-    </nav>
-  <% end %>
+    <% end %>
+    <% if component_handler.permit?('log_in', @entity) && @entity != current_user && !@entity.super_user? %>
+      <%=
+        link_to(
+          t('admin.users.authenticate.nav_text'),
+          authenticate_admin_user_path(id: @entity.id),
+          method: :post,
+          class: 'button button-secondary'
+        )
+      %>
+    <% end %>
+  </nav>
 
   <%= render partial: 'admin/users/entity/fields', locals: { entity: @entity } %>
 

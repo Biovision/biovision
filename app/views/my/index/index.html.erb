@@ -38,6 +38,14 @@
         )
       %>
     <% end %>
+    <%=
+      link_to(
+        t(:log_out),
+        logout_path,
+        class: 'button button-secondary',
+        method: :delete
+      )
+    %>
   </nav>
 
   <% prefix = 'my/components/' %>

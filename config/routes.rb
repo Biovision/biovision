@@ -89,6 +89,7 @@ Rails.application.routes.draw do
         get 'roles'
         put 'roles/:role_id' => :add_role, as: :role
         delete 'roles/:role_id' => :remove_role
+        post 'authenticate'
       end
     end
     resources :tokens, concerns: %i[toggle]

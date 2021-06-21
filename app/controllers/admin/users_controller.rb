@@ -29,7 +29,7 @@ class Admin::UsersController < AdminController
 
   # post /admin/users/:id/authenticate
   def authenticate
-    unless @entity.super_user?
+    if component_handler.permit?('log_in', @entity) && !@entity.super_user?
       cookies['pt'] = {
         value: cookies['token'],
         expires: 1.year.from_now,

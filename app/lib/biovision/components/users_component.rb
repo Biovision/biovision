@@ -124,6 +124,12 @@ module Biovision
         user.attributes[attribute_name.to_s]
       end
 
+      def role_tree
+        result = super
+        result['users'] << 'log_in'
+        result
+      end
+
       def crud_table_names
         super - %w[user_languages biovision_component_users]
       end

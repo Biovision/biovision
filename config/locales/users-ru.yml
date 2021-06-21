@@ -258,6 +258,8 @@ ru:
         nav_text: "Жетоны"
         title: "Жетоны доступа пользователя %{user}"
         heading: "Жетоны доступа"
+      authenticate:
+        nav_text: "Войти как этот пользователь"
   users:
     profile:
       registration_date: "Дата регистрации"
