@@ -5,6 +5,7 @@
   validators = model.validators_on(field)
   length_options = validators.select { |v| v.kind == :length }.first&.options.to_h
   range_option = validators.select { |v| v.kind == :inclusion }.first&.options.to_h
+  # numericality = validators.select { |v| v.kind == :numericality }.first&.options.to_h
   options = {
     class: 'input-text',
     data: { check: field }.merge(local_assigns[:data].to_h),
@@ -13,7 +14,8 @@
     required: validators.select { |v| v.kind == :presence }.any?,
     size: nil
   }
-  guide_key = "#{controller_path.gsub('/', '.')}.form.guidelines.#{field}"
+  legacy_guide_key = "#{controller_path.gsub('/', '.')}.form.guidelines.#{field}"
+  guide_key = "guidelines.#{model.to_s.underscore}.#{field}"
 %>
 <div>
   <dt><%= f.label field %></dt>
@@ -41,6 +43,8 @@
     <div class="check-result-error" data-field="<%= field %>"></div>
     <% if I18n.exists?(guide_key) %>
       <div class="guideline"><%= t(guide_key) %></div>
+    <% elsif I18n.exists?(legacy_guide_key) %>
+      <div class="guideline"><%= t(legacy_guide_key) %></div>
     <% end %>
   </dd>
 </div>
