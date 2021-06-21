@@ -4,7 +4,6 @@
 #
 # Attributes:
 #   created_at [DateTime]
-#   inclusive [Boolean]
 #   role_id [Role]
 #   updated_at [DateTime]
 #   user_id [User]

@@ -69,7 +69,6 @@ class CreateAcl < ActiveRecord::Migration[6.1]
     create_table :user_roles, comment: 'Users with (and without) ACL roles' do |t|
       t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
       t.references :role, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.boolean :inclusive, default: true, null: false
       t.timestamps
     end
   end

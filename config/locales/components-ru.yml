@@ -57,8 +57,6 @@ ru:
         simple_image_tag_id: "Метка"
       uploaded_file:
         attachment: "Приложение"
-      user_role:
-        inclusive: "Инклюзивно"
   attributes:
     biovision_component: "Компонент"
     biovision_component_id: "Компонент"
