@@ -35,6 +35,7 @@ module BiovisionHelper
   # @param [Hash] options
   def entity_link(entity, **options)
     return '' if entity.nil?
+    return '' if entity.respond_to?(:visible?) && !@entity.visible?
 
     handler = Biovision::Components::BaseComponent[]
     text = options.delete(:text) { handler.text_for_link(entity) }
