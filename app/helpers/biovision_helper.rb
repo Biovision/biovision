@@ -35,7 +35,7 @@ module BiovisionHelper
   # @param [Hash] options
   def entity_link(entity, **options)
     return '' if entity.nil?
-    return '' if entity.respond_to?(:visible?) && !@entity.visible?
+    return '' if entity.respond_to?(:visible?) && !entity.visible?
 
     handler = Biovision::Components::BaseComponent[]
     text = options.delete(:text) { handler.text_for_link(entity) }
@@ -54,6 +54,8 @@ module BiovisionHelper
   # @param [Hash] options
   def world_icon(path, title = t(:view_as_visitor), options = {})
     if path.is_a? ApplicationRecord
+      return '' if path.respond_to?(:visible?) && !path.visible?
+
       table_name = path.class.table_name
       path = path.respond_to?(:world_url) ? path.world_url : "/#{table_name}/#{path.id}"
     end
@@ -152,5 +154,15 @@ module BiovisionHelper
   # @param [Hash] options
   def email_link(email, options = {})
     link_to(email, "mailto:#{email}", options)
+  end
+
+  # @param [ApplicationRecord] entity
+  def admin_priority_icons(entity)
+    render(partial: 'shared/admin/priority', locals: { entity: entity })
+  end
+
+  # @param [ApplicationRecord] entity
+  def admin_toggle_block(entity)
+    render(partial: 'shared/admin/toggle', locals: { entity: entity })
   end
 end
