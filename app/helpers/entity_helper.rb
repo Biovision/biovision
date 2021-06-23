@@ -12,7 +12,9 @@ module EntityHelper
   # @param [ApplicationRecord] entity
   # @param [String|Symbol] types
   def entity_partial_block(entity, *types)
-    permitted = %i[priority uuid slug timestampls]
+    permitted = %i[
+      priority uuid slug timestamps language simple_image meta_texts
+    ]
 
     buffer = ''
     types.select { |i| permitted.include?(i.to_sym)}.each do |type|
@@ -23,7 +25,7 @@ module EntityHelper
   end
 
   def entity_form_block(f, *types)
-    permitted = %i[priority]
+    permitted = %i[priority entity_flags]
 
     buffer = ''
     types.select { |i| permitted.include?(i.to_sym)}.each do |type|

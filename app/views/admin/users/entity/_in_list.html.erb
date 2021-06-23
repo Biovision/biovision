@@ -29,12 +29,10 @@
     )
   %>
 
-  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
+  <%= admin_toggle_block(entity) %>
 
   <div class="entity-actions">
-    <% if local_assigns[:handler] %>
-      <%= edit_icon(entity) if handler.permit?('edit', entity) %>
-    <% end %>
+    <%= edit_icon(entity) if local_assigns[:handler]&.permit?('edit', entity) %>
     <%= world_icon(entity) %>
   </div>
 </div>

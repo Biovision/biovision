@@ -5,7 +5,7 @@
     <div class="info"><%= entity.name %></div>
   <% end %>
 
-  <%= render(partial: 'shared/admin/toggle', locals: { entity: entity }) %>
+  <%= admin_toggle_block(entity) %>
 
   <div class="entity-actions">
     <%= world_icon(entity) unless entity.url.blank? %>

@@ -16,10 +16,10 @@
   <% end %>
 
   <dl class="fields">
-    <%= render partial: 'shared/entity/slug', locals: { entity: @entity } %>
+    <%= entity_partial_block(@entity, :slug) %>
     <%= render partial: 'shared/entity/text_field', locals: { entity: @entity, field: :body } %>
-    <%= render partial: 'shared/entity/timestamps', locals: { entity: @entity } %>
+    <%= entity_partial_block(@entity, :timestamps) %>
   </dl>
 
-  <%= render(partial: 'shared/admin/toggle', locals: { entity: @entity }) %>
+  <%= admin_toggle_block(@entity) %>
 </article>

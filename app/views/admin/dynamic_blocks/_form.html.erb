@@ -4,7 +4,7 @@
   <dl class="fields">
     <%= render partial: 'shared/forms/text_field', locals: { f: f, field: :slug } %>
     <%= render partial: 'shared/forms/text_area', locals: { f: f, field: :body } %>
-    <%= render partial: 'shared/forms/entity_flags', locals: { f: f } %>
+    <%= entity_form_block(f, :entity_flags) %>
   </dl>
 
   <%= render 'shared/forms/state_container' %>
