@@ -23,6 +23,7 @@ class CreateUploadedFiles < ActiveRecord::Migration[6.1]
       t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }
       t.references :ip_address, foreign_key: { on_update: :cascade, on_delete: :nullify }
+      t.integer :object_count, default: 0, null: false
       t.timestamps
       t.string :attachment
       t.string :description

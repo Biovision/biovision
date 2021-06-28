@@ -11,6 +11,7 @@
 #   data [jsonb]
 #   description [String], optional
 #   ip_address_id [IpAddress], optional
+#   object_count [Integer]
 #   updated_at [DateTime]
 #   user_id [User], optional
 #   uuid [uuid]
