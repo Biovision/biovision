@@ -7,7 +7,7 @@ class Admin::ComponentsController < AdminController
 
   # get /admin/components
   def index
-    @collection = BiovisionComponent.list_for_administration
+    @collection = BiovisionComponent.active.list_for_administration
   end
 
   # get /admin/components/:slug

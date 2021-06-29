@@ -13,9 +13,12 @@
 class BiovisionComponent < ApplicationRecord
   include FlatPriority
   include RequiredUniqueSlug
+  include Toggleable
 
   SLUG_LIMIT = 250
   SLUG_PATTERN_HTML = '^[a-zA-Z][-a-zA-Z0-9_]+[a-zA-Z0-9]$'
+
+  toggleable :active
 
   has_many :biovision_component_users, dependent: :delete_all
   has_many :simple_images, dependent: :destroy
@@ -65,5 +68,13 @@ class BiovisionComponent < ApplicationRecord
     end
 
     code
+  end
+
+  def text_for_link
+    I18n.t("biovision.components.#{slug}.name", default: slug)
+  end
+
+  def admin_url
+    "/admin/components/#{slug}"
   end
 end

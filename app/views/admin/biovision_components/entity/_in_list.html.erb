@@ -1,0 +1,12 @@
+<div class="data">
+  <div><%= admin_entity_link(entity) %></div>
+  <div class="info"><%= entity.slug %></div>
+
+  <% if local_assigns[:handler]&.permit?('edit', entity) %>
+    <%= admin_toggle_block(entity) %>
+
+    <div class="entity-actions">
+      <%= admin_priority_icons(entity) %>
+    </div>
+  <% end %>
+</div>

@@ -14,7 +14,8 @@ module Toggleable
     def toggle_parameter(attribute)
       return unless toggleable_attributes.include? attribute.to_sym
 
-      toggle! attribute
+      assign_attributes(attribute => !attributes[attribute.to_s])
+      save!
       { attribute => self[attribute] }
     end
   end

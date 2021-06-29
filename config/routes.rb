@@ -55,6 +55,8 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/' => 'index#index'
 
+    resources :biovision_components, only: :index, concerns: %i[priority toggle]
+
     scope :components, controller: :components do
       get '/' => :index, as: :components
       scope ':slug' do

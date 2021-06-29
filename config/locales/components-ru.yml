@@ -98,6 +98,13 @@ ru:
         heading: "Компоненты"
       show:
         title: "Компонент «%{slug}»"
+    biovision_components:
+      index:
+        title: "Компоненты CMS"
+        heading: "Компоненты"
+      nav_item:
+        text: "Компоненты CMS"
+        description: "Управление списком компонентов CMS"
   shared:
     forms:
       simple_image:
