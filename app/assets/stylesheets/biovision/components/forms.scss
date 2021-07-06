@@ -56,6 +56,12 @@ form {
     margin: var(--spacer-xs) 0;
   }
 
+  .meta-texts {
+    label {
+      width: 100%;
+    }
+  }
+
   .errors {
     color: var(--form-field-error);
     padding: var(--spacer-xxs) var(--spacer-xxs) 0 var(--spacer-s);

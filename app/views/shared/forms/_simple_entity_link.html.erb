@@ -1,0 +1,12 @@
+<div>
+  <dt><%= f.label(field) %></dt>
+  <dd>
+    <%=
+      f.select(
+        field,
+        linked_model.list_for_administration.map { |e| [e.text_for_link, e.id ]},
+        class: 'input-select'
+      )
+    %>
+  </dd>
+</div>
