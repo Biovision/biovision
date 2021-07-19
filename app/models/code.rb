@@ -17,7 +17,7 @@ class Code < ApplicationRecord
   include HasTrack
 
   BODY_LIMIT = 50
-  QUANTITY_RANGE = (0..32_767).freeze
+  QUANTITY_RANGE = (0..32_767)
 
   belongs_to :biovision_component
   belongs_to :user, optional: true
@@ -80,10 +80,10 @@ class Code < ApplicationRecord
     return unless body.nil?
 
     if phone?
+      self.body = SecureRandom.random_number(1_000_000).to_s.rjust(6, '0')
+    else
       number = SecureRandom.random_number(0xffff_ffff_ffff_ffff)
       self.body = number.to_s(36).scan(/.{4}/).join('-').upcase
-    else
-      self.body = SecureRandom.random_number(1_000_000).to_s.rjust(6, '0')
     end
   end
 
