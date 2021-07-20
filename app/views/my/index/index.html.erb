@@ -53,15 +53,12 @@
     <% handler = Biovision::Components::BaseComponent.handler(component, current_user) %>
     <% next unless handler&.permit?('default') %>
     <% if lookup_context.exists?("#{prefix}_#{component.slug}") %>
-      <section class="my__component">
-        <h2><%= handler.name %></h2>
-        <%=
-          render(
-            partial: "#{prefix}#{component.slug}",
-            locals: { user: @entity, handler: handler }
-          )
-        %>
-      </section>
+      <%=
+        render(
+          partial: "#{prefix}#{component.slug}",
+          locals: { user: @entity, handler: handler }
+        )
+      %>
     <% end %>
   <% end %>
 </article>

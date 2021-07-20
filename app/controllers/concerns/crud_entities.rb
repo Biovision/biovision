@@ -108,13 +108,20 @@ module CrudEntities
     if model_class.respond_to?(:creation_parameters)
       explicit_creation_parameters
     else
-      entity_parameters
+      implicit_creation_parameters
     end
   end
 
   def explicit_creation_parameters
     permitted = model_class.creation_parameters
     parameters = params.require(model_key).permit(permitted)
+    parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
+    parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
+    parameters
+  end
+
+  def implicit_creation_parameters
+    parameters = entity_parameters
     parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
     parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
     parameters
