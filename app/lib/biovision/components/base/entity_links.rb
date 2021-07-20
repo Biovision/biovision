@@ -13,10 +13,24 @@ module Biovision
         # @param [ApplicationRecord] entity
         # @param [Symbol|String] scope
         def entity_link(entity, scope = '')
-          default = "#{scope}/#{entity.class.table_name}/#{entity.id}"
           prefix = %i[admin my].include?(scope.to_sym) ? scope : 'world'
           message = "#{prefix}_url".to_sym
-          entity.respond_to?(message) ? entity.send(message) : "/#{default}"
+          if entity.respond_to?(message)
+            entity.send(message)
+          else
+            rest_entity_link(entity, scope.to_sym)
+          end
+        end
+
+        # @param [ApplicationRecord] entity
+        # @param [Symbol] scope
+        def rest_entity_link(entity, scope)
+          collection = "/#{scope}/#{entity.class.table_name}"
+          if entity.attributes.key?('uuid') && scope != :admin
+            "#{collection}/#{entity.uuid}"
+          else
+            "#{collection}/#{entity.id}"
+          end
         end
       end
     end

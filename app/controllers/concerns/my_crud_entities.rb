@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-# Adds method for CRUD
-module CrudEntities
+# Adds methods for CRUD in My namespace
+module MyCrudEntities
   extend ActiveSupport::Concern
 
   # get [scope]/[table_name]/search?q=
   def search
     q = param_from_request(:q)
-    @collection = model_class.search(q).list_for_administration.page(current_page)
+    @collection = model_class.search(q).list_for_owner(current_user).page(current_page)
   end
 
   # get [scope]/[table_name]
   def index
     @filter = params[:filter]&.permit!.to_h
     data_helper = Biovision::Helpers::DataHelper.new(model_class, @filter)
-    @collection = data_helper.administrative_collection(current_page)
+    @collection = data_helper.personal_collection(current_user, current_page)
   end
 
   # get [scope]/[table_name]/:id
@@ -71,12 +71,12 @@ module CrudEntities
 
   def view_for_new
     default_view = "#{controller_path}/new"
-    lookup_context.exists?(default_view) ? default_view : 'shared/entity/new'
+    lookup_context.exists?(default_view) ? default_view : 'shared/my/entity/new'
   end
 
   def view_for_edit
     default_view = "#{controller_path}/edit"
-    lookup_context.exists?(default_view) ? default_view : 'shared/entity/edit'
+    lookup_context.exists?(default_view) ? default_view : 'shared/my/entity/edit'
   end
 
   def model_class
@@ -88,9 +88,14 @@ module CrudEntities
   end
 
   def path_after_save
-    scope = self.class.module_parent.to_s.downcase
-    prefix = scope.blank? ? '' : "/#{scope}"
-    "#{prefix}/#{model_class.table_name}/#{@entity.id}"
+    if @entity.respond_to?(:my_url)
+      @entity.my_url
+    else
+      scope = self.class.module_parent.to_s.downcase
+      prefix = scope.blank? ? '' : "/#{scope}"
+      key = model_class.column_names.include?('uuid') ? @entity.uuid : @entity.id
+      "#{prefix}/#{model_class.table_name}/#{key}"
+    end
   end
 
   def path_after_destroy
@@ -100,7 +105,8 @@ module CrudEntities
   end
 
   def set_entity
-    @entity = model_class.find_by(id: params[:id])
+    key = model_class.column_names.include?('uuid') ? :uuid : :id
+    @entity = model_class.owned_by(current_user).find_by(key => params[:id])
     handle_http_404("Cannot find #{model_class.model_name}") if @entity.nil?
   end
 
@@ -116,15 +122,13 @@ module CrudEntities
     permitted = model_class.creation_parameters
     parameters = params.require(model_key).permit(permitted)
     parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
-    parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
-    parameters
+    parameters.merge(owner_for_entity)
   end
 
   def implicit_creation_parameters
     parameters = entity_parameters
     parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
-    parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
-    parameters
+    parameters.merge(owner_for_entity)
   end
 
   def entity_parameters

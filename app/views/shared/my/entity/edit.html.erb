@@ -1,0 +1,25 @@
+<%
+  prefix = controller_path.gsub('/', '.')
+  default_title = "#{@entity.class.model_name.human}: #{t('shared.entity.edit.nav_text')}"
+%>
+<% content_for :meta_title, t("#{prefix}.edit.title", default: default_title) %>
+<% content_for :breadcrumbs do %>
+  <%= my_home_link %>
+  <%= link_to(t("#{prefix}.index.nav_text"), "/#{controller_path}") %>
+  <%= my_entity_link(@entity, handler: component_handler) %>
+  <span><%= t('shared.entity.edit.nav_text') %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= t("#{prefix}.edit.heading", default: default_title) %></h1>
+
+    <% if component_handler.permit?('edit', @entity) %>
+      <nav class="entity-actions">
+        <%= destroy_icon(@entity) %>
+      </nav>
+    <% end %>
+
+    <%= render partial: "#{controller_path}/form", locals: { entity: @entity } %>
+  </div>
+</article>
