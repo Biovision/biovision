@@ -212,7 +212,8 @@ class User < ApplicationRecord
     now = Time.now.utc.to_date
     next_month = now.month > birthday.month
     next_day = (now.month == birthday.month && now.day >= birthday.day)
-    now.year - birthday.year - (next_month || next_day) ? 0 : 1
+    delta = next_month || next_day ? 0 : 1
+    now.year - birthday.year - delta
   end
 
   private
