@@ -206,6 +206,15 @@ class User < ApplicationRecord
     "/u/#{CGI.escape(key)}"
   end
 
+  def age
+    return if birthday.blank?
+
+    now = Time.now.utc.to_date
+    next_month = now.month > birthday.month
+    next_day = (now.month == birthday.month && now.day >= birthday.day)
+    now.year - birthday.year - (next_month || next_day) ? 0 : 1
+  end
+
   private
 
   def prepare_referral_link
