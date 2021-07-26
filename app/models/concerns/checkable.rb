@@ -13,7 +13,8 @@ module Checkable
       if id.blank?
         entity = new(parameters)
       else
-        entity = find_by(id: id)
+        key = column_names.include?('uuid') && id.include?('-') ? :uuid : :id
+        entity = find_by(key => id)
         entity.assign_attributes(parameters)
       end
       entity

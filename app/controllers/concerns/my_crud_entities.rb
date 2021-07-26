@@ -105,7 +105,9 @@ module MyCrudEntities
   end
 
   def set_entity
-    key = model_class.column_names.include?('uuid') ? :uuid : :id
+    id = params[:id].to_s
+    has_uuid = model_class.column_names.include?('uuid')
+    key = id.include?('-') && has_uuid ? :uuid : :id
     @entity = model_class.owned_by(current_user).find_by(key => params[:id])
     handle_http_404("Cannot find #{model_class.model_name}") if @entity.nil?
   end
