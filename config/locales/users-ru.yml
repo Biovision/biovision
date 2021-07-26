@@ -166,11 +166,12 @@ ru:
           sensitive_parameters_require_password: "Это связанные с безопасностью параметры. Для их изменения нужно ввести текущий пароль."
           new_password: "Новый пароль"
     index:
+      email:
+        email_is_not_confirmed: "Ваш адрес электронной почты не подтверждён."
       index:
         title: "Личный кабинет"
         nav_text: "Личный кабинет"
         heading: "Личный кабинет"
-        email_is_not_confirmed: "Ваш адрес электронной почты не подтверждён."
     confirmations:
       show:
         nav_text: "Подтвердить email"

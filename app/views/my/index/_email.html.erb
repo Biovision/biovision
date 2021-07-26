@@ -1,0 +1,14 @@
+<% if handler.needs_email_confirmation? %>
+  <div class="message-box warning">
+    <p><%= t('.email_is_not_confirmed') %></p>
+    <p>
+      <%=
+        link_to(
+          t('my.confirmations.show.nav_text'),
+          my_confirmation_path,
+          class: 'button button-secondary'
+        )
+      %>
+    </p>
+  </div>
+<% end %>

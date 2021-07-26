@@ -2,8 +2,13 @@
   <%= render 'layouts/admin/header/logo' %>
   <nav>
     <% unless current_user.nil? %>
-      <ul>
-        <li><%= current_user.screen_name %></li>
+      <ul class="header-authentication">
+        <li>
+          <a href="<%= my_path %>" class="current-user">
+            <span class="avatar"><%= simple_image_tiny(current_user) %></span>
+            <span><%= current_user.screen_name %></span>
+          </a>
+        </li>
         <li>
           <%=
             link_to(

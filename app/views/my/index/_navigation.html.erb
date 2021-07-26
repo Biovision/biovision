@@ -1,0 +1,33 @@
+<nav>
+  <%=
+    link_to(
+      t('my.profiles.show.nav_text'),
+      my_profile_path,
+      class: 'button button-ghost'
+    )
+  %>
+  <%=
+    link_to(
+      t('my.components.index.nav_text'),
+      my_dashboard_path,
+      class: 'button button-ghost'
+    )
+  %>
+  <% if current_user.role?('base.admin') %>
+    <%=
+      link_to(
+        t('admin.index.index.nav_text'),
+        admin_path,
+        class: 'button button-secondary'
+      )
+    %>
+  <% end %>
+  <%=
+    link_to(
+      t(:log_out),
+      logout_path,
+      class: 'button button-secondary',
+      method: :delete
+    )
+  %>
+</nav>

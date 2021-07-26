@@ -1,0 +1,25 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= my_home_link %>
+  <span><%= t('.nav_text') %></span>
+<% end %>
+
+<article>
+  <div class="content-wrapper">
+    <h1><%= t('.heading') %></h1>
+  </div>
+
+  <% prefix = 'my/components/' %>
+  <% @collection.each do |component| %>
+    <% handler = Biovision::Components::BaseComponent.handler(component, current_user) %>
+    <% next unless handler&.permit?('default') %>
+    <% if lookup_context.exists?("#{prefix}#{component.slug}/_dashboard") %>
+      <%=
+        render(
+          partial: "#{prefix}#{component.slug}/dashboard",
+          locals: { handler: handler }
+        )
+      %>
+    <% end %>
+  <% end %>
+</article>

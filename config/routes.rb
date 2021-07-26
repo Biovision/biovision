@@ -102,6 +102,18 @@ Rails.application.routes.draw do
 
     resource :profile, except: :destroy, concerns: :check
     resource :confirmation, :recovery, only: %i[show create update]
+
+    scope :components, controller: :components do
+      get '/' => :index, as: :components
+      scope ':slug' do
+        get '/' => :show, as: :component
+        get 'images' => :images, as: :component_images
+        post 'images' => :create_image, as: nil
+        post 'ckeditor'
+      end
+    end
+    get 'dashboard' => 'components#index'
+    get 'dashboard/:slug' => 'components#show', as: :component_dashboard
   end
 
   get ':slug' => 'fallback#show', constraints: { slug: /.+/ }

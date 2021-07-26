@@ -121,3 +121,12 @@ ru:
     components:
       base:
         name: "Базовый компонент"
+  my:
+    components:
+      index:
+        title: "Сводка"
+        nav_text: "Сводка"
+        heading: "Сводка"
+      show:
+        title: "%{component}: сводка"
+        no_view: "Для этого компонента нет представления"

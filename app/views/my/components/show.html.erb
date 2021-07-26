@@ -1,0 +1,21 @@
+<% content_for :meta_title, t('.title', component: @handler.name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('my.components.index.nav_text'), my_dashboard_path) %>
+  <span><%= @handler.name %></span>
+<% end %>
+
+<% prefix = "my/components/#{@handler.slug}/" %>
+<% if lookup_context.exists?("#{prefix}_section") %>
+  <%=
+    render(
+      partial: "#{prefix}#{component.slug}",
+      locals: { handler: @handler }
+    )
+  %>
+<% else %>
+  <article class="content-wrapper">
+    <h1><%= @handler.name %></h1>
+
+    <div class="message-box warning"><%= t('.no_view') %></div>
+  </article>
+<% end %>

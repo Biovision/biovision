@@ -77,4 +77,34 @@ h2 {
   margin-bottom: var(--spacer-s);
 }
 
+.header-authentication {
+  align-items: center;
+  display: flex;
+  gap: var(--spacer-xxs);
+  margin: 0 0 0 auto;
+
+  .avatar {
+    border-radius: 50%;
+    box-shadow: var(--block-shadow);
+    display: inline-block;
+    height: 2.4rem;
+    overflow: hidden;
+    width: 2.4rem;
+
+    img {
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+
+  .current-user {
+    align-items: center;
+    color: inherit;
+    display: flex;
+    font-size: var(--font-size-decreased);
+    gap: var(--spacer-xs);
+  }
+}
+
 @import "biovision/admin/components";

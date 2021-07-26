@@ -6,59 +6,7 @@
 <article class="content-wrapper">
   <h1><%= t('.heading') %></h1>
 
-  <% if component_handler.needs_email_confirmation? %>
-    <div class="message-box warning">
-      <p><%= t('.email_is_not_confirmed') %></p>
-      <p>
-        <%=
-          link_to(
-            t('my.confirmations.show.nav_text'),
-            my_confirmation_path,
-            class: 'button button-secondary'
-          )
-        %>
-      </p>
-    </div>
-  <% end %>
-
-  <nav>
-    <%=
-      link_to(
-        t('my.profiles.show.nav_text'),
-        my_profile_path,
-        class: 'button button-ghost'
-      )
-    %>
-    <% if current_user.role?('base.admin') %>
-      <%=
-        link_to(
-          t('admin.index.index.nav_text'),
-          admin_path,
-          class: 'button button-secondary'
-        )
-      %>
-    <% end %>
-    <%=
-      link_to(
-        t(:log_out),
-        logout_path,
-        class: 'button button-secondary',
-        method: :delete
-      )
-    %>
-  </nav>
-
-  <% prefix = 'my/components/' %>
-  <% BiovisionComponent.list_for_user.each do |component| %>
-    <% handler = Biovision::Components::BaseComponent.handler(component, current_user) %>
-    <% next unless handler&.permit?('default') %>
-    <% if lookup_context.exists?("#{prefix}_#{component.slug}") %>
-      <%=
-        render(
-          partial: "#{prefix}#{component.slug}",
-          locals: { user: @entity, handler: handler }
-        )
-      %>
-    <% end %>
-  <% end %>
+  <%= render partial: 'my/index/email', locals: { handler: component_handler } %>
+  <%= render 'my/index/navigation' %>
+  <%= render 'my/index/cards' %>
 </article>
