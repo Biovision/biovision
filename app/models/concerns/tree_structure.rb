@@ -13,6 +13,8 @@ module TreeStructure
     after_destroy { parent&.cache_children! unless ENV['SKIP_CHILDREN_CACHE'] }
     after_save { parent&.cache_children! unless ENV['SKIP_CHILDREN_CACHE'] }
 
+    scope :with_parent_id, ->(v) { where(parent_id: v) }
+
     def self.tree(collection)
       result = {}
 
