@@ -37,7 +37,7 @@ namespace :components do
     [
       Language, MetricValue, Metric, BiovisionComponent, SimpleImageTagImage,
       SimpleImageTag, SimpleImage, UploadedFileTagFile, UploadedFileTag,
-      UploadedFile
+      UploadedFile, UserRole, UserGroup, RoleGroup, Role, Group
     ].each do |model|
       helper.export_model(model)
     end
