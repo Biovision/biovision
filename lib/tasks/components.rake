@@ -30,4 +30,22 @@ namespace :components do
       role.destroy unless base_roles.include?(role.slug)
     end
   end
+
+  desc 'Export all data from each component'
+  task export_all: :environment do
+    helper = Biovision::Helpers::ExportHelper.new
+    [
+      Language, MetricValue, Metric, BiovisionComponent, SimpleImageTagImage,
+      SimpleImageTag, SimpleImage, UploadedFileTagFile, UploadedFileTag,
+      UploadedFile
+    ].each do |model|
+      helper.export_model(model)
+    end
+    BiovisionComponent.order(:id).pluck(:slug).each do |slug|
+      handler = Biovision::Components::BaseComponent.handler_class(slug)
+      handler.dependent_models.each do |model|
+        helper.export_model(model)
+      end
+    end
+  end
 end
