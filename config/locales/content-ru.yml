@@ -11,6 +11,9 @@ ru:
       dynamic_page: "Динамическая страница"
       navigation_group: "Группа навигации"
       navigation_group_page: "Страница в группе навигации"
+      oembed_domain: "Домен для ссылок OEmbed"
+      oembed_link: "Ссылка в oembed"
+      oembed_receiver: "Обработчик ссылок oembed"
     attributes:
       dynamic_block:
         body: "Содержимое"
@@ -24,6 +27,11 @@ ru:
       navigation_group_page:
         navigation_group: "Группа навигации"
         dynamic_page: "Динамическая страница"
+      oembed_domain:
+        oembed_receiver_id: "Обработчик"
+      oembed_link:
+        code: "Код для вставки"
+        url: "URL"
   admin:
     dynamic_blocks:
       destroy:

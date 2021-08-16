@@ -22,7 +22,9 @@ module Biovision
           message = "create_#{model.table_name}".to_sym
           send(message) if respond_to?(message, true)
         end
-        component[nil].create_roles
+        handler = component[nil]
+        handler.create_roles
+        handler.seed if handler.respond_to?(:seed)
       end
 
       # Drops tables for each dependent model

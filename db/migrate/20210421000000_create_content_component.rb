@@ -56,4 +56,25 @@ class CreateContentComponent < ActiveRecord::Migration[6.1]
     add_index :dynamic_blocks, :slug, unique: true
     add_index :dynamic_blocks, :data, using: :gin
   end
+
+  def create_oembed_receivers
+    create_table :oembed_receivers, comment: 'Receivers for OEmbed content' do |t|
+      t.string :slug, null: false, index: true
+    end
+  end
+
+  def create_oembed_domains
+    create_table :oembed_domains, comment: 'Supported domains for OEmbed' do |t|
+      t.references :oembed_receiver, foreign_key: { on_update: :cascade, on_delete: :nullify }
+      t.string :name, null: false, index: true
+    end
+  end
+
+  def create_oembed_links
+    create_table :oembed_links, comment: 'Embedded links' do |t|
+      t.string :url, null: false
+      t.text :code
+      t.timestamps
+    end
+  end
 end

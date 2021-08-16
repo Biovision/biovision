@@ -116,5 +116,7 @@ Rails.application.routes.draw do
     get 'dashboard/:slug' => 'components#show', as: :component_dashboard
   end
 
+  post 'oembed' => 'oembed#code'
+
   get ':slug' => 'fallback#show', constraints: { slug: /.+/ }
 end

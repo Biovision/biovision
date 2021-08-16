@@ -5,7 +5,18 @@ module Biovision
     # Content
     class ContentComponent < BaseComponent
       def self.dependent_models
-        [DynamicPage, NavigationGroup, NavigationGroupPage, DynamicBlock]
+        [
+          DynamicPage, NavigationGroup, NavigationGroupPage, DynamicBlock,
+          OembedReceiver, OembedDomain, OembedLink
+        ]
+      end
+
+      def self.seed
+        [
+          Biovision::Components::Content::Oembed::VimeoReceiver,
+          Biovision::Components::Content::Oembed::YoutubeReceiver,
+          Biovision::Components::Content::Oembed::TwitterReceiver
+        ].each(&:seed)
       end
 
       def use_parameters?
@@ -17,11 +28,11 @@ module Biovision
       end
 
       def crud_table_names
-        super - %w[navigation_group_pages]
+        super - %w[navigation_group_pages oembed_receivers oembed_domains]
       end
 
       def administrative_parts
-        %w[navigation_groups dynamic_blocks dynamic_pages]
+        %w[navigation_groups dynamic_blocks dynamic_pages oembed_links]
       end
 
       def navigation
