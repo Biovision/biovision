@@ -3,10 +3,14 @@
 # Helpers for displaying common entity-related blocks
 module EntityHelper
   # @param [ApplicationRecord] entity
-  def linked_entity_block(entity)
+  # @param [String] text
+  def linked_entity_block(entity, text: nil)
     return '' if entity.blank?
 
-    render partial: 'shared/entity/linked_entity', locals: { entity: entity }
+    render(
+      partial: 'shared/entity/linked_entity',
+      locals: { entity: entity, text: text }
+    )
   end
 
   # @param [ApplicationRecord] entity
