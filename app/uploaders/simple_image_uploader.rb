@@ -12,7 +12,7 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
     ActionController::Base.helpers.asset_path('biovision/placeholders/1x1.svg')
   end
 
-  process :auto_orient
+  process :auto_orient, if: :auto_orient?
   process optimize: [{ jpegoptim: true, optipng: true, svgo: true }], if: :optimize_images?
 
   def auto_orient
@@ -47,10 +47,8 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
     resize_to_fit(48, 48)
   end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  # For images you might use something like this:
-  def extension_whitelist
-    %w[jpg jpeg png svg svgz]
+  def extension_allowlist
+    [/jpe?g/, 'png', /svgz?/]
   end
 
   # Text for image alt attribute
@@ -75,6 +73,12 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
     return false unless Rails.application.config.respond_to? :optimize_images
 
     Rails.application.config.optimize_images
+  end
+
+  def auto_orient?(*)
+    return false unless Rails.application.config.respond_to? :auto_orient
+
+    Rails.application.config.auto_orient
   end
 
   def raster?

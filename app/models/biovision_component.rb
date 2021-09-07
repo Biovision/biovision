@@ -46,6 +46,8 @@ class BiovisionComponent < ApplicationRecord
 
   # @param [String] slug
   # @param value
+  #
+  # @deprecated use parameters[slug.to_s] = value
   def []=(slug, value)
     parameters[slug.to_s] = value
     save!

@@ -52,10 +52,11 @@ class Admin::ComponentsController < AdminController
     @collection = list.page(current_page)
   end
 
+  # post /admin/components/:slug/images
   def create_image
     if @handler.permit?('simple_images.create')
-      @entity = @handler.component.simple_images.new(image_parameters)
-      if @entity.save
+      @entity = @handler.upload_image(image_parameters)
+      if @entity
         render 'image', formats: :json
       else
         form_processed_with_error(:new_image)
@@ -72,7 +73,7 @@ class Admin::ComponentsController < AdminController
       biovision_component: @handler.component
     }.merge(owner_for_entity(true))
 
-    @entity = SimpleImage.create!(parameters)
+    @entity = @handler.upload_image(parameters)
 
     render json: {
       uploaded: 1,

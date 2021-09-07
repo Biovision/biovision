@@ -9,10 +9,6 @@ module Biovision
           false
         end
 
-        def use_images?
-          false
-        end
-
         def use_files?
           false
         end
@@ -40,7 +36,7 @@ module Biovision
         # @param [String] key
         # @return [String]
         def [](key)
-          @component.get(key)
+          @component.get(key, nil)
         end
 
         # Set parameter
@@ -48,7 +44,10 @@ module Biovision
         # @param [String] key
         # @param [String] value
         def []=(key, value)
-          @component[key] = value unless key.blank?
+          return if key.blank?
+
+          @component.parameters[key.to_s] = value
+          @component.save!
         end
       end
     end

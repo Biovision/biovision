@@ -6,6 +6,7 @@
 #   agent_id [Agent], optional
 #   biovision_component_id [BiovisionComponent]
 #   caption [string], optional
+#   checksum [String], optional
 #   created_at [DateTime]
 #   data [jsonb]
 #   image [SimpleImageUploader]
@@ -33,6 +34,8 @@ class SimpleImage < ApplicationRecord
   has_many :simple_image_tag_images, dependent: :destroy
   has_many :simple_image_tags, through: :simple_image_tag_images
 
+  before_save :calculate_checksum
+
   validates_presence_of :image
   validates_length_of :caption, maximum: META_LIMIT
   validates_length_of :image_alt_text, maximum: META_LIMIT
@@ -41,7 +44,17 @@ class SimpleImage < ApplicationRecord
 
   scope :in_component, ->(v) { where(biovision_component: v) }
   scope :filtered, ->(v) { where('image ilike ? or caption ilike ?', "%#{v}%", "%#{v}%") unless v.blank? }
-  scope :list_for_administration, -> { order('image asc') }
+  scope :list_for_administration, -> { order(:image) }
+
+  # @param [String] input
+  def self.[](input)
+    case input
+    when /\A\h{8}-\h{4}-4\h{3}-[89ab]\h{3}-\h{12}\Z/i
+      find_by(uuid: input)
+    when /\A[a-f0-9]{64}\z/i
+      find_by(checksum: input)
+    end
+  end
 
   def self.entity_parameters
     %i[caption image image_alt_text source_link source_name]
@@ -57,5 +70,13 @@ class SimpleImage < ApplicationRecord
 
   def image_slug
     "#{uuid[0..2]}/#{uuid[3..5]}/#{uuid}"
+  end
+
+  private
+
+  def calculate_checksum
+    return if image&.path.blank?
+
+    self.checksum = Digest::SHA256.file(image.path).hexdigest
   end
 end

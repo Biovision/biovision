@@ -27,7 +27,7 @@ class CreateUploadedFiles < ActiveRecord::Migration[6.1]
       t.timestamps
       t.string :attachment
       t.string :description
-      t.string :checksum
+      t.string :checksum, index: true
       t.jsonb :data, default: {}, null: false
     end
 

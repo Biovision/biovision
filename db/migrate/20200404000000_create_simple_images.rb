@@ -30,6 +30,7 @@ class CreateSimpleImages < ActiveRecord::Migration[6.0]
       t.string :caption
       t.string :source_name
       t.string :source_link
+      t.string :checksum, index: true
       t.jsonb :data, default: {}, null: false
     end
 
