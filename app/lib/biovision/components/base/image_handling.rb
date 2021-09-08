@@ -14,14 +14,18 @@ module Biovision
           return if parameters[:image].blank?
 
           checksum = Digest::SHA256.file(parameters[:image].path).hexdigest
-          SimpleImage[checksum] || create_image(parameters)
+          SimpleImage[checksum] || create_image(parameters, checksum)
         end
 
         private
 
         # @param [Hash] parameters
-        def create_image(parameters)
-          component.simple_images.create(parameters)
+        # @param [String] checksum
+        def create_image(parameters, checksum)
+          image = component.simple_images.new(parameters)
+          image.data[SimpleImage::ORIGINAL_CHECKSUM] = checksum
+          image.save
+          image
         end
       end
     end

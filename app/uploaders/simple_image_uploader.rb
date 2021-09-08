@@ -12,7 +12,7 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
     ActionController::Base.helpers.asset_path('biovision/placeholders/1x1.svg')
   end
 
-  process :auto_orient, if: :auto_orient?
+  process :auto_orient
   process optimize: [{ jpegoptim: true, optipng: true, svgo: true }], if: :optimize_images?
 
   def auto_orient
@@ -73,12 +73,6 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
     return false unless Rails.application.config.respond_to? :optimize_images
 
     Rails.application.config.optimize_images
-  end
-
-  def auto_orient?(*)
-    return false unless Rails.application.config.respond_to? :auto_orient
-
-    Rails.application.config.auto_orient
   end
 
   def raster?

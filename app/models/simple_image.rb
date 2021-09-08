@@ -25,6 +25,7 @@ class SimpleImage < ApplicationRecord
   include HasUuid
 
   META_LIMIT = 255
+  ORIGINAL_CHECKSUM = 'original_checksum'
 
   mount_uploader :image, SimpleImageUploader
 
@@ -52,7 +53,8 @@ class SimpleImage < ApplicationRecord
     when /\A\h{8}-\h{4}-4\h{3}-[89ab]\h{3}-\h{12}\Z/i
       find_by(uuid: input)
     when /\A[a-f0-9]{64}\z/i
-      find_by(checksum: input)
+      key = "data->>'#{ORIGINAL_CHECKSUM}'"
+      find_by(checksum: input) || find_by("#{key} = ?", input)
     end
   end
 
