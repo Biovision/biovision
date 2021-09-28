@@ -25,7 +25,7 @@ module Biovision
         # @param [ApplicationRecord] entity
         # @param [Symbol] scope
         def rest_entity_link(entity, scope)
-          collection = "/#{scope}/#{entity.class.table_name}"
+          collection = "/#{scope}/#{entity.class.table_name}".gsub('//', '/')
           if entity.attributes.key?('uuid') && scope != :admin
             "#{collection}/#{entity.uuid}"
           else
