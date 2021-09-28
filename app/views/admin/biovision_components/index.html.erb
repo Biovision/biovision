@@ -7,10 +7,5 @@
 <article>
   <h1><%= t('.heading') %></h1>
 
-  <%=
-    render(
-      partial: 'shared/admin/list_with_priority',
-      locals: { collection: @collection, handler: component_handler }
-    )
-  %>
+  <%= entity_list(@collection, with_priority: true) %>
 </article>

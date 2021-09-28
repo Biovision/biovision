@@ -6,6 +6,6 @@
 
 <article>
   <h1><%= t('.heading') %></h1>
-  
-  <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
+
+  <%= entity_list(@collection) %>
 </article>

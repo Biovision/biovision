@@ -16,7 +16,7 @@
     <% end %>
   </div>
 
-  <%= admin_toggle_block(entity) %>
+  <%= entity_toggle(entity) %>
 
   <% if local_assigns[:handler]&.permit?('edit', entity) %>
     <div class="entity-actions">

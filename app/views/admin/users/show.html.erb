@@ -42,7 +42,7 @@
 
   <%= render partial: 'admin/users/entity/fields', locals: { entity: @entity } %>
 
-  <%= admin_toggle_block(@entity) %>
+  <%= entity_toggle(@entity) %>
 
   <% prefix = 'admin/users/entity/components/' %>
   <% BiovisionComponent.list_for_administration.each do |component| %>

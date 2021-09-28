@@ -1,7 +1,7 @@
 <div class="data">
   <div><%= admin_entity_link(entity, handler: local_assigns[:handler]) %></div>
 
-  <%= admin_toggle_block(entity) %>
+  <%= entity_toggle(entity) %>
 
   <% if local_assigns[:handler]&.permit?('edit', entity) %>
     <div class="entity-actions">

@@ -2,6 +2,42 @@
 
 # Helpers for displaying common entity-related blocks
 module EntityHelper
+  # @param [Enumerable] collection
+  # @param [Symbol|String|nil] scope
+  # @param [Biovision::Components::BaseComponent|nil] handler
+  # @param [TrueClass|FalseClass] with_priority
+  def entity_list(collection, scope: nil, handler: component_handler, with_priority: false)
+    scope = controller.class.module_parent_name.to_s.downcase if scope.nil?
+    suffix = with_priority ? '_with_priority' : ''
+
+    render(
+      partial: "shared/entity/list#{suffix}",
+      locals: { collection: collection, handler: handler, scope: scope.to_sym }
+    )
+  end
+
+  # @param [ApplicationRecord] entity
+  # @param [Symbol|String|nil] scope
+  def entity_toggle(entity, scope: nil)
+    scope = controller.class.module_parent_name.to_s.downcase if scope.nil?
+
+    render(
+      partial: 'shared/entity/toggle',
+      locals: { entity: entity, scope: scope.to_sym }
+    )
+  end
+
+  # @param [ApplicationRecord] entity
+  # @param [Symbol|String|nil] scope
+  def entity_priority_icons(entity, scope: nil)
+    scope = controller.class.module_parent_name.to_s.downcase if scope.nil?
+
+    render(
+      partial: 'shared/entity/priority_icons',
+      locals: { entity: entity, scope: scope.to_sym }
+    )
+  end
+
   # @param [ApplicationRecord] entity
   # @param [String] text
   def linked_entity_block(entity, text: nil)

@@ -5,7 +5,7 @@
     <div class="info"><%= entity.name %></div>
   <% end %>
 
-  <%= admin_toggle_block(entity) %>
+  <%= entity_toggle(entity) %>
 
   <div class="entity-actions">
     <%= world_icon(entity) unless entity.url.blank? %>

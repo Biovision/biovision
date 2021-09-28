@@ -8,7 +8,7 @@ module BiovisionHelper
   def admin_entity_link(entity, handler: nil, **options)
     return '∅' if entity.nil?
 
-    component = (handler || Biovision::Components::BaseComponent[])
+    component = (handler || component_handler)
     text = options.delete(:text) { component.text_for_link(entity) }
 
     if handler.nil? || handler.permit?('view', entity)
@@ -157,11 +157,13 @@ module BiovisionHelper
   end
 
   # @param [ApplicationRecord] entity
+  # @deprecated use #entity_priority_icons
   def admin_priority_icons(entity)
     render(partial: 'shared/admin/priority', locals: { entity: entity })
   end
 
   # @param [ApplicationRecord] entity
+  # @deprecated use #entity_toggle
   def admin_toggle_block(entity)
     render(partial: 'shared/admin/toggle', locals: { entity: entity })
   end

@@ -1,19 +1,10 @@
-<% use_pagination = collection.respond_to?(:current_page) %>
-<%= paginate collection if use_pagination %>
-<% if collection.any? %>
-  <ol class="list-of-entities">
-    <% collection.each do |entity| %>
-      <li data-id="<%= entity.id %>" data-number="<%= entity.priority %>">
-        <%=
-          render(
-              partial: "admin/#{entity.class.table_name}/entity/in_list",
-              locals: { entity: entity, handler: local_assigns[:handler] }
-          )
-        %>
-      </li>
-    <% end %>
-  </ol>
-  <%= paginate collection if use_pagination %>
-<% else %>
-  <%= render 'shared/nothing_found' %>
-<% end %>
+<%=
+  render(
+    partial: 'shared/entity/list_with_priority',
+    locals: {
+      collection: collection,
+      handler: local_assigns[:handler],
+      scope: :admin
+    }
+  )
+%>

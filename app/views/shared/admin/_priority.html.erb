@@ -1,5 +1,6 @@
-<% url = "/admin/#{entity.class.table_name}/#{entity.id}/priority" %>
-<div class="priority-changer" data-url="<%= url %>">
-  <button data-delta="-1" type="button">&uarr;</button>
-  <button data-delta="1" type="button">&darr;</button>
-</div>
+<%=
+  render(
+    partial: 'shared/entity/priority_icons',
+    locals: { entity: entity, scope: :admin }
+  )
+%>

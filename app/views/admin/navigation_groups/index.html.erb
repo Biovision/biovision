@@ -13,10 +13,5 @@
     </nav>
   <% end %>
 
-  <%=
-    render(
-      partial: 'shared/admin/list',
-      locals: { collection: @collection, handler: component_handler }
-    )
-  %>
+  <%= entity_list(@collection) %>
 </article>
