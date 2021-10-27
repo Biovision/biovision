@@ -282,7 +282,11 @@ form {
     list-style: none;
   }
 
-  .text:empty {
-    display: none;
+  .text {
+    display: inline-block;
+
+    &:empty {
+      display: none;
+    }
   }
 }
