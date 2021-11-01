@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     get :search, on: :collection
   end
 
+  concern :stories do
+    post 'stories/:slug' => :collection_story, on: :collection
+    post 'stories/:slug' => :member_story, on: :member
+  end
+
   # Handling errors
   match '/400' => 'errors#bad_request', via: :all
   match '/401' => 'errors#unauthorized', via: :all
