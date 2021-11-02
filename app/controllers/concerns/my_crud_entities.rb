@@ -3,6 +3,7 @@
 # Adds methods for CRUD in My namespace
 module MyCrudEntities
   extend ActiveSupport::Concern
+  included ProcessedForms
 
   # get [scope]/[table_name]/search?q=
   def search

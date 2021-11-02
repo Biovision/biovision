@@ -3,6 +3,8 @@
 # Managing profile for current user
 class My::ProfilesController < ApplicationController
   include Authentication
+  include ProcessedForms
+  include RestrictedAccess
 
   before_action :redirect_authorized_user, only: %i[new create]
   before_action :restrict_anonymous_access, except: %i[check new create]

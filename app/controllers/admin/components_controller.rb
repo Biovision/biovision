@@ -2,6 +2,8 @@
 
 # Handling components
 class Admin::ComponentsController < AdminController
+  include ProcessedForms
+
   # skip_before_action :restrict_access, only: :index
   skip_before_action :verify_authenticity_token, only: :ckeditor
 

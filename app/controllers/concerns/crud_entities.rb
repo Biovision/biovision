@@ -3,6 +3,7 @@
 # Adds method for CRUD
 module CrudEntities
   extend ActiveSupport::Concern
+  include ProcessedForms
 
   # get [scope]/[table_name]/search?q=
   def search

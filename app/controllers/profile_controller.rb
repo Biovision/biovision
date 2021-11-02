@@ -2,6 +2,8 @@
 
 # Controllers for logged-in users only
 class ProfileController < ApplicationController
+  include RestrictedAccess
+
   before_action :restrict_access
 
   protected

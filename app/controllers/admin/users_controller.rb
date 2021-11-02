@@ -4,6 +4,7 @@
 class Admin::UsersController < AdminController
   include Authentication
   include CrudEntities
+  include ProcessedForms
   include ToggleableEntity
 
   before_action :set_entity, except: %i[check create index new search]

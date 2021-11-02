@@ -2,6 +2,8 @@
 
 # Users for visitors
 class UsersController < ApplicationController
+  include RestrictedAccess
+
   before_action :restrict_anonymous_access, only: %i[ban follow unban unfollow]
   before_action :set_socialization, only: %i[ban follow unban unfollow]
   before_action :set_entity

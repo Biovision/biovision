@@ -123,13 +123,6 @@ module Biovision
       handle_http_error(:service_unavailable, message, view)
     end
 
-    # Restrict access for anonymous users
-    def restrict_anonymous_access
-      return unless current_user.nil?
-
-      handle_http_401(t('application.errors.restricted_access'))
-    end
-
     # Owner information for entity
     #
     # @param [TrueClass|FalseClass] track
@@ -149,26 +142,6 @@ module Biovision
 
     def remote_ip
       @remote_ip ||= (request.env['HTTP_X_REAL_IP'] || request.remote_ip)
-    end
-
-    # @param [String] next_page
-    def form_processed_ok(next_page)
-      respond_to do |format|
-        format.js { render(js: "document.location.href = '#{next_page}'") }
-        format.json { render(json: { links: { next: next_page } }) }
-        format.html { redirect_to(next_page) }
-      end
-    end
-
-    # @param [Symbol|String] view_to_render
-    # @param [Array] errors
-    def form_processed_with_error(view_to_render, errors = [])
-      @errors = errors
-      respond_to do |format|
-        format.js { render('shared/forms/errors', status: :bad_request) }
-        format.json { render('shared/forms/errors', status: :bad_request) }
-        format.html { render(view_to_render, status: :bad_request) }
-      end
     end
 
     def component_class

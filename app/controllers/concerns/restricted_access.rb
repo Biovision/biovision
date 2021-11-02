@@ -6,6 +6,13 @@ module RestrictedAccess
 
   private
 
+  # Restrict access for anonymous users
+  def restrict_anonymous_access
+    return unless current_user.nil?
+
+    handle_http_401(t('application.errors.restricted_access'))
+  end
+
   def restrict_access
     user_action = role_end_from_action
     role_name = "#{component_handler.slug}.#{user_action}"
