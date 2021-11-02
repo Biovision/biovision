@@ -18,8 +18,8 @@ Rails.application.routes.draw do
   end
 
   concern :stories do
-    post 'stories/:slug' => :collection_story, on: :collection
-    post 'stories/:slug' => :member_story, on: :member
+    post 'stories/:slug' => :collection_story, on: :collection, as: :story
+    post 'stories/:slug' => :member_story, on: :member, as: :story
   end
 
   root 'index#index'
