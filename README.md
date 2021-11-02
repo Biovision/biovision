@@ -133,6 +133,11 @@ concern :search do
   get :search, on: :collection
 end
 
+concern :stories do
+  post 'stories/:slug' => :collection_story, on: :collection
+  post 'stories/:slug' => :member_story, on: :member
+end
+
 root 'index#index'  
 ```
 
