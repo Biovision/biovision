@@ -15,8 +15,9 @@ module Biovision
 
       # @param [Hash] parameters
       def perform(parameters)
+        @parameters = parameters
         # implement in children and return hash
-        parameters
+        {}
       end
     end
   end
