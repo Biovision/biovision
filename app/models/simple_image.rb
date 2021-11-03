@@ -62,6 +62,10 @@ class SimpleImage < ApplicationRecord
     %i[caption image image_alt_text source_link source_name]
   end
 
+  def self.json_attributes
+    %i[caption image_alt_text source_link source_name]
+  end
+
   def name
     File.basename(image.path)
   end
