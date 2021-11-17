@@ -134,7 +134,7 @@ module CrudEntities
   end
 
   def apply_meta
-    new_data = params[:meta].permit!
+    new_data = params[:meta]&.permit!.to_h
     @entity.meta = new_data
   end
 end

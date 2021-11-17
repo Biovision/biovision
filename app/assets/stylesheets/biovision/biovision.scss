@@ -91,45 +91,75 @@ textarea {
 .proportional-container {
   padding: 0;
   position: relative;
+}
 
-  > * {
-    bottom: 0;
-    display: block;
-    height: 100%;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 100%;
+@supports (aspect-ratio: 1 / 1) {
+  .r-1x1 {
+    aspect-ratio: 1 / 1;
   }
 
-  &::before {
-    content: '\A';
-    display: block;
+  .r-5x4 {
+    aspect-ratio: 5 / 4;
   }
 
-  &.r-1x1::before {
-    padding-top: 100%;
+  .r-4x3 {
+    aspect-ratio: 4 / 3;
   }
 
-  &.r-5x4::before {
-    padding-top: 80%;
+  .r-3x2 {
+    aspect-ratio: 3 / 2;
   }
 
-  &.r-4x3::before {
-    padding-top: 75%;
+  .r-16x9 {
+    aspect-ratio: 16 / 9;
   }
 
-  &.r-3x2::before {
-    padding-top: 66.67%;
+  .r-2x1 {
+    aspect-ratio: 2 / 1;
   }
+}
 
-  &.r-16x9::before {
-    padding-top: 56.25%;
-  }
+@supports not(aspect-ratio: 1/1) {
+  .proportional-container {
+    > * {
+      bottom: 0;
+      display: block;
+      height: 100%;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 100%;
+    }
 
-  &.r-2x1::before {
-    padding-top: 50%;
+    &::before {
+      content: '\A';
+      display: block;
+    }
+
+    &.r-1x1::before {
+      padding-top: 100%;
+    }
+
+    &.r-5x4::before {
+      padding-top: 80%;
+    }
+
+    &.r-4x3::before {
+      padding-top: 75%;
+    }
+
+    &.r-3x2::before {
+      padding-top: 66.67%;
+    }
+
+    &.r-16x9::before {
+      padding-top: 56.25%;
+    }
+
+    &.r-2x1::before {
+      padding-top: 50%;
+    }
   }
 }
 
