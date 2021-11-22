@@ -4,15 +4,19 @@
 module ComponentStories
   extend ActiveSupport::Concern
 
-  def collection_story
+  # Perform story
+  #
+  # Parameters:
+  #   slug: story slug app/lib/biovision/components/.../stories/<slug>_story.rb
+  #   entity_id: optional parameter for setting entity context
+  #
+  # post [...]/stories/:slug
+  def story
     story_parameters = params[:parameters]&.permit!.to_h
-    result = component_handler.perform_story(params[:slug], story_parameters)
-    render json: { meta: { result: result } }
-  end
+    entity_id = param_from_request(:entity_id)
+    story_handler = component_handler.story(params[:slug], entity_id)
+    result = story_handler.perform(story_parameters)
 
-  def member_story
-    story_parameters = params[:parameters]&.permit!.to_h
-    result = component_handler.entity_story(params[:slug], @entity, story_parameters)
     render json: { meta: { result: result } }
   end
 end

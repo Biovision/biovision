@@ -20,14 +20,8 @@ module Biovision
 
         # @param [String] story_slug
         # @param [Hash] story_parameters
-        def perform_story(story_slug, story_parameters)
-          story(story_slug).perform(story_parameters)
-        end
-
-        # @param [String] story_slug
-        # @param [ApplicationRecord|nil] entity
-        # @param [Hash] story_parameters
-        def entity_story(story_slug, entity, story_parameters)
+        # @param [ApplicationRecord|String|nli] entity
+        def perform_story(story_slug, story_parameters, entity = nil)
           story(story_slug, entity).perform(story_parameters)
         end
       end
