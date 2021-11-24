@@ -10,16 +10,16 @@ module Biovision
       include Base::EntityLinks
       include Base::ImageHandling
 
-      attr_reader :component, :slug, :name, :user, :user_link
+      attr_reader :component, :slug, :name
+      attr_accessor :user
 
       # @param [BiovisionComponent] component
       # @param [User|nil] user
       def initialize(component, user = nil)
         @component = component
-        @slug = component&.slug || 'base'
+        self.slug = component&.slug || 'base'
         self.user = user
-
-        @name = I18n.t("biovision.components.#{@slug}.name", default: @slug)
+        self.name = I18n.t("biovision.components.#{slug}.name", default: slug)
       end
 
       # Receive component-specific handler by component slug
@@ -75,28 +75,6 @@ module Biovision
           id: "#{entity.class.to_s.underscore}-form",
           data: { check_url: "#{prefix}/#{table_name}/check" }
         }.merge(options)
-      end
-
-      # @param [User] user
-      def user=(user)
-        @user = user
-
-        if @user.nil?
-          @user_link = nil
-        else
-          criteria = { biovision_component: @component, user: user }
-          @user_link = BiovisionComponentUser.find_by(criteria)
-        end
-      end
-
-      def user_link!(force_create = false)
-        if @user_link.nil?
-          criteria = { biovision_component: @component, user: user }
-          @user_link = BiovisionComponentUser.new(criteria)
-          @user_link.save if force_create
-        end
-
-        @user_link
       end
 
       def use_settings?

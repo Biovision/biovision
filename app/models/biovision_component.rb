@@ -20,7 +20,6 @@ class BiovisionComponent < ApplicationRecord
 
   toggleable :active
 
-  has_many :biovision_component_users, dependent: :delete_all
   has_many :simple_images, dependent: :destroy
   has_many :uploaded_files, dependent: :destroy
   has_many :codes, dependent: :delete_all

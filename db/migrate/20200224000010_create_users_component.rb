@@ -88,17 +88,6 @@ class CreateUsersComponent < ActiveRecord::Migration[6.1]
     end
   end
 
-  def create_biovision_component_users
-    create_table :biovision_component_users, comment: 'Settings for users in components' do |t|
-      t.references :biovision_component, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.references :user, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
-      t.timestamps
-      t.jsonb :data, default: {}, null: false
-    end
-
-    add_index :biovision_component_users, :data, using: :gin
-  end
-
   def create_codes
     create_table :codes, comment: 'Codes for different purposes' do |t|
       t.references :biovision_component, null: false, foreign_key: { on_update: :cascade, on_delete: :cascade }
