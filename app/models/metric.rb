@@ -25,6 +25,10 @@ class Metric < ApplicationRecord
 
   validates_length_of :name, maximum: NAME_LIMIT
 
+  # @param [String] name
+  def self.[](name)
+    find_by(name: name)
+  end
 
   def quantity
     metric_values.sum(:quantity)

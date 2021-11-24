@@ -116,7 +116,7 @@ module Biovision
       # @param [String] name
       # @param [Integer] quantity
       def register_metric(name, quantity = 1)
-        metric = Metric.find_by(name: name)
+        metric = Metric[name]
         if metric.nil?
           attributes = {
             biovision_component: @component,
