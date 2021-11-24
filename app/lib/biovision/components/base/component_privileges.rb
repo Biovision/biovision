@@ -42,7 +42,7 @@ module Biovision
         end
 
         def crud_table_names
-          tables = self.class.dependent_models.map(&:table_name)
+          tables = administrative_parts
           tables << 'simple_images' if use_images?
           tables << 'uploaded_files' if use_files?
           tables
