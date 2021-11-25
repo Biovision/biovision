@@ -17,9 +17,9 @@ module Biovision
       # @param [User|nil] user
       def initialize(component, user = nil)
         @component = component
-        self.slug = component&.slug || 'base'
+        @slug = component&.slug || 'base'
         self.user = user
-        self.name = I18n.t("biovision.components.#{slug}.name", default: slug)
+        @name = I18n.t("biovision.components.#{slug}.name", default: slug)
       end
 
       # Receive component-specific handler by component slug
