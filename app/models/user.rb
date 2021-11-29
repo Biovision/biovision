@@ -206,6 +206,12 @@ class User < ApplicationRecord
     "/u/#{CGI.escape(key)}"
   end
 
+  def tiny_avatar_url
+    return 'placeholders/user.svg' if image.blank?
+
+    image.tiny_url
+  end
+
   def age
     return if birthday.blank?
 
