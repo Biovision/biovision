@@ -7,7 +7,7 @@ module UsersHelper
     img = image_tag(user.tiny_avatar_url, alt: '')
     text = user.text_for_link
 
-    raw %(<a href="#{my_path}" class="profile-link">#{img} #{text}</a>)
+    raw %(<a href="#{my_path}" class="profile-link"><span>#{img}</span> #{text}</a>)
   end
 
   # @param [User] user
@@ -15,6 +15,6 @@ module UsersHelper
     img = image_tag(user.tiny_avatar_url, alt: '')
     text = user.text_for_link
 
-    raw %(<a href="#{user.world_url}" class="profile-link">#{img} #{text}</a>)
+    raw %(<a href="#{user.world_url}" class="profile-link"><span>#{img}</span> #{text}</a>)
   end
 end
