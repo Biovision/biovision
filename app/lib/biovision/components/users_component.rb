@@ -32,10 +32,7 @@ module Biovision
       SETTING_USE_PHONE = 'use_phone'
 
       def self.dependent_models
-        [
-          User, Token, LoginAttempt, UserLanguage, BiovisionComponentUser, Code,
-          Notification
-        ]
+        [User, Token, LoginAttempt, UserLanguage, Code, Notification]
       end
 
       def self.settings_flags
