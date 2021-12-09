@@ -121,6 +121,13 @@ module Biovision
         user.attributes[attribute_name.to_s]
       end
 
+      # @param [String|Symbol] attribute_name
+      def profile_attribute(attribute_name)
+        return if user.nil?
+
+        user.attributes.dig('profile', attribute_name.to_s)
+      end
+
       def role_tree
         result = super
         result['users'] << 'log_in'
@@ -128,7 +135,7 @@ module Biovision
       end
 
       def crud_table_names
-        super - %w[user_languages biovision_component_users]
+        super - %w[user_languages]
       end
 
       def administrative_parts
