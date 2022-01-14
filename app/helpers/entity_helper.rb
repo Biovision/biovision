@@ -54,6 +54,7 @@ module EntityHelper
   def entity_partial_block(entity, *types)
     permitted = %i[
       priority uuid slug timestamps language simple_image meta_texts track
+      uploaded_file
     ]
 
     buffer = ''
@@ -65,7 +66,7 @@ module EntityHelper
   end
 
   def entity_form_block(f, *types)
-    permitted = %i[priority entity_flags simple_image]
+    permitted = %i[priority entity_flags simple_image uploaded_file]
 
     buffer = ''
     types.select { |i| permitted.include?(i.to_sym)}.each do |type|
@@ -73,5 +74,14 @@ module EntityHelper
     end
 
     raw buffer
+  end
+
+  # @param [ApplicationRecord] entity
+  def uploaded_file_link(entity)
+    file = entity.uploaded_file
+
+    return '' if file.blank? || file.attachment.blank?
+
+    link_to(file.name, file.attachment.url)
   end
 end

@@ -44,6 +44,16 @@ class UploadedFile < ApplicationRecord
     %i[attachment description]
   end
 
+  # @param [String] input
+  def self.[](input)
+    case input
+    when /\A\h{8}-\h{4}-4\h{3}-[89ab]\h{3}-\h{12}\Z/i
+      find_by(uuid: input)
+    when /\A[a-f0-9]{64}\z/i
+      find_by(checksum: input)
+    end
+  end
+
   def name
     File.basename(attachment.path)
   end

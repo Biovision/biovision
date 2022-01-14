@@ -68,6 +68,20 @@ class Admin::ComponentsController < AdminController
     end
   end
 
+  # post /admin/components/:slug/files
+  def create_file
+    if @handler.permit?('uploaded_files.create')
+      @entity = @handler.upload_file(file_parameters)
+      if @entity
+        render 'file', formats: :json
+      else
+        form_processed_with_error(:new_file)
+      end
+    else
+      handle_http_401('Uploading files is not allowed for current user')
+    end
+  end
+
   # post /admin/components/:slug/ckeditor
   def ckeditor
     parameters = {
@@ -99,6 +113,12 @@ class Admin::ComponentsController < AdminController
   def image_parameters
     permitted = SimpleImage.entity_parameters
     parameters = params.require(:simple_image).permit(permitted)
+    parameters.merge(owner_for_entity(true))
+  end
+
+  def file_parameters
+    permitted = UploadedFile.entity_parameters
+    parameters = params.require(:uploaded_file).permit(permitted)
     parameters.merge(owner_for_entity(true))
   end
 

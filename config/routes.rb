@@ -113,6 +113,7 @@ Rails.application.routes.draw do
         get '/' => :show, as: :component
         get 'images' => :images, as: :component_images
         post 'images' => :create_image, as: nil
+        post 'files' => :create_file, as: nil
         post 'ckeditor'
       end
     end

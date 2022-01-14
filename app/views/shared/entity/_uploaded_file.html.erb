@@ -1,0 +1,6 @@
+<% unless entity.uploaded_file.nil? %>
+  <div>
+    <dt><%= entity.class.human_attribute_name(:uploaded_file_id) %></dt>
+    <dd><%= uploaded_file_link(entity) %></dd>
+  </div>
+<% end %>

@@ -64,6 +64,8 @@ ru:
     group_id: "Группа доступа"
     role: "Роль доступа"
     role_id: "Роль доступа"
+    simple_file: "Файл"
+    simple_file_id: "Файл"
     simple_image: "Изображение"
     simple_image_id: "Изображение"
     uploaded_file: "Загруженный файл"
@@ -117,6 +119,8 @@ ru:
         select: "Выбрать"
         browse:
           filter: "Фильтр по названию или имени файла"
+      uploaded_file:
+        new_file: "Загрузить новый файл"
   biovision:
     components:
       base:

@@ -8,6 +8,7 @@ module Biovision
       include Base::ComponentPrivileges
       include Base::ComponentParameters
       include Base::EntityLinks
+      include Base::FileHandling
       include Base::ImageHandling
 
       attr_reader :component, :slug, :name

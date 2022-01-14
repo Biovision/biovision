@@ -1,0 +1,23 @@
+<%
+  entity = f.object
+  # handler_url ||= admin_component_files_path(slug: component_handler.class.slug)
+%>
+<div>
+  <dt><%= f.label :uploaded_file_id %></dt>
+  <dd>
+    <%#= f.hidden :simple_file_id %>
+    <div class="current-file"><%= uploaded_file_link(entity) %></div>
+    <div>
+      <label class="floating-label">
+        <%=
+          file_field_tag(
+            '[uploaded_file][attachment]',
+            class: 'input-text',
+            placeholder: t('.new_file')
+          )
+        %>
+        <span><%= t('.new_file') %></span>
+      </label>
+    </div>
+  </dd>
+</div>

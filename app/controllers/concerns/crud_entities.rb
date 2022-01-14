@@ -115,22 +115,36 @@ module CrudEntities
 
   def explicit_creation_parameters
     permitted = model_class.creation_parameters
-    parameters = params.require(model_key).permit(permitted)
-    parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
-    parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
-    parameters
+    params.require(model_key).permit(permitted).merge(external_parameters)
   end
 
   def implicit_creation_parameters
-    parameters = entity_parameters
+    entity_parameters.merge(external_parameters)
+  end
+
+  def external_parameters
+    parameters = {}
     parameters.merge!(tracking_for_entity) if model_class.include?(HasTrack)
     parameters.merge!(owner_for_entity) if model_class.include?(HasOwner)
+    parameters.merge!(file_for_entity) if model_class.include?(HasUploadedFile)
     parameters
   end
 
   def entity_parameters
     permitted = model_class.entity_parameters
-    params.require(model_key).permit(permitted)
+    parameters = params.require(model_key).permit(permitted)
+    parameters.merge!(file_for_entity) if model_class.include?(HasUploadedFile)
+    parameters
+  end
+
+  def file_for_entity
+    return {} unless params.key?(:uploaded_file)
+
+    permitted = UploadedFile.entity_parameters
+    file_parameters = params.require(:uploaded_file).permit(permitted)
+    parameters = file_parameters.merge(owner_for_entity(true))
+
+    { uploaded_file_id: component_handler.upload_file(parameters)&.id }
   end
 
   def apply_meta
