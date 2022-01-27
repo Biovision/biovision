@@ -74,7 +74,8 @@ module Biovision
         {
           model: scope.nil? ? entity : [scope, entity],
           id: "#{entity.class.to_s.underscore}-form",
-          data: { check_url: "#{prefix}/#{table_name}/check" }
+          data: { check_url: "#{prefix}/#{table_name}/check" },
+          multipart: entity.class.include?(HasUploadedFile)
         }.merge(options)
       end
 
