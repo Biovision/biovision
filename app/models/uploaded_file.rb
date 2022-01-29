@@ -54,6 +54,10 @@ class UploadedFile < ApplicationRecord
     end
   end
 
+  def self.json_attributes
+    %i[description]
+  end
+
   def name
     File.basename(attachment.path)
   end
