@@ -54,7 +54,7 @@ module EntityHelper
   def entity_partial_block(entity, *types)
     permitted = %i[
       priority uuid slug timestamps language simple_image meta_texts track
-      uploaded_file
+      uploaded_file tree_caches
     ]
 
     buffer = ''
