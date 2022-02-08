@@ -67,10 +67,14 @@ class SimpleImage < ApplicationRecord
   end
 
   def name
+    return if image.path.blank?
+
     File.basename(image.path)
   end
 
   def file_size
+    return 0 if image.path.blank?
+
     File.size(image.path)
   end
 

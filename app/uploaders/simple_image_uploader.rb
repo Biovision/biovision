@@ -76,6 +76,8 @@ class SimpleImageUploader < CarrierWave::Uploader::Base
   end
 
   def raster?
+    return false if path.blank?
+
     !File.extname(path).match?(/\.svgz?\z/i)
   end
 
