@@ -1,6 +1,12 @@
 <h1><%= t('.title') %></h1>
 
 <dl>
+  <% unless @entity.user.nil? %>
+    <div>
+      <dt><%= @entity.class.human_attribute_name(:user) %></dt>
+      <dd><%= @entity.user.screen_name %> (<%= @entity.user.slug %>)</dd>
+    </div>
+  <% end %>
   <% %w[name email phone comment attachment].each do |attribute| %>
     <% next if @entity.attributes[attribute].blank? %>
     <div>

@@ -1,5 +1,9 @@
 <%= t('.title') %>
 
+<% unless @entity.user.nil? %>
+  <%= @entity.class.human_attribute_name(:user) %>: <%= @entity.user.screen_name %> (<%= @entity.user.slug %>)
+<% end %>
+
 <% %w[name email phone comment attachment].each do |a| %>
   <% next if @entity.attributes[a].blank? %>
   <%= @entity.class.human_attribute_name(a) %>: <%= @entity.attributes[a] %>
