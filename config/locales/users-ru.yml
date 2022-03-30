@@ -186,6 +186,20 @@ ru:
         success: "Код подтверждения отправлен"
       update:
         invalid_code: "Недействительный код"
+    recoveries:
+      show:
+        title: "Сброс пароля"
+        got_code: "Есть код сброса пароля?"
+        update_password: "Обновить пароль"
+        no_code: "Нет кода сброса пароля?"
+        receive_code: "Получить код"
+      create:
+        impossible: "Невозможно отправить код сброса пароля"
+        completed: "Код сброса пароля отправлен"
+      update:
+        invalid_code: "Недействительный код"
+        success: "Пароль успешно изменён"
+        failed: "Не удалось сменить пароль"
   authentication:
     form:
       log_in: "Войти"

@@ -33,6 +33,15 @@ module Biovision
         end
 
         # @param [User] user
+        def create_recovery(user)
+          code_type = self.class::CODE_RECOVERY
+          code = @component.codes.new(user: user, code_type: code_type)
+          code.data['email'] = user.email
+          code.save
+          code
+        end
+
+        # @param [User] user
         def create_email_confirmation(user)
           code_type = self.class::CODE_EMAIL_CONFIRMATION
           code = @component.codes.new(user: user, code_type: code_type)
@@ -48,6 +57,16 @@ module Biovision
           code.data['phone'] = user.phone
           code.save
           code
+        end
+
+        # @param [User] user
+        def send_recovery(user)
+          code_type = self.class::CODE_RECOVERY
+          codes = @component.codes.active.owned_by(user).with_type(code_type)
+          code = codes.find_by("data->>'email' = ?", user.email)
+          code = create_recovery(user) if code.nil?
+
+          CodeSender.password(code.id).deliver_later
         end
 
         # @param [User] user

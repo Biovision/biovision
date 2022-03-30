@@ -11,6 +11,18 @@ module Biovision
           let_user_in?
         end
 
+        # @param [Code] code
+        # @param [Hash] parameters
+        def reset_password(code, parameters)
+          return false if code.quantity < 1 || parameters[:password].blank?
+
+          parameters[:email_confirmed] = true if code.email == code.user.email
+          user_updated = code.user.update(parameters)
+          code.decrement!(:quantity) if user_updated
+
+          user_updated
+        end
+
         private
 
         def let_user_in?

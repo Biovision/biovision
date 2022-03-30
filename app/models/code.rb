@@ -74,6 +74,10 @@ class Code < ApplicationRecord
     type?(Biovision::Components::UsersComponent::CODE_PHONE_CONFIRMATION)
   end
 
+  def email
+    data['email']
+  end
+
   private
 
   def generate_body
